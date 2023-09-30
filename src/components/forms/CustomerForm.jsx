@@ -1,13 +1,35 @@
 import "./customerForm.scss";
-import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
 import Navbar from "../navbar/Navbar";
 import Sidebar from "../sidebar/Sidebar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
+import Axios from "axios";
 
+const url = "http://localhost:8080";
 const CustomerForm = () => {
   const [file, setFile] = useState("");
+  const [data, setData] = useState({ name: "", id: "", description: "", uiProperties : ""});
+
+  function handle(e) {
+    const newData = { ...data };
+    newData[e.target.id] = e.target.value;
+    setData(newData);
+    console.log(newData);
+  }
+
+  function submit(e) {
+    Axios.post(
+      url + "/user/customer",
+      {
+        id: data.id,
+        name: data.name,
+        description: data.description,
+        uiProperties: data.uiProperties
+      },
+      { headers: { "Content-Type": "application/json" } }
+    ).then((res) => console.log(res));
+  }
+
   return (
     <div className="new">
       <Sidebar />
@@ -28,7 +50,7 @@ const CustomerForm = () => {
             />
           </div>
           <div className="right">
-            <form>
+            <form onSubmit={(e) => submit(e)}>
               <div className="formInput">
                 <label htmlFor="file">
                   Image: <DriveFolderUploadOutlinedIcon className="icon" />
@@ -45,23 +67,33 @@ const CustomerForm = () => {
               </div>
               <div className="formInput">
                 <label>Customer Name: </label>
-                <input type="text" placeholder="Name" />
+                <input
+                  onChange={(e) => handle(e)}
+                  type="text"
+                  id="name"
+                  placeholder="Name"
+                  value={data.name}
+                />
               </div>
               <div className="formInput">
-                <label>Customer Name: </label>
-                <input type="text" placeholder="Name" />
+                <label>Customer Id: </label>
+                <input
+                  onChange={(e) => handle(e)}
+                  type="text"
+                  id="id"
+                  placeholder="Id"
+                  value={data.id}
+                />
               </div>
               <div className="formInput">
-                <label>Customer Name: </label>
-                <input type="text" placeholder="Name" />
-              </div>
-              <div className="formInput">
-                <label>Customer Name: </label>
-                <input type="text" placeholder="Name" />
-              </div>
-              <div className="formInput">
-                <label>Customer Name: </label>
-                <input type="text" placeholder="Name" />
+                <label>Customer Description: </label>
+                <input
+                  onChange={(e) => handle(e)}
+                  type="text"
+                  id="description"
+                  placeholder="Id"
+                  value={data.description}
+                />
               </div>
               <button>Send</button>
             </form>
