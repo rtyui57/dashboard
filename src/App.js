@@ -10,7 +10,7 @@ import Customers from "./pages/customers/list/Customers";
 import CustomerForm from "./components/forms/CustomerForm";
 import CustomerView from "./pages/customers/single/CustomerView";
 import CustomerCreate from "./pages/customers/create/CustomerCreate";
-
+import Users from "./pages/users/Users";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -22,7 +22,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="users">
-              <Route index element={<Customers />} />
+              <Route index element={<Users />} />
               <Route path=":userId" element={<CustomerForm />} />
               <Route
                 path="new"
