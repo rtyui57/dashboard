@@ -2,6 +2,12 @@ import "./listUsers.scss";
 import { getCustomer } from "../../pages/login/CookieManager";
 import defaultIcon from "../../utils/DefaultVars";
 
+function agregarCirculoRelleno(id) {
+  console.log("ID" + id)
+  var circulo = document.getElementById(id);
+  circulo.classList.add("visible");
+}
+
 const ListUsers = ({ users, onUserSelect }) => {
   return (
     <div className="usersContainer">
@@ -10,14 +16,25 @@ const ListUsers = ({ users, onUserSelect }) => {
         <button className="create">+</button>
         <button className="remove">-</button>
         {users.map((user) => (
-          <div className="userListInfo">
-            <div className="logo">
-              <img src={defaultIcon()}></img>
+          <a>
+            <div className="userListInfo">
+              <div className="logo">
+                <img src={defaultIcon()}></img>
+              </div>
+              <div className="nombre">{user.username}</div>
+              <button
+                className="boton-con-svg"
+                onClick={() => {
+                  onUserSelect(user);
+                  agregarCirculoRelleno(user.username);
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <circle id={user.username} cx="12" cy="11" r="10" />
+                </svg>
+              </button>
             </div>
-            <div className="nombre">{user.name}</div>
-            <input type="checkbox" className="checkbox-input"  onChange={() => onUserSelect(user)}/>
-            <span className="checkbox-checkmark" />
-          </div>
+          </a>
         ))}
       </div>
     </div>

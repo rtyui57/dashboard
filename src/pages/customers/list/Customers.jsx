@@ -3,12 +3,10 @@ import Navbar from "../../../components/navbar/Navbar";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import { useTokenData } from "../../../context/TokenContext";
 import { useEffect, useState } from "react";
 import "./customers.scss";
 
 const Customers = () => {
-  const tokenData = useTokenData();
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
