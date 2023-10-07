@@ -9,11 +9,17 @@ function agregarCirculoRelleno(id) {
 }
 
 const ListUsers = ({ users, onUserSelect }) => {
+
+  function onCreateUser() {
+    const user = {action : "createUser"}
+    onUserSelect(user)
+  }
+
   return (
     <div className="usersContainer">
       <div className="actions">List of users of customer {getCustomer()}</div>
       <div className="usersList">
-        <button className="create">+</button>
+        <button className="create" onClick={onCreateUser}>+</button>
         <button className="remove">-</button>
         {users.map((user) => (
           <a>

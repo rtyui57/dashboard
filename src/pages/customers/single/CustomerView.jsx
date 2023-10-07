@@ -4,7 +4,7 @@ import Axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./customerView.scss";
-
+import { getCustomer } from "../../login/CookieManager";
 function CustomerView() {
   const { customerId } = useParams();
 
@@ -16,6 +16,21 @@ function CustomerView() {
   });
 
   const [imageSrc, setImageSrc] = useState(userData.icon || "");
+
+  useEffect(() => {
+    Axios.get(`http://localhost:8080/user/customer/${customerId}`)
+      .then((response) => {
+        setUserData(response.data); // Actualiza el estado con los datos del usuario
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos del usuario:", error);
+      });
+  }, []);
+
+  if (getCustomer() === undefined && window.location.pathname !== '/login') {
+    window.location.href = '/login';
+    return null;
+  }
 
   const handleImageClick = () => {
     document.getElementById("fileInput").click();
@@ -42,15 +57,7 @@ function CustomerView() {
     }
   };
 
-  useEffect(() => {
-    Axios.get(`http://localhost:8080/user/customer/${customerId}`)
-      .then((response) => {
-        setUserData(response.data); // Actualiza el estado con los datos del usuario
-      })
-      .catch((error) => {
-        console.error("Error al obtener los datos del usuario:", error);
-      });
-  }, []);
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

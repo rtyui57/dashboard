@@ -5,8 +5,10 @@ import Axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./customers.scss";
+import { getCustomer } from "../../login/CookieManager";
 
 const Customers = () => {
+  
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
@@ -14,6 +16,11 @@ const Customers = () => {
       .then((res) => setCustomers(res.data))
       .catch((error) => console.log(error));
   }, []);
+
+  if (getCustomer() === undefined && window.location.pathname !== '/login') {
+    window.location.href = '/login';
+    return null;
+  }
 
   return (
     <div className="home">

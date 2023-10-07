@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import "./customerCreate.scss";
 import defaultIcon from "../../../utils/DefaultVars";
 import { useNavigate } from "react-router-dom";
+import { getCustomer } from "../../login/CookieManager";
 
 function CustomerCreate() {
 
@@ -17,6 +18,11 @@ function CustomerCreate() {
   });
 
   const [imageSrc, setImageSrc] = useState(userData.icon);
+
+  if (getCustomer() === undefined && window.location.pathname !== '/login') {
+    window.location.href = '/login';
+    return null;
+  }
 
   const handleImageClick = () => {
     document.getElementById("fileInput").click();

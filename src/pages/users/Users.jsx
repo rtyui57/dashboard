@@ -11,6 +11,15 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
 
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  if (getCustomer() === undefined && window.location.pathname !== '/login') {
+    window.location.href = '/login';
+    return null;
+  }
+
   function getUsers() {
     Axios.get("http://localhost:8080/user/list", {
       headers: { customer: getCustomer() },
@@ -21,10 +30,6 @@ const Users = () => {
       })
       .catch((error) => console.log(error));
   }
-
-  useEffect(() => {
-    getUsers();
-  }, []);
 
   const handleUserSelect = (user) => {
     setSelectedUser(user);

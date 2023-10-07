@@ -45,22 +45,13 @@ const Sidebar = () => {
               <span>Customers</span>
             </li>
           </Link>
-          <p className="title">USEFUL</p>
-          <Link to="/customers/new" style={{ textDecoration: "none" }}>
+          <p className="title">DEVICES</p>
+          <Link to="/devices" style={{ textDecoration: "none" }}>
             <li>
               <InsertChartIcon className="icon" />
-              <span>Stats</span>
+              <span>Devices</span>
             </li>
           </Link>
-          <p className="title">STATS</p>
-          <li>
-            <PsychologyOutlinedIcon className="icon" />
-            <span>Logs</span>
-          </li>
-          <li>
-            <SettingsApplicationsIcon className="icon" />
-            <span>Settings</span>
-          </li>
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
