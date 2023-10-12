@@ -4,6 +4,7 @@ import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { userInputs } from "./data/formSource";
 import "./style/dark.scss";
+import "./index.css";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import Customers from "./pages/customers/list/Customers";
@@ -12,7 +13,7 @@ import CustomerView from "./pages/customers/single/CustomerView";
 import CustomerCreate from "./pages/customers/create/CustomerCreate";
 import Users from "./pages/users/Users";
 import Devices from "./pages/devices/Devices";
-
+import ListDeviceCategories from "./components/devices/list_category/ListCategories";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
   return (
@@ -35,7 +36,9 @@ function App() {
               <Route path="new" element={<CustomerCreate />} />
             </Route>
             <Route path="/customer/:customerId" element={<CustomerView />} />
-            <Route path="devices" element={<Devices />} />
+            <Route path="devices/:category" element={<Devices />}/>
+              <Route path="devices/categories" element={<ListDeviceCategories/>} />
+          
           </Route>
         </Routes>
       </BrowserRouter>

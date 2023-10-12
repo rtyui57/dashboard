@@ -1,5 +1,4 @@
 import "./customerForm.scss";
-import Navbar from "../navbar/Navbar";
 import Sidebar from "../sidebar/Sidebar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
@@ -33,7 +32,6 @@ const CustomerForm = () => {
     <div className="new">
       <Sidebar />
       <div className="newContainer">
-        <Navbar />
         <div className="top">
           <h1 className="title">Add New Customer</h1>
         </div>

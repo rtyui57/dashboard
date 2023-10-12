@@ -1,4 +1,3 @@
-import Navbar from "../../../components/navbar/Navbar";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import Axios from "axios";
 import { Link, useParams } from "react-router-dom";
@@ -84,7 +83,6 @@ function CustomerView() {
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
-        <Navbar />
         <div className="user-profile-container">
           <h1>Perfil de Usuario</h1>
           <div className="user-image">

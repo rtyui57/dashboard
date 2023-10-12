@@ -1,5 +1,4 @@
 import "./login.scss";
-import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { useState } from "react";
 import Axios from "axios";
@@ -30,7 +29,6 @@ const Login = () => {
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
-        <Navbar />
         <div className="formParent">
           <div className="loginForm">
             <h1>Sign In</h1>

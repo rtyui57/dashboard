@@ -1,5 +1,4 @@
 import Customer from "../../../components/customer/Customer";
-import Navbar from "../../../components/navbar/Navbar";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import Axios from "axios";
 import { Link } from "react-router-dom";
@@ -26,7 +25,6 @@ const Customers = () => {
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
-        <Navbar />
         <div className="customers">
           {customers.map((cust, index) => (
             <Link to={`/customer/${cust.name}`}  style={{ textDecoration: "none" }}>

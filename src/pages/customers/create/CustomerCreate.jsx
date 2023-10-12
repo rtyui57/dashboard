@@ -1,4 +1,3 @@
-import Navbar from "../../../components/navbar/Navbar";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import Axios from "axios";
 import { useEffect, useState } from "react";
@@ -70,7 +69,6 @@ function CustomerCreate() {
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
-        <Navbar />
         <div className="user-profile-container">
           <h1>Perfil Usuario</h1>
           <div className="user-image">
