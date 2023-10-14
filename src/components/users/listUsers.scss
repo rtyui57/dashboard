@@ -1,5 +1,7 @@
+@import '../../utils/style.scss';
+
 .usersContainer, .devicesContainer {
-  background-color: rgb(71, 59, 237);
+  background-color: $color_primary;
   flex: 2;
   display: flex;
   flex-direction: column;

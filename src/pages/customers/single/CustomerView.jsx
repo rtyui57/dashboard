@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./customerView.scss";
 import { getCustomer } from "../../login/CookieManager";
+
 function CustomerView() {
   const { customerId } = useParams();
 

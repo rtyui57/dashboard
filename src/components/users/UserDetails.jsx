@@ -2,18 +2,20 @@ import "./userDetails.scss";
 import Axios from "axios";
 import { getCustomer } from "../../pages/login/CookieManager";
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserDetails = ({ selectedUser, refreshUsers, setSelectedUser }) => {
   const [localUser, setLocalUser] = useState(
     selectedUser ? { ...selectedUser } : null
   );
 
-  const [titulo, setTitulo] = useState("Formulario de Usuario")
+  const [titulo, setTitulo] = useState("Formulario de Usuario");
 
   useEffect(() => {
     if (selectedUser !== null) {
       setLocalUser(selectedUser);
-      setTitulo("Formulario de Usuario")
+      setTitulo("Formulario de Usuario");
     }
   }, [selectedUser]);
 
@@ -21,7 +23,12 @@ const UserDetails = ({ selectedUser, refreshUsers, setSelectedUser }) => {
     Axios.post("http://localhost:8080/user", user, {
       headers: { customer: getCustomer() },
     })
-      .then((res) => console.log(res))
+      .then(() => {
+        toast.info("Creado usuario", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      })
       .catch((err) => console.log(err));
     refreshUsers();
     setSelectedUser(user);
@@ -42,6 +49,7 @@ const UserDetails = ({ selectedUser, refreshUsers, setSelectedUser }) => {
   function displayUserInfo() {
     return (
       <form className="inputs">
+        <ToastContainer />
         <div className="wrapinput">
           <p>Username</p>
           <input
@@ -77,7 +85,7 @@ const UserDetails = ({ selectedUser, refreshUsers, setSelectedUser }) => {
             value={localUser.lastName !== null ? localUser.lastName : ""}
             onChange={handleInputChange}
           />
-        </div>    
+        </div>
         <div className="wrapinput">
           <p>Description</p>
           <input
@@ -108,13 +116,21 @@ const UserDetails = ({ selectedUser, refreshUsers, setSelectedUser }) => {
     );
   }
   let contenido;
- 
+
   if (localUser === null) {
     contenido = <p>Selecciona un usuario para ver sus detalles.</p>;
   } else {
     if (localUser.action === "createUser") {
-      setLocalUser({ username : '', email: '', firstName : '', lastName : '', password : '', description : '', customer: getCustomer()});
-      setTitulo("Create")
+      setLocalUser({
+        username: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        password: "",
+        description: "",
+        customer: getCustomer(),
+      });
+      setTitulo("Create");
     }
     contenido = displayUserInfo();
   }

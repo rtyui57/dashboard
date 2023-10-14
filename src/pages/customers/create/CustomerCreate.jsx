@@ -70,7 +70,7 @@ function CustomerCreate() {
       <Sidebar />
       <div className="homeContainer">
         <div className="user-profile-container">
-          <h1>Perfil Usuario</h1>
+          <h1>New Customer</h1>
           <div className="user-image">
             <img
               src={userData.icon}
@@ -115,7 +115,7 @@ function CustomerCreate() {
             <br />
             <div className="buttons">
               <button onClick={handleSaveClick} className="save">
-                Guardar Cambios
+                Create Customer
               </button>
             </div>
           </div>

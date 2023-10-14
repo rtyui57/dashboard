@@ -8,11 +8,14 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import { CustomerContext } from "../../context/userContext";
 
-const SideBarIcon = ({ icon, link, desc="Hola" }) => {
+const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
   return (
     <div className="cover group">
-      <span className="scale-0 group-hover:scale-100 sidebar-tooltip">{desc}</span>
+      <span className="scale-0 group-hover:scale-100 sidebar-tooltip">
+        {desc}
+      </span>
       <Link to={link} style={{ textDecoration: "none" }}>
         {icon}
       </Link>
@@ -22,15 +25,27 @@ const SideBarIcon = ({ icon, link, desc="Hola" }) => {
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const { user } = useContext(CustomerContext);
+
   return (
     <div className="sidebar bg-gray-800">
       <div className="center">
-        <SideBarIcon icon={<DashboardIcon />} link="/" desc="Home"/>
-        <SideBarIcon icon={<PersonOutlineIcon />} link="/users" desc="Users"/>
-        <SideBarIcon icon={<StoreIcon />} link="/customers"  desc="Customer"/>
-        <SideBarIcon icon={<InsertChartIcon />} link="/devices/categories"  desc="Devices"/>
-        <SideBarIcon icon={<AccountCircleOutlinedIcon />} link="/" desc="Nada" />
-        <SideBarIcon icon={<ExitToAppIcon />} link="/login"  desc="LogOut"/>
+        <SideBarIcon icon={<DashboardIcon />} link="/" desc="Home" />
+        <SideBarIcon icon={<PersonOutlineIcon />} link="/users" desc="Users" />
+        {user === "customer" && (
+          <SideBarIcon icon={<StoreIcon />} link="/customers" desc="Customer" />
+        )}
+        <SideBarIcon
+          icon={<InsertChartIcon />}
+          link="/devices/categories"
+          desc="Devices"
+        />
+        <SideBarIcon
+          icon={<AccountCircleOutlinedIcon />}
+          link="/"
+          desc="Nada"
+        />
+        <SideBarIcon icon={<ExitToAppIcon />} link="/login" desc="LogOut" />
       </div>
     </div>
   );

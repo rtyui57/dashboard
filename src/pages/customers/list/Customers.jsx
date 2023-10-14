@@ -7,7 +7,6 @@ import "./customers.scss";
 import { getCustomer } from "../../login/CookieManager";
 
 const Customers = () => {
-  
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
@@ -16,8 +15,8 @@ const Customers = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  if (getCustomer() === undefined && window.location.pathname !== '/login') {
-    window.location.href = '/login';
+  if (getCustomer() === undefined && window.location.pathname !== "/login") {
+    window.location.href = "/login";
     return null;
   }
 
@@ -25,9 +24,18 @@ const Customers = () => {
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
+        <div className="customerheader">
+          <h1>List of Customers </h1>
+          <Link to={"/customers/new"}>
+            <button>Create new Customer</button>
+          </Link>
+        </div>
         <div className="customers">
           {customers.map((cust, index) => (
-            <Link to={`/customer/${cust.name}`}  style={{ textDecoration: "none" }}>
+            <Link
+              to={`/customer/${cust.name}`}
+              style={{ textDecoration: "none" }}
+            >
               <Customer
                 name={cust.name}
                 description={cust.description}

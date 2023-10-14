@@ -1,11 +1,15 @@
 import "./login.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Axios from "axios";
 import { setCustomer } from "./CookieManager";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { CustomerContext } from "../../context/userContext";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const {setCustomerContext, setUser} =  useContext(CustomerContext);
   const [userCred, setUserCred] = useState({ username: "", password: "" });
   const navigate = useNavigate()
 
@@ -18,15 +22,21 @@ const Login = () => {
     Axios.post("http://localhost:8080/user/auth", userCred)
       .then((res) => {
         setCustomer(res.data, 15);
+        setCustomerContext(res.data)
+        setUser(res.data)
         navigate("/")
       })
       .catch((error) => {
-        console.error("Error al guardar los cambios del usuario:", error);
+        toast.error("Error en login, causa: " + error.message, {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
       });
   }
 
   return (
     <div className="home">
+       <ToastContainer />
       <Sidebar />
       <div className="homeContainer">
         <div className="formParent">
