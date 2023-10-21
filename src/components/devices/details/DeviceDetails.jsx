@@ -1,7 +1,5 @@
 import { useState } from "react";
-import Axios from "axios";
 import "./deviceDetails.scss";
-import { getCustomer } from "../../../pages/login/CookieManager";
 import DeviceForm from "../form/DeviceForm";
 
 const DeviceDetails = ({ device, setDevice, getDevices }) => {

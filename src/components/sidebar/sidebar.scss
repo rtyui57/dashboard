@@ -6,19 +6,29 @@
   flex: 0.8;
   display: flex;
   flex-direction: column;
+  background-color: #0a4382;
 
-  .center {
+  .icons_container {
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+
+    .top_icons {
+      flex: 8;
+    }
+
+    .bottom_icons {
+      flex: 1;
+      display: flex;
+    }
     
     .cover {
-      //@apply bg-gray-800 text-green-600 hover:bg-green-600 hover:text-white transition-all duration-200 cursor-pointer ;
       width: 100%;
       display: flex;
       justify-content: center;
+      padding: 10px 5px;
 
       .sidebar-tooltip {
         @apply absolute w-auto p-2 m-2 ml-4 min-w-max left-14 rounded-md shadow-md
@@ -28,7 +38,7 @@
       }
     }
     svg {
-      @apply bg-gray-800 text-green-600  hover:text-white transition-all duration-200 cursor-pointer;
+      @apply text-yellow-50  hover:text-black transition-all duration-200 cursor-pointer;
       height: 7vh;
       width: 7vh;
     }

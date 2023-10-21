@@ -1,4 +1,3 @@
-import { getCustomer } from "../../../pages/login/CookieManager";
 import defaultIcon from "../../../utils/DefaultVars";
 
 const ListDevices = ({ devices, selectDevice }) => {

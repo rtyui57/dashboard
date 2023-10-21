@@ -5,10 +5,13 @@ import StoreIcon from "@mui/icons-material/Store";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import { CustomerContext } from "../../context/userContext";
+import { getUser } from "../../pages/login/CookieManager";
+import DomainIcon from "@mui/icons-material/Domain";
 
 const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
   return (
@@ -28,24 +31,37 @@ const Sidebar = () => {
   const { user } = useContext(CustomerContext);
 
   return (
-    <div className="sidebar bg-gray-800">
-      <div className="center">
-        <SideBarIcon icon={<DashboardIcon />} link="/" desc="Home" />
-        <SideBarIcon icon={<PersonOutlineIcon />} link="/users" desc="Users" />
-        {user === "customer" && (
-          <SideBarIcon icon={<StoreIcon />} link="/customers" desc="Customer" />
-        )}
-        <SideBarIcon
-          icon={<InsertChartIcon />}
-          link="/devices/categories"
-          desc="Devices"
-        />
-        <SideBarIcon
-          icon={<AccountCircleOutlinedIcon />}
-          link="/"
-          desc="Nada"
-        />
-        <SideBarIcon icon={<ExitToAppIcon />} link="/login" desc="LogOut" />
+    <div className="sidebar">
+      <div className="icons_container">
+        <div className="top_icons">
+          <SideBarIcon icon={<DashboardIcon />} link="/" desc="Home" />
+          <SideBarIcon
+            icon={<PersonOutlineIcon />}
+            link="/users"
+            desc="Users"
+          />
+          {getUser() === "admin" && (
+            <SideBarIcon
+              icon={<StoreIcon />}
+              link="/customers"
+              desc="Customer"
+            />
+          )}
+          <SideBarIcon
+            icon={<InsertChartIcon />}
+            link="/devices/categories"
+            desc="Devices"
+          />
+          <SideBarIcon
+            icon={<CalendarMonthIcon />}
+            link="/"
+            desc="Calendario"
+          />
+          <SideBarIcon icon={<DomainIcon />} link="/" desc="Aulas" />
+        </div>
+        <div className="bottom_icons">
+          <SideBarIcon icon={<ExitToAppIcon />} link="/login" desc="LogOut" />
+        </div>
       </div>
     </div>
   );

@@ -1,31 +1,34 @@
 import Sidebar from "../../components/sidebar/Sidebar";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
-import { getCustomer } from "../login/CookieManager";
 import { useParams } from "react-router-dom";
 import "./devices.scss";
 import ListDevices from "../../components/devices/list/ListDevices";
 import DeviceDetails from "../../components/devices/details/DeviceDetails";
+import { CustomerContext } from "../../context/userContext";
 import { ToastContainer, toast } from "react-toastify";
+import { getUser } from "../login/CookieManager";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Devices() {
+
   const { category } = useParams();
   const [devices, setDevices] = useState([]);
   const [selectedDevice, setSelectedDevice] = useState(null);
+  const { value } = useContext(CustomerContext);
 
   useEffect(() => {
     getDevices();
   }, []);
 
-  if (getCustomer() === undefined && window.location.pathname !== "/login") {
+  if (getUser() === undefined && window.location.pathname !== "/login") {
     window.location.href = "/login";
     return null;
   }
 
   function getDevices() {
     Axios.get(`http://localhost:8080/device/category/${category}`, {
-      headers: { customer: getCustomer() },
+      headers: { customer: value },
     })
       .then((res) => {
         console.log(res.data);
