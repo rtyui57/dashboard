@@ -1,0 +1,85 @@
+.classroomsList {
+    background-color: rgb(71, 59, 237);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+  
+    .usersList {
+      background-color: aliceblue;
+      position: relative;
+      padding-top: 20px;
+      border-radius: 10px;
+  
+      
+      .create,
+      .remove {
+        background-color: inherit;
+        border-radius: 50%;
+        border: 1px solid black;
+        position: absolute;
+        top: -10px;
+        right: 30px;
+      }
+  
+      .create {
+        right: 50px;
+      }
+  
+      a {
+        text-decoration: none;
+      }
+  
+      .userListInfo {
+        margin: 3px;
+        padding: 5px;
+        display: flex;
+        height: 7vh;
+        align-items: center;
+        border-radius: 25px;
+  
+        .nombre {
+          margin-left: 15px;
+        }
+  
+        input {
+          margin-left: 100px;
+        }
+  
+        img {
+          width: 50px;
+          height: 30px;
+          margin: 3px;
+        }
+  
+        .boton-con-svg {
+          margin-left: 70px;
+          display: inline-block;
+          padding: 2px 2px;
+          color: #fff;
+          border: 1px solid black;
+          cursor: pointer;
+          border-radius: 50%; /* Hace que el botón sea circular */
+  
+          svg {
+            width: 20px; /* Ajusta el tamaño del SVG según tus preferencias */
+            height: 20px;
+            fill: #000; /* Relleno transparente para el borde */
+            stroke: #000; /* Color del borde */
+            stroke-width: 2; /* Ancho del borde */
+  
+            .visible {
+              visibility: visible;
+            }
+            circle {
+              visibility: hidden;
+            }
+          }
+        }
+  
+        .selected-button {
+          background-color: rgb(46, 171, 169); /* Cambia el color de fondo según tus preferencias */
+        }
+      }
+    }
+  }

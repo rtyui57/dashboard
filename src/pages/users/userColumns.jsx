@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 export const columns = [
-  { field: "username", headerName: "Usuario", width: 100 },
+  { field: "username", headerName: "Usuario", width: 150 },
   {
     field: "icon",
     headerName: "Perfil",
@@ -17,15 +18,25 @@ export const columns = [
   { field: "firstName", headerName: "Nombre", width: 200 },
   { field: "lastName", headerName: "Apellidos", width: 200 },
   { field: "email", headerName: "Email", width: 200 },
- 
+
   { field: "edad", headerName: "Edad", width: 100 },
-  { field: "puesto", headerName: "Cargo", width: 100 },
+  { field: "puesto", headerName: "Cargo", width: 140 },
   {
     field: "Actions",
     headerName: "Actions",
     renderCell: (params) => {
-      return <button className="editUser">Editar</button>;
+      return (
+        <div className="flex w-full justify-between px-3">
+          <Link to={`/users/${params.row.id}`}>
+            <button className="editUser">Editar</button>
+          </Link>
+          <Link to={`/users/${params.row.id}/horario`}>
+            <button className="editUser">Horario</button>
+          </Link>
+        </div>
+      );
     },
+    width: 200
   },
   { field: "description", headerName: "Descripcion", width: 350 },
 ];

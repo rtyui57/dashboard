@@ -6,8 +6,14 @@
     padding: 5px 30px;
     padding-top: 20px;
 
+    input {
+      border: 2px solid #0a4382;
+      border-radius: 20px;
+      padding: 3px 15px;
+    }
+
     button {
-      background-color: rgb(13, 43, 95);
+      background-color: #0a4382;
       color: white;
       border: 1px solid grey;
       border-radius: 10px;
@@ -27,7 +33,7 @@
 
       .editUser {
         border: 1px solid black;
-        background-color: rgb(12, 12, 129);
+        background-color: #0a4382;
         color: white;
         border-radius: 3px;
         padding: 2px;

@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { CustomerContext } from "../../context/userContext";
 import { getUser } from "../../pages/login/CookieManager";
 import DomainIcon from "@mui/icons-material/Domain";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
 const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
   return (
@@ -48,7 +49,7 @@ const Sidebar = () => {
             />
           )}
           <SideBarIcon
-            icon={<InsertChartIcon />}
+            icon={<NotificationsActiveIcon />}
             link="/devices/categories"
             desc="Devices"
           />
@@ -57,7 +58,7 @@ const Sidebar = () => {
             link="/"
             desc="Calendario"
           />
-          <SideBarIcon icon={<DomainIcon />} link="/" desc="Aulas" />
+          <SideBarIcon icon={<DomainIcon />} link="/buildings" desc="Aulas" />
         </div>
         <div className="bottom_icons">
           <SideBarIcon icon={<ExitToAppIcon />} link="/login" desc="LogOut" />

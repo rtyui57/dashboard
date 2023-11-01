@@ -1,0 +1,24 @@
+.fc .fc-view-harness {
+    flex-grow: 1;
+    position: relative;
+    height: 88vh  !important;
+}
+
+#calendario {
+    //z-index: -1;
+    position: relative;
+    padding: 13px;
+}
+
+.modalStyle {
+    background: rgb(247, 247, 250);
+    border: 3px solid black;
+    padding: 5px;
+    width: 60%;
+    height: 60%;
+    color: black;
+    position: relative;
+    z-index: 10;
+    left: 30%;
+    top: 10%;
+}

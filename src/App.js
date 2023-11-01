@@ -8,12 +8,16 @@ import "./index.css";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import Customers from "./pages/customers/list/Customers";
-import CustomerForm from "./components/forms/CustomerForm";
 import CustomerView from "./pages/customers/single/CustomerView";
 import CustomerCreate from "./pages/customers/create/CustomerCreate";
 import Users from "./pages/users/Users";
 import Devices from "./pages/devices/Devices";
 import ListDeviceCategories from "./components/devices/list_category/ListCategories";
+import UserDetails from "./components/users/UserDetails";
+import Buildings from "./pages/buildings/Buildings";
+import BuildingsView from "./pages/buildings/BuildingsView";
+import UserCalendar from "./pages/users/calendar/UserCalendar";
+
 function App() {
   const { darkMode } = useContext(DarkModeContext);
   return (
@@ -25,7 +29,8 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="users">
               <Route index element={<Users />} />
-              <Route path=":userId" element={<CustomerForm />} />
+              <Route path=":username" element={<UserDetails />} />
+              <Route path=":username/horario" element={<UserCalendar />} />
               <Route
                 path="new"
                 element={<New inputs={userInputs} title="Add New User" />}
@@ -36,9 +41,15 @@ function App() {
               <Route path="new" element={<CustomerCreate />} />
             </Route>
             <Route path="/customer/:customerId" element={<CustomerView />} />
-            <Route path="devices/:category" element={<Devices />}/>
-              <Route path="devices/categories" element={<ListDeviceCategories/>} />
-          
+            <Route path="devices/:category" element={<Devices />} />
+            <Route
+              path="devices/categories"
+              element={<ListDeviceCategories />}
+            />
+            <Route path="buildings">
+              <Route index element={<Buildings />} />
+              <Route path=":building" element={<BuildingsView/>} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
