@@ -8,8 +8,7 @@ import Modal from "react-modal";
 import esLocale from "@fullcalendar/core/locales/es";
 import Attendance from "../attendance/Attendance";
 
-function Calendar({events, fecha, nombre, ocupacion, asistentes, ausentes}) {
-
+function Calendar({ events }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [eventData, setEventData] = useState({});
 
@@ -21,14 +20,14 @@ function Calendar({events, fecha, nombre, ocupacion, asistentes, ausentes}) {
         onRequestClose={() => handleCloseModal()}
         contentLabel="Example Modal"
       >
-        <button className="border-lime-500 text-xl to-red-400"onClick={() => handleCloseModal()}>X</button>
-        <Attendance
-          fecha={fecha}
-          nombre="Fisica"
-          ocupacion="80/980"
-          asistentes={["as", "sfsadjfkldasjf", "adad", "as", "sfsadjfkldasjf", "adad"]}
-          ausentes={["as", "sfsadjfkldasjf", "adad"]}
-        />
+        <button
+          className="border-lime-500 text-xl to-red-400"
+          onClick={() => handleCloseModal()}
+        >
+          X
+        </button>
+        <Attendance eventData={eventData} />
+        <button className="bg-red-700">Borrar</button>
       </Modal>
     );
   }
@@ -53,10 +52,7 @@ function Calendar({events, fecha, nombre, ocupacion, asistentes, ausentes}) {
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
-          events={[
-            { id: 1, title: "event 1", date: "2023-10-27 09:29" },
-            { id: 2, title: "event 2", date: "2023-10-27 18:29" },
-          ]}
+          events={events}
           headerToolbar={{
             start: "today prev, next",
             center: "title",

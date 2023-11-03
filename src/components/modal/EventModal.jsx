@@ -15,6 +15,7 @@ function EventModal() {
       >
         X
       </button>
+     
       <Attendance
         fecha="Fecha: 2032-09-78"
         nombre="Fisica"
@@ -29,6 +30,7 @@ function EventModal() {
         ]}
         ausentes={["as", "sfsadjfkldasjf", "adad"]}
       />
+      
     </Modal>
   );
 }

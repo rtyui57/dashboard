@@ -30,16 +30,30 @@ function representUser(username) {
   );
 }
 
-function Attendance({ fecha, nombre, ocupacion, asistentes, ausentes }) {
+function Attendance({eventData}) {
   return (
     <div>
       <div className="flex justify-between p-3 px-6">
-        <div className="">{fecha}</div>
-        <div className="">Clase de {nombre}</div>
-        <div className="">Ocupacion: {ocupacion}</div>
+        <div className="">{eventData.start + ""}</div>
+        <div className="">{eventData.title}</div>
+        <div className="">Ocupacion:</div>
       </div>
-      {getList("Atendants", asistentes)}
-      {getList("Non atendants", ausentes)}
+      {getList("Atendants", [
+        "as",
+        "sfsadjfkldasjf",
+        "adad",
+        "as",
+        "sfsadjfkldasjf",
+        "adad",
+      ])}
+      {getList("Non atendants", [
+        "as",
+        "sfsadjfkldasjf",
+        "adad",
+        "as",
+        "sfsadjfkldasjf",
+        "adad",
+      ])}
     </div>
   );
 }
