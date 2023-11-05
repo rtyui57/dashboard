@@ -1,5 +1,11 @@
 import "./attendance.scss";
+import Axios from "axios";
 
+function deleteEvent(eventId) {
+  Axios.delete(`http://localhost:8080/horario/${eventId}`)
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+}
 function getList(title, usuarios) {
   return (
     <div className="text-center p-2 m-1">
@@ -30,7 +36,7 @@ function representUser(username) {
   );
 }
 
-function Attendance({eventData}) {
+function Attendance({ eventData }) {
   return (
     <div>
       <div className="flex justify-between p-3 px-6">
@@ -54,6 +60,15 @@ function Attendance({eventData}) {
         "sfsadjfkldasjf",
         "adad",
       ])}
+      <button
+        className="bg-red-600"
+        onClick={() => {
+          console.log(eventData);
+          deleteEvent(eventData.id);
+        }}
+      >
+        Borrar evento
+      </button>
     </div>
   );
 }

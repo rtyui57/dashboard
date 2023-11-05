@@ -35,7 +35,7 @@ function UserCalendar() {
 
   useEffect(() => {
     setEvents(getUserCalendar(username));
-  }, []);
+  }, [modalIsOpen]);
 
   return (
     <div className="home">
@@ -55,7 +55,7 @@ function UserCalendar() {
           }}
           username={username}
         />
-        <Calendar events={events} />
+        <Calendar events={events}/>
       </div>
     </div>
   );

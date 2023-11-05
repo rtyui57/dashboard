@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import Axios from "axios";
 
 function createEvent(event, username) {
+  console.log("Evento: " + event);
   Axios.post(`http://localhost:8080/user/${username}/horario`, event)
     .then((res) => {
       console.log(res);
@@ -13,21 +14,33 @@ function createEvent(event, username) {
 }
 
 const EventFormModal = ({ isOpen, closeModal, username }) => {
-  const [title, setTitle] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [eventData, setEventData] = useState({
+    title: "",
+    start: "",
+    end: "",
+    clase: "",
+    encargado: "",
+    descripcion: "",
+    color: ""
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createEvent(
-      {
-        start: startDate + ":00.000Z",
-        end: endDate + ":00.000Z",
-        title: title,
-      },
-      username
-    );
+    const updatedEventData = {
+      ...eventData,
+      startDate: eventData.startDate + ":00.000Z",
+      endDate: eventData.endDate + ":00.000Z",
+    };
+    createEvent(updatedEventData, username);
     closeModal();
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEventData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -35,6 +48,7 @@ const EventFormModal = ({ isOpen, closeModal, username }) => {
       isOpen={isOpen}
       onRequestClose={closeModal}
       contentLabel="Example Modal"
+      className="w-50 h-80 ml-96 mt-40 text-center border border-y-red-950 bg-slate-300"
     >
       <h2>Agregar Evento</h2>
       <form onSubmit={handleSubmit}>
@@ -42,49 +56,62 @@ const EventFormModal = ({ isOpen, closeModal, username }) => {
           <label>Título:</label>
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            name="title"
+            value={eventData.title}
+            onChange={handleChange}
           />
         </div>
         <div>
           <label>Fecha de inicio:</label>
           <input
             type="datetime-local"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            name="start"
+            value={eventData.start}
+            onChange={handleChange}
           />
         </div>
         <div>
           <label>Fecha de fin:</label>
           <input
             type="datetime-local"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+            name="end"
+            value={eventData.end}
+            onChange={handleChange}
           />
         </div>
         <div>
           <label>Clase:</label>
           <input
+            className="border border-black"
             type="text"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+            name="clase"
+            value={eventData.clase}
+            onChange={handleChange}
           />
         </div>
         <div>
           <label>Encargado:</label>
           <input
+            className="border border-black"
             type="text"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+            name="encargado"
+            value={eventData.encargado}
+            onChange={handleChange}
           />
         </div>
         <div>
-          <label>Descripcion:</label>
+          <label>Descripción:</label>
           <input
+            className="border border-black"
             type="text"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+            name="descripcion"
+            value={eventData.descripcion}
+            onChange={handleChange}
           />
+        </div>
+        <div>
+          <label>Color:</label>
+          <input type="color" value={eventData.color} onChange={handleChange} />
         </div>
         <button type="submit">Guardar</button>
       </form>

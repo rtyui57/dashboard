@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import Attendance from "../attendance/Attendance";
 
-function EventModal() {
+function EventModal({ modalIsOpen, handleCloseModal, eventData }) {
   return (
     <Modal
       className="modalStyle"
@@ -15,22 +15,7 @@ function EventModal() {
       >
         X
       </button>
-     
-      <Attendance
-        fecha="Fecha: 2032-09-78"
-        nombre="Fisica"
-        ocupacion="80/980"
-        asistentes={[
-          "as",
-          "sfsadjfkldasjf",
-          "adad",
-          "as",
-          "sfsadjfkldasjf",
-          "adad",
-        ]}
-        ausentes={["as", "sfsadjfkldasjf", "adad"]}
-      />
-      
+      <Attendance eventData={eventData} />
     </Modal>
   );
 }

@@ -2,17 +2,13 @@ import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import StoreIcon from "@mui/icons-material/Store";
-import InsertChartIcon from "@mui/icons-material/InsertChart";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Link } from "react-router-dom";
-import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
-import { CustomerContext } from "../../context/userContext";
 import { getUser } from "../../pages/login/CookieManager";
 import DomainIcon from "@mui/icons-material/Domain";
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import SchoolIcon from "@mui/icons-material/School";
 
 const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
   return (
@@ -28,8 +24,6 @@ const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
 };
 
 const Sidebar = () => {
-  const { dispatch } = useContext(DarkModeContext);
-  const { user } = useContext(CustomerContext);
 
   return (
     <div className="sidebar">
@@ -50,13 +44,18 @@ const Sidebar = () => {
           )}
           <SideBarIcon
             icon={<NotificationsActiveIcon />}
-            link="/devices/categories"
-            desc="Devices"
+            link="/notifications"
+            desc="Notificaciones"
           />
           <SideBarIcon
             icon={<CalendarMonthIcon />}
-            link="/"
+            link="/calendario"
             desc="Calendario"
+          />
+          <SideBarIcon
+            icon={<SchoolIcon />}
+            link="/asignaturas"
+            desc="Asignaturas"
           />
           <SideBarIcon icon={<DomainIcon />} link="/buildings" desc="Aulas" />
         </div>

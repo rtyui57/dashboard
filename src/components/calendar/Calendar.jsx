@@ -4,33 +4,13 @@ import interactionPlugin from "@fullcalendar/interaction";
 import FullCalendar from "@fullcalendar/react";
 import "./calendar.scss";
 import { useState, useEffect } from "react";
-import Modal from "react-modal";
 import esLocale from "@fullcalendar/core/locales/es";
-import Attendance from "../attendance/Attendance";
+import EventModal from "../modal/EventModal";
 
 function Calendar({ events }) {
+  console.log("Renderizado el calendar " + events);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [eventData, setEventData] = useState({});
-
-  function getModal() {
-    return (
-      <Modal
-        className="modalStyle"
-        isOpen={modalIsOpen}
-        onRequestClose={() => handleCloseModal()}
-        contentLabel="Example Modal"
-      >
-        <button
-          className="border-lime-500 text-xl to-red-400"
-          onClick={() => handleCloseModal()}
-        >
-          X
-        </button>
-        <Attendance eventData={eventData} />
-        <button className="bg-red-700">Borrar</button>
-      </Modal>
-    );
-  }
 
   const handleEventClick = (info) => {
     setEventData(info.event);
@@ -47,7 +27,11 @@ function Calendar({ events }) {
 
   return (
     <div className="cont h-40">
-      {getModal()}
+      <EventModal
+        modalIsOpen={modalIsOpen}
+        handleCloseModal={() => handleCloseModal()}
+        eventData={eventData}
+      />
       <div id="calendario">
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -58,10 +42,15 @@ function Calendar({ events }) {
             center: "title",
             end: "dayGridMonth, timeGridWeek, timeGridDay",
           }}
+          slotMinTime="07:00:00" // Hora de inicio de las ranuras
+          slotMaxTime="22:00:00"
           views={{
             timeGrid: {
               allDaySlot: false,
             },
+          }}
+          dateClick={(info) => {
+            console.log(info.date);
           }}
           eventClick={handleEventClick}
           locale={esLocale}
