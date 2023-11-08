@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import "./devices.scss";
 import ListDevices from "../../components/devices/list/ListDevices";
 import DeviceDetails from "../../components/devices/details/DeviceDetails";
-import { CustomerContext } from "../../context/userContext";
 import { ToastContainer, toast } from "react-toastify";
 import { getUser } from "../login/CookieManager";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,7 +14,6 @@ export default function Devices() {
   const { category } = useParams();
   const [devices, setDevices] = useState([]);
   const [selectedDevice, setSelectedDevice] = useState(null);
-  const { value } = useContext(CustomerContext);
 
   useEffect(() => {
     getDevices();
@@ -27,23 +25,6 @@ export default function Devices() {
   }
 
   function getDevices() {
-    Axios.get(`http://localhost:8080/device/category/${category}`, {
-      headers: { customer: value },
-    })
-      .then((res) => {
-        console.log(res.data);
-        setDevices(res.data);
-        toast.info("Recuperados los devices de la categoria " + category, {
-          position: "bottom-right",
-          autoClose: 3000,
-        });
-      })
-      .catch((error) => {
-        toast.error(error.message, {
-          position: "bottom-right",
-          autoClose: 3000,
-        });
-      });
   }
 
   function setDevice(device) {

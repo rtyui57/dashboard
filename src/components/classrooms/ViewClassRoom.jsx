@@ -1,24 +1,21 @@
 import "./viewClassroom.scss";
 import { useState } from "react";
 import Calendar from "../calendar/Calendar";
+import Selector from "../selector/Selector";
 
 function ViewClassroom() {
-  const estados = ["calendario", "qr", "asientos"];
+  const estados = ["Calendario", "Qr", "asientos"];
   const [view, setView] = useState(estados[0]);
   let renderView;
 
   if (view === estados[0]) {
-    renderView = <Calendar/>;
+    renderView = <Calendar />;
   } else {
-    renderView = <div className="ds">Nada</div>
+    renderView = <div className="ds">Nada</div>;
   }
   return (
     <div className="clasroomView">
-      <div className="acciones w-full flex">
-        <button onClick={() => setView(estados[0])}>Calendario</button>
-        <button onClick={() => {setView(estados[1])}}>Qr</button>
-        <button onClick={() => setView(estados[2])}>Vista Asinetos</button>
-      </div>
+      <Selector views={estados} setView={setView} />
       {renderView}
     </div>
   );

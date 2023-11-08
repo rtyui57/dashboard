@@ -22,13 +22,8 @@ const Buildings = () => {
       <div>{elemento.name}</div>
     </Link>
   ));
-  
-  return (
-    <div className="home">
-      <Sidebar />
-      <div className="homeContainer">Estas son las categorias: {divs}</div>
-    </div>
-  );
+
+  return <div className="">Estas son las categorias: {divs}</div>;
 };
 
 export default Buildings;

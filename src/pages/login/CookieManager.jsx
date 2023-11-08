@@ -1,6 +1,4 @@
 import Cookies from "universal-cookie";
-import { useContext } from "react";
-import { CustomerContext } from "../../context/userContext";
 
 const cookies = new Cookies();
 const customerKey = "customer";

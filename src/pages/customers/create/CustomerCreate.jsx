@@ -66,9 +66,6 @@ function CustomerCreate() {
   };
 
   return (
-    <div className="home">
-      <Sidebar />
-      <div className="homeContainer">
         <div className="user-profile-container">
           <h1>New Customer</h1>
           <div className="user-image">
@@ -120,8 +117,6 @@ function CustomerCreate() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 

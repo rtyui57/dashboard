@@ -1,11 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import "../details/deviceDetails.scss";
-import { CustomerContext } from "../../../context/userContext";
 
 const DeviceForm = ({ device, setDevice, getDevices }) => {
   const [localDevice, setLocalDevice] = useState(device ? { ...device } : null);
-  const { value } = useContext(CustomerContext);
 
   useEffect(() => {
     if (device !== null) {
@@ -14,9 +12,7 @@ const DeviceForm = ({ device, setDevice, getDevices }) => {
   }, [device]);
 
   function saveDevice() {
-    Axios.post("http://localhost:8080/device/create", localDevice, {
-      headers: { customer: value },
-    })
+    Axios.post("http://localhost:8080/device/create", localDevice)
       .then((res) => {
         console.log(res.data);
       })

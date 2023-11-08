@@ -26,7 +26,7 @@ const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
 const Sidebar = () => {
 
   return (
-    <div className="sidebar">
+    <div className="sidebar z-50">
       <div className="icons_container">
         <div className="top_icons">
           <SideBarIcon icon={<DashboardIcon />} link="/" desc="Home" />

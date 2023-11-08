@@ -4,20 +4,16 @@ import Axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { CustomerContext } from "../../../context/userContext";
 
 const ListDeviceCategories = ({ devices, selectDevice }) => {
   const [categories, setCategories] = useState([]);
-  const { value } = useContext(CustomerContext);
 
   useEffect(() => {
     getCategories();
   }, []);
 
   function getCategories() {
-    Axios.get("http://localhost:8080/device/categories", {
-      headers: { customer: value },
-    })
+    Axios.get("http://localhost:8080/device/categories")
       .then((res) => {
         setCategories(res.data);
         toast.info("Categorias recuperdas", {

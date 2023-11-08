@@ -10,26 +10,21 @@ function BuildingsView() {
   const [selectedClassroom, setSelectedClassroom] = useState(null);
 
   return (
-    <div className="home">
-      <Sidebar />
-      <div className="homeContainer">
-        <div className="classrooms flex h-full">
-          <ListClassrooms
-            classrooms={[
-              { name: "1" },
-              { name: "2" },
-              { name: "3" },
-              { name: "4" },
-              { name: "5" },
-            ]}
-            selectClassroom={setSelectedClassroom}
-          />
-          <ViewClassroom
-            clasroom={selectedClassroom}
-            setClasroom={setSelectedClassroom}
-          />
-        </div>
-      </div>
+    <div className="classrooms flex h-full">
+      <ListClassrooms
+        classrooms={[
+          { name: "1" },
+          { name: "2" },
+          { name: "3" },
+          { name: "4" },
+          { name: "5" },
+        ]}
+        selectClassroom={setSelectedClassroom}
+      />
+      <ViewClassroom
+        clasroom={selectedClassroom}
+        setClasroom={setSelectedClassroom}
+      />
     </div>
   );
 }

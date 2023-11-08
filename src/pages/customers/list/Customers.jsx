@@ -21,30 +21,27 @@ const Customers = () => {
   }
 
   return (
-    <div className="home">
-      <Sidebar />
-      <div className="homeContainer">
-        <div className="customerheader">
-          <h1>List of Customers </h1>
-          <Link to={"/customers/new"}>
-            <button>Create new Customer</button>
+    <div>
+      <div className="customerheader">
+        <h1>List of Customers </h1>
+        <Link to={"/customers/new"}>
+          <button>Create new Customer</button>
+        </Link>
+      </div>
+      <div className="customers">
+        {customers.map((cust, index) => (
+          <Link
+            to={`/customer/${cust.name}`}
+            style={{ textDecoration: "none" }}
+          >
+            <Customer
+              name={cust.name}
+              description={cust.description}
+              icon={cust.icon}
+              devices={127}
+            />
           </Link>
-        </div>
-        <div className="customers">
-          {customers.map((cust, index) => (
-            <Link
-              to={`/customer/${cust.name}`}
-              style={{ textDecoration: "none" }}
-            >
-              <Customer
-                name={cust.name}
-                description={cust.description}
-                icon={cust.icon}
-                devices={127}
-              />
-            </Link>
-          ))}
-        </div>
+        ))}
       </div>
     </div>
   );

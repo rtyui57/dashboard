@@ -3,11 +3,8 @@ import "./home.scss";
 import Widget from "../../components/widget/Widget";
 import { getUser } from "../login/CookieManager";
 import Table from "../../components/table/Table";
-import { CustomerContext } from "../../context/userContext";
-import { useContext } from "react";
 
 const Home = () => {
-  const { value } = useContext(CustomerContext);
 
   if (getUser() === undefined && window.location.pathname !== '/login') {
     window.location.href = '/login';
@@ -17,7 +14,6 @@ const Home = () => {
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
-        {"Customer value with context: " + value + " and user " + getUser()}
         <div className="widgets">
           <Widget type="user" />
           <Widget type="order" />

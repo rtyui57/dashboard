@@ -1,0 +1,13 @@
+.acciones {
+  background-color: aqua;
+  justify-content: space-between;
+  border-bottom: 3px solid rgb(68, 32, 168);
+
+  button {
+    padding: 3px;
+    &:hover {
+      background-color: rgb(138, 8, 8);
+      color: white;
+    }
+  }
+}

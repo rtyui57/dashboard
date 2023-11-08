@@ -1,11 +1,7 @@
 import "./customer.scss";
 import { setCustomer } from "../../pages/login/CookieManager";
-import { useContext } from "react";
-import { CustomerContext } from "../../context/userContext";
 
 const Customer = (customer) => {
-  const { value, setCustomerContext } = useContext(CustomerContext);
-  console.log(customer);
   return (
     <div className="customer">
       <div className="image">
@@ -19,7 +15,6 @@ const Customer = (customer) => {
       <button
         onClick={() => {
           setCustomer(customer.name, 15);
-          setCustomerContext(customer.name);
         }}
       >
         Select
