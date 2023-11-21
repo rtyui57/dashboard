@@ -6,11 +6,14 @@ import "./calendar.scss";
 import { useState, useEffect } from "react";
 import esLocale from "@fullcalendar/core/locales/es";
 import EventModal from "../modal/EventModal";
+import CreateEventModal from "../modal/CreateEventModal";
 
 function Calendar({ events }) {
   console.log("Renderizado el calendar " + events);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [eventData, setEventData] = useState({});
+  const [eventModalIsOpen, setEventModalIsOpen] = useState(false);
+  const [newEvent, setNewEvent] = useState({});
 
   const handleEventClick = (info) => {
     setEventData(info.event);
@@ -32,6 +35,15 @@ function Calendar({ events }) {
         handleCloseModal={() => handleCloseModal()}
         eventData={eventData}
       />
+      <CreateEventModal
+        modalIsOpen={eventModalIsOpen}
+        handleCloseModal={() => {
+          setEventModalIsOpen(false);
+          document.getElementById("calendario").style.zIndex = "auto";
+          document.getElementById("calendario").style.position = "static";
+        }}
+        info={newEvent}
+      />
       <div id="calendario">
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -50,7 +62,10 @@ function Calendar({ events }) {
             },
           }}
           dateClick={(info) => {
-            console.log(info.date);
+            document.getElementById("calendario").style.zIndex = "-1";
+            document.getElementById("calendario").style.position = "relative";
+            setEventModalIsOpen(true);
+            setNewEvent(info);
           }}
           eventClick={handleEventClick}
           locale={esLocale}

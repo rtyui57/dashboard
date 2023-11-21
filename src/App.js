@@ -39,7 +39,7 @@ function App() {
               </Route>
               <Route path="buildings">
                 <Route index element={<Buildings />} />
-                <Route path=":building" element={<BuildingsView />} />
+                <Route path=":buildingName" element={<BuildingsView />} />
               </Route>
               <Route path="calendario" element={<Calendar events={[]} />} />
               <Route path="asignaturas">

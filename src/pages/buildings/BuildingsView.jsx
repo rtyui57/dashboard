@@ -1,24 +1,24 @@
-import Sidebar from "../../components/sidebar/Sidebar";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ListClassrooms from "../../components/classrooms/ListClassrooms";
 import ViewClassroom from "../../components/classrooms/ViewClassRoom";
+import axios from "axios";
 
 function BuildingsView() {
-  const { building } = useParams();
-  const [classrooms, setClassrooms] = useState([]);
+  const { buildingName } = useParams();
+  const [building, setBuilding] = useState({ clases : []});
   const [selectedClassroom, setSelectedClassroom] = useState(null);
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/building/${buildingName}`).then((res) => {
+      setBuilding(res.data);
+    });
+  }, []);
 
   return (
     <div className="classrooms flex h-full">
       <ListClassrooms
-        classrooms={[
-          { name: "1" },
-          { name: "2" },
-          { name: "3" },
-          { name: "4" },
-          { name: "5" },
-        ]}
+        classrooms={building.clases}
         selectClassroom={setSelectedClassroom}
       />
       <ViewClassroom

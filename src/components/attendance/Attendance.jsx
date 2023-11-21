@@ -39,11 +39,6 @@ function representUser(username) {
 function Attendance({ eventData }) {
   return (
     <div>
-      <div className="flex justify-between p-3 px-6">
-        <div className="">{eventData.start + ""}</div>
-        <div className="">{eventData.title}</div>
-        <div className="">Ocupacion:</div>
-      </div>
       {getList("Atendants", [
         "as",
         "sfsadjfkldasjf",

@@ -1,0 +1,16 @@
+.cuadrados-grid {
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+    row-gap: 3rem;/* Ajusta la separación entre cuadrados según sea necesario */
+
+    .cuadrado {
+        width: 15rem;
+        height: 15rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #000;
+        background: linear-gradient(45deg, #ffcc00, #ff6699);
+      }
+  }
