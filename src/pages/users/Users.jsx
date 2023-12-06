@@ -1,4 +1,3 @@
-import Sidebar from "../../components/sidebar/Sidebar";
 import React, { useState, useEffect, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Axios from "axios";

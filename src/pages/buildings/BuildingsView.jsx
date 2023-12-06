@@ -6,7 +6,7 @@ import axios from "axios";
 
 function BuildingsView() {
   const { buildingName } = useParams();
-  const [building, setBuilding] = useState({ clases : []});
+  const [building, setBuilding] = useState({ aulas: [] });
   const [selectedClassroom, setSelectedClassroom] = useState(null);
 
   useEffect(() => {
@@ -18,12 +18,14 @@ function BuildingsView() {
   return (
     <div className="classrooms flex h-full">
       <ListClassrooms
-        classrooms={building.clases}
+        classrooms={building.aulas}
+        selectedClassroom={selectedClassroom}
         selectClassroom={setSelectedClassroom}
+        building={buildingName}
       />
       <ViewClassroom
-        clasroom={selectedClassroom}
-        setClasroom={setSelectedClassroom}
+        building={buildingName}
+        selectedClassroom={selectedClassroom}
       />
     </div>
   );

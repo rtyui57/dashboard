@@ -1,11 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { columns } from "../../pages/users/userColumns";
+import { Link } from "react-router-dom";
 
-function ListUsers({users, title}) {
-  console.log("terngo los usuarios: " + users)
+function getColumns(actionsContent) {
+  return [
+    { field: "username", headerName: "Usuario", width: 150 },
+    {
+      field: "icon",
+      headerName: "Perfil",
+      width: 100,
+      renderCell: (params) => {
+        console.log(params)
+        return (
+          <img
+            className="cellImg"
+            src={"data:image/jpeg;base64," + params.row.icon}
+            alt="avatar"
+          />
+        );
+      },
+    },
+    { field: "firstName", headerName: "Nombre", width: 200 },
+    { field: "lastName", headerName: "Apellidos", width: 200 },
+    { field: "email", headerName: "Email", width: 200 },
+    { field: "edad", headerName: "Edad", width: 100 },
+    { field: "puesto", headerName: "Cargo", width: 140 },
+    {
+      field: "Actions",
+      headerName: "Actions",
+      renderCell: (params) => actionsContent(params),
+      width: 200,
+    },
+    { field: "description", headerName: "Descripcion", width: 150 },
+  ];
+}
+
+function ListUsers({ users, title, actionsContent = null }) {
   const [searchText, setSearchText] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(users);
+
+  if (actionsContent === null) {
+    actionsContent = (params) => {
+      return (
+        <div className="flex w-full justify-between px-3">
+          <Link to={`/users/${params.row.id}`}>
+            <button className="editUser">Editar</button>
+          </Link>
+          <Link to={`/users/${params.row.id}/horario`}>
+            <button className="editUser">Horario</button>
+          </Link>
+        </div>
+      );
+    };
+  }
 
   const handleSearch = (event) => {
     const value = event.target.value.toLowerCase();
@@ -24,7 +71,7 @@ function ListUsers({users, title}) {
   return (
     <div className="users">
       <div className="user_header">
-       {title}
+        <h2>{title}</h2>
         <input
           type="text"
           placeholder="Search"
@@ -35,9 +82,8 @@ function ListUsers({users, title}) {
       </div>
       <DataGrid
         rows={filteredUsers}
-        columns={columns}
+        columns={getColumns(actionsContent)}
         onColumnWidthChange={(params) => {
-          // Aquí puedes manejar el cambio de ancho de columna si es necesario
           console.log(params);
         }}
         className="tabla p-2 m-4"

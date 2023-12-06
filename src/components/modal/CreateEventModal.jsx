@@ -4,15 +4,23 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 import { toast } from "react-toastify";
 import AsignaturaSelector from "../selectores/AsignaturaSelector";
-import { func } from "prop-types";
+import AulaSelector from "../selectores/AulaSelector";
+import OneInputSelector from "../selectores/OneInputSelector";
 
-function CreateEventModal({ modalIsOpen, handleCloseModal, info }) {
+function CreateEventModal({
+  modalIsOpen,
+  handleCloseModal,
+  info,
+  asignatura,
+  aula,
+}) {
   const [event, setEvent] = useState({
     start: "",
     end: "",
-    clase: "",
+    aula: "",
     asignatura: "",
     title: "",
+    color: "black",
   });
 
   useEffect(() => {
@@ -28,11 +36,15 @@ function CreateEventModal({ modalIsOpen, handleCloseModal, info }) {
   }, [info.date]);
 
   function importEvent() {
-    console.log("Se va a realizar el Import del horario");
     console.log(event);
     Axios.post("http://localhost:8080/horario", event)
-      .then((res) => toast.info("Creado"))
-      .catch((err) => toast.error(err));
+      .then((res) => {
+        toast.info("Evento creado");
+        setTimeout(() => {
+          handleCloseModal();
+        }, 500);
+      })
+      .catch((err) => toast.error(err.message));
   }
 
   function handleChange(e) {
@@ -44,10 +56,16 @@ function CreateEventModal({ modalIsOpen, handleCloseModal, info }) {
   }
 
   function handleAsignaturaChange(selectedAsignatura) {
-    console.log("Seleccionado: " + selectedAsignatura)
     setEvent((prevEvent) => ({
       ...prevEvent,
       asignatura: selectedAsignatura,
+    }));
+  }
+
+  function handleAulaChange(selectedAula) {
+    setEvent((prevEvent) => ({
+      ...prevEvent,
+      aula: selectedAula,
     }));
   }
 
@@ -59,7 +77,7 @@ function CreateEventModal({ modalIsOpen, handleCloseModal, info }) {
       contentLabel="Example Modal"
     >
       <h1 className="text-center">Create a New Event</h1>
-      <form action="" className="flex flex-col items-center text-center">
+      <div className="flex flex-col items-center text-center">
         <div className="w-96 flex flex-col justify-center">
           <span className="p-2">Titulo</span>
           <input
@@ -70,6 +88,7 @@ function CreateEventModal({ modalIsOpen, handleCloseModal, info }) {
             value={event.title}
             onChange={handleChange}
           />
+
           <span className="p-2">Fecha de comienzo: </span>
           <input
             className="border-2 border-solid border-blue-800 m-1 rounded-lg"
@@ -79,6 +98,7 @@ function CreateEventModal({ modalIsOpen, handleCloseModal, info }) {
             value={event.start}
             onChange={handleChange}
           />
+
           <span className="p-2">Fecha de finalizacion: </span>
           <input
             className="border-2 border-solid border-blue-800 m-1 rounded-lg"
@@ -88,15 +108,33 @@ function CreateEventModal({ modalIsOpen, handleCloseModal, info }) {
             value={event.end}
             onChange={handleChange}
           />
+
           <span className="p-2">Asignatura</span>
-          <AsignaturaSelector onAsignaturaChange={handleAsignaturaChange}/>
+          {asignatura !== null ? (
+            <OneInputSelector
+              changeValue={handleAsignaturaChange}
+              input={asignatura}
+            />
+          ) : (
+            <AsignaturaSelector
+              changeAsignaturaValue={handleAsignaturaChange}
+            />
+          )}
+
           <span className="p-2">Aula</span>
+          {aula !== null ? (
+            <OneInputSelector changeValue={handleAulaChange} input={aula} />
+          ) : (
+            <AulaSelector changeAulaValue={handleAulaChange} />
+          )}
+
+          <span className="p-2">Color del evento: {event.color}</span>
           <input
-            className="border-2 border-solid border-blue-800 m-1 rounded-lg"
-            type="text"
-            name="clase"
-            id="clase"
-            value={event.clase}
+            className="w-36 flex items-center"
+            type="color"
+            id="color"
+            name="color"
+            value={event.color}
             onChange={handleChange}
           />
 
@@ -115,7 +153,7 @@ function CreateEventModal({ modalIsOpen, handleCloseModal, info }) {
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </Modal>
   );
 }

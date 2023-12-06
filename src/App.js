@@ -16,6 +16,7 @@ import Calendar from "./components/calendar/Calendar";
 import Asignaturas from "./pages/asignaturas/Asignaturas";
 import Notificaciones from "./pages/notificaiones/Notificaciones";
 import AsignaturaView from "./pages/asignaturas/AsignaturaView";
+import EventView from "./components/event/EventView";
 
 function App() {
   return (
@@ -44,13 +45,14 @@ function App() {
               <Route path="calendario" element={<Calendar events={[]} />} />
               <Route path="asignaturas">
                 <Route index element={<Asignaturas />} />
-                <Route path=":asignatura" element={<AsignaturaView />} />
+                <Route path=":asignaturaName" element={<AsignaturaView />} />
               </Route>
               <Route
                 path="notifications"
                 element={<Notificaciones events={[]} />}
               />
             </Route>
+            <Route path="event/:eventId" element={<EventView />} />
           </Routes>
         </div>
       </div>

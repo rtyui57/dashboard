@@ -3,33 +3,69 @@ import { asignaturasColumns } from "./asignaturasTable";
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import { toast } from "react-toastify";
+import CreateAsignatura from "../../components/modal/CreateAsignatura";
 
 function Asignaturas() {
   const [asignaturas, setAsignaturas] = useState([]);
+  const [filteredAsig, setFilteredAsig] = useState([]);
+  const [search, setSearch] = useState(null);
+  const [modalIsOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-   getAsignaturas();
+    getAsignaturas();
   }, []);
+
+  function handleSearch(event) {
+    const value = event.target.value.toLowerCase();
+    setSearch(value);
+    const filteredData = asignaturas.filter((asig) =>
+      Object.keys(asig).some((field) => {
+        const fieldValue = asig[field];
+        if (fieldValue.toString().toLowerCase().includes(value)) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
+    setFilteredAsig(search == "" ? asignaturas : filteredData);
+  }
 
   function getAsignaturas() {
     Axios.get("http://localhost:8080/asignatura")
       .then((res) => {
-        console.log(res.data);
         setAsignaturas(res.data);
+        setFilteredAsig(res.data)
       })
       .catch((err) => toast.error(err));
   }
 
   return (
-    <div className="a">
-      Asignaturas
-      <input
-        type="text"
-        value=""
-        className="border-2 border-blue-900 rounded-2xl px-3 py-1"
+    <div className="w-full">
+      <div className="p-3 flex justify-between">
+        <div className="flex ml-28">
+          <h1 className="p-1 m-2">Asignaturas</h1>
+          <input
+            type="text"
+            className="border-2 border-blue-900 rounded-2xl p-1"
+            value={search}
+            onChange={handleSearch}
+          />
+        </div>
+
+        <button
+          onClick={() => setModalOpen(true)}
+          className="p-2 bg-blue-600 rounded-md text-white mr-14"
+        >
+          Create asignatura
+        </button>
+      </div>
+      <CreateAsignatura
+        modalIsOpen={modalIsOpen}
+        handleCloseModal={() => setModalOpen(false)}
       />
       <DataGrid
-        rows={asignaturas}
+        rows={filteredAsig}
         columns={asignaturasColumns}
         onColumnWidthChange={(params) => {
           // Aquí puedes manejar el cambio de ancho de columna si es necesario

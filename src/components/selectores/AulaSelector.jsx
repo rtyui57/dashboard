@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function AsignaturaSelector({ changeAsignaturaValue }) {
-  const [options, setOptions] = useState([]);
+function AulaSelector({ changeAulaValue }) {
+  const [options, setOptions] = useState({ nada : "a"});
   const [selectedOption, setSelectedOption] = useState("");
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/asignatura/nombres")
+      .get("http://localhost:8080/building/classrooms")
       .then((response) => {
         setOptions(response.data);
-        changeAsignaturaValue(response.data[0]);
+        const [key, value] = Object.entries(response.data)[0];
+        changeAulaValue(key);
       })
       .catch((error) => console.error("Error al obtener opciones:", error));
   }, []);
@@ -18,7 +19,7 @@ function AsignaturaSelector({ changeAsignaturaValue }) {
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
-    changeAsignaturaValue(selectedValue);
+    changeAulaValue(selectedValue);
   };
 
   return (
@@ -29,9 +30,12 @@ function AsignaturaSelector({ changeAsignaturaValue }) {
         value={selectedOption}
         onChange={handleSelectChange}
       >
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
+        {Object.entries(options).map(([classId, buildingId]) => (
+          <option
+            key={classId}
+            value={classId}
+          >
+            {classId}
           </option>
         ))}
       </select>
@@ -39,4 +43,4 @@ function AsignaturaSelector({ changeAsignaturaValue }) {
   );
 }
 
-export default AsignaturaSelector;
+export default AulaSelector;

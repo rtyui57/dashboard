@@ -31,6 +31,10 @@
         text-decoration: none;
       }
   
+      .selectedClassroom {
+        border: 1px solid rgb(30, 0, 255); /* Puedes ajustar el estilo según tus preferencias */
+      }   
+
       .userListInfo {
         margin: 3px;
         padding: 5px;
@@ -38,7 +42,7 @@
         height: 7vh;
         align-items: center;
         border-radius: 25px;
-  
+
         .nombre {
           margin-left: 15px;
         }

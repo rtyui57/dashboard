@@ -1,10 +1,14 @@
 import "./selector.scss";
 
-function Selector({ setView, views }) {
+function Selector({ setView, views, currentView }) {
   return (
     <div className="acciones w-full flex">
       {views.map((view, index) => (
-        <button key={index} onClick={() => setView(view)}>
+        <button
+          key={index}
+          onClick={() => setView(view)}
+          className={view === currentView ? "selected" : ""}
+        >
           {view}
         </button>
       ))}

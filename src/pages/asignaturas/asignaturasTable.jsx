@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 export const asignaturasColumns = [
   { field: "name", headerName: "Nombre", width: 150 },
-  { field: "displayName", headerName: "Master/Grado", width: 200 },
-  { field: "curso", headerName: "Curso", width: 200 },
+  { field: "displayName", headerName: "Display Name", width: 200 },
+  { field: "curso", headerName: "Curso", width: 140 },
+  { field: "grado", headerName: "Grado", width: 140 },
+  { field: "creditos", headerName: "Numeor de Creditos", width: 200 },
   {
     field: "Actions",
     headerName: "Actions",

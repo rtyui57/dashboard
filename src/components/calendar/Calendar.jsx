@@ -7,13 +7,15 @@ import { useState, useEffect } from "react";
 import esLocale from "@fullcalendar/core/locales/es";
 import EventModal from "../modal/EventModal";
 import CreateEventModal from "../modal/CreateEventModal";
+import { useNavigate } from "react-router-dom";
 
-function Calendar({ events }) {
+function Calendar({ events, asignatura = null, aula = null }) {
   console.log("Renderizado el calendar " + events);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [eventData, setEventData] = useState({});
   const [eventModalIsOpen, setEventModalIsOpen] = useState(false);
   const [newEvent, setNewEvent] = useState({});
+  const navigate = useNavigate();
 
   const handleEventClick = (info) => {
     setEventData(info.event);
@@ -43,6 +45,8 @@ function Calendar({ events }) {
           document.getElementById("calendario").style.position = "static";
         }}
         info={newEvent}
+        aula={aula}
+        asignatura={asignatura}
       />
       <div id="calendario">
         <FullCalendar
@@ -67,7 +71,9 @@ function Calendar({ events }) {
             setEventModalIsOpen(true);
             setNewEvent(info);
           }}
-          eventClick={handleEventClick}
+          eventClick={(info) => {
+            navigate(`/event/${info.event._def.publicId}`);
+          }}
           locale={esLocale}
         />
       </div>

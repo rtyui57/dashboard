@@ -1,17 +1,8 @@
-import Sidebar from "../../components/sidebar/Sidebar";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import "./buildings.scss";
 import CreateBuilding from "../../components/modal/CreateBuilding";
-
-function genBuilding(name) {
-  return (
-    <Link to={name}>
-      <div className="cuadrado">{name}</div>
-    </Link>
-  );
-}
 
 const Buildings = () => {
   const [buildings, setBuildings] = useState([]);
@@ -28,7 +19,6 @@ const Buildings = () => {
       })
       .catch((error) => console.log(error));
   }
-  
 
   return (
     <div className="">
@@ -38,15 +28,25 @@ const Buildings = () => {
           setModalIsOpen(false);
         }}
       />
-      <button
-        onClick={() => {
-          setModalIsOpen(true);
-        }}
-      >
-        Crear building
-      </button>
+      <div className="flex justify-between p-2">
+        <button
+          onClick={() => {
+            setModalIsOpen(true);
+          }}
+          className="bg-blue-400 text-white p-2 rounded-lg"
+        >
+          Crear building
+        </button>
+        <h1>Lista de Edificios</h1>
+        <div className=""></div>
+      </div>
+
       <div className="cuadrados-grid">
-        {buildings.map((elemento) => genBuilding(elemento.name))}
+        {buildings.map((building) => (
+          <Link to={building.id}>
+            <div className="cuadrado no-underline">{building.name}</div>
+          </Link>
+        ))}
       </div>
     </div>
   );
