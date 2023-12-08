@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 import "./eventView.scss";
 
 function EventView() {
@@ -9,6 +9,7 @@ function EventView() {
   const [event, setEvent] = useState(null);
   const [states, setStates] = useState([]);
   const [changed, setChanged] = useState(false);
+  const axiosController = AxiosController();
 
   useEffect(() => {
     getEvent();
@@ -16,8 +17,8 @@ function EventView() {
   }, []);
 
   function getEvent() {
-    axios
-      .get(`http://localhost:8080/horario/${eventId}`)
+    axiosController
+      .get(`/horario/${eventId}`)
       .then((res) => {
         setEvent(res.data);
       })
@@ -25,23 +26,22 @@ function EventView() {
   }
 
   function deleteEvent() {
-    axios
-      .delete(`http://localhost:8080/horario/${eventId}`)
+    axiosController
+      .delete(`/horario/${eventId}`)
       .then((res) => {toast.success("Eliminado")})
       .catch((err) => toast.error(err));
   }
 
   function getStates() {
-    axios
-      .get(`http://localhost:8080/horario/states`)
+    axiosController
+      .get(`/horario/states`)
       .then((res) => setStates(res.data))
       .catch(() => toast.error("Error trayendo states"));
   }
 
   function saveChanges() {
-    axios
-      .post(
-        `http://localhost:8080/horario/${eventId}/attendants`,
+    axiosController
+      .post(`/horario/${eventId}/attendants`,
         Object.fromEntries(event.attendants)
       )
       .then((res) => toast.success("Se guardo"))

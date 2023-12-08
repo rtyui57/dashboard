@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 
-function AsignaturaSelector({ changeAsignaturaValue }) {
+export default function AsignaturaSelector({ changeAsignaturaValue }) {
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
+  const axiosController = AxiosController();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/asignatura/nombres")
+    axiosController
+      .get("/asignatura/nombres")
       .then((response) => {
         setOptions(response.data);
         changeAsignaturaValue(response.data[0]);
@@ -38,5 +39,3 @@ function AsignaturaSelector({ changeAsignaturaValue }) {
     </div>
   );
 }
-
-export default AsignaturaSelector;

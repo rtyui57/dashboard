@@ -1,5 +1,5 @@
 import "./userDetails.scss";
-import Axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,16 +8,17 @@ import { useParams } from "react-router-dom";
 const UserDetails = () => {
   const { username } = useParams();
   const [localUser, setLocalUser] = useState({});
+  const axiosController = AxiosController();
 
   function saveUser(user) {
-    Axios.post("http://localhost:8080/user", user)
+    axiosController.post("/user", user)
       .then(() => toast.info("Creado usuario"))
       .catch((err) => console.log(err));
     setLocalUser();
   }
 
   useEffect(() => {
-    Axios.get(`http://localhost:8080/user?id=${username}`)
+    axiosController.get(`/user?id=${username}`)
       .then((res) => {
         setLocalUser(res.data);
         console.log(res.data);
@@ -26,7 +27,7 @@ const UserDetails = () => {
   }, []);
 
   function deleteUser() {
-    Axios.delete(`http://localhost:8080/user/${username}`)
+    axiosController.delete(`/user/${username}`)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }

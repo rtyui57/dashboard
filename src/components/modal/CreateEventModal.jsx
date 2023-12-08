@@ -1,11 +1,11 @@
 import Modal from "react-modal";
 import moment from "moment";
 import { useState, useEffect } from "react";
-import Axios from "axios";
 import { toast } from "react-toastify";
 import AsignaturaSelector from "../selectores/AsignaturaSelector";
 import AulaSelector from "../selectores/AulaSelector";
 import OneInputSelector from "../selectores/OneInputSelector";
+import AxiosController from "../../utils/AxiosController";
 
 function CreateEventModal({
   modalIsOpen,
@@ -22,6 +22,7 @@ function CreateEventModal({
     title: "",
     color: "black",
   });
+  const axiosController = AxiosController();
 
   useEffect(() => {
     const startDate = moment(info.date).format("YYYY-MM-DDTHH:mm");
@@ -37,7 +38,7 @@ function CreateEventModal({
 
   function importEvent() {
     console.log(event);
-    Axios.post("http://localhost:8080/horario", event)
+    axiosController.post("/horario", event)
       .then((res) => {
         toast.info("Evento creado");
         setTimeout(() => {

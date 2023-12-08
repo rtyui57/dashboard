@@ -1,14 +1,15 @@
 import "./login.scss";
 import { useState, useEffect } from "react";
 import Axios from "axios";
-import { setCustomer, setUser } from "./CookieManager";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [userCred, setUserCred] = useState({ username: "", password: "" });
   const { setAuth } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => setAuth(null), []);
 
@@ -20,9 +21,8 @@ const Login = () => {
   function requestToken(e) {
     Axios.post("http://localhost:8080/user/auth", userCred)
       .then((res) => {
-        console.log(res);
-        //setUser(res.data.username, 15);
         setAuth(res.data);
+        navigate("/users")
       })
       .catch((error) => toast.error("Error en login, causa: " + error));
   }

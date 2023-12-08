@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
-import Axios from "axios";
 import { Link } from "react-router-dom";
 import "./buildings.scss";
 import CreateBuilding from "../../components/modal/CreateBuilding";
+import AxiosController from "../../utils/AxiosController";
 
 const Buildings = () => {
   const [buildings, setBuildings] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const axiosController = AxiosController();
 
   useEffect(() => {
     getBuildings();
   }, []);
 
   function getBuildings() {
-    Axios.get("http://localhost:8080/building")
+    axiosController.get("/building")
       .then((response) => {
         setBuildings(response.data);
       })

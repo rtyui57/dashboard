@@ -1,22 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import Axios from "axios";
+import React, { useState, useEffect } from "react";
+import { DataGrid } from "@mui/x-data-grid"
 import "./users.scss";
 import { columns } from "./userColumns";
-import { useAuth } from "../../context/AuthContext";
-const Users = () => {
-  const { getAuth } = useAuth();
+import AxiosController from "../../utils/AxiosController";
+
+export default function Users() {
   const [users, setUsers] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(users);
+  const controller = AxiosController();
 
   useEffect(() => {
-    console.log(localStorage.getItem("token"))
-    console.log(getAuth())
-    Axios.get("http://localhost:8080/user/list", {
-      headers: {Authorization : `Bearer ${localStorage.getItem("token")}` },
-      withCredentials: true,
-    })
+    controller
+      .get("/user/list")
       .then((response) => {
         setUsers(response.data);
         setFilteredUsers(response.data);
@@ -26,7 +22,6 @@ const Users = () => {
 
   const handleSearch = (event) => {
     const value = event.target.value.toLowerCase();
-    console.log("Valor es: " + value);
     setSearchText(value);
     const filteredData = users.filter((user) =>
       Object.keys(user).some(
@@ -55,7 +50,6 @@ const Users = () => {
         rows={filteredUsers}
         columns={columns}
         onColumnWidthChange={(params) => {
-          // Aquí puedes manejar el cambio de ancho de columna si es necesario
           console.log(params);
         }}
         className="tabla p-2 m-4"
@@ -63,4 +57,3 @@ const Users = () => {
     </div>
   );
 };
-export default Users;

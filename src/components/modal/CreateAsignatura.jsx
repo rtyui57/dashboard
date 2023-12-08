@@ -1,15 +1,15 @@
-import axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 import Modal from "react-modal";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function CreateAsignatura({ modalIsOpen, handleCloseModal }) {
   const [asignatura, setAsignatura] = useState({});
+  const axiosController = AxiosController();
 
   function createAsignatura(event) {
-
-    axios
-      .post("http://localhost:8080/asignatura", asignatura)
+    axiosController
+      .post("/asignatura", asignatura)
       .then((res) => toast.success("Se creo la asignatura"))
       .catch((err) => toast.error(err.message));
   }

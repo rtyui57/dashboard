@@ -1,6 +1,6 @@
 import Modal from "react-modal";
 import { useState, useEffect } from "react";
-import Axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 
 export default function ModalListUsers({
   modalIsOpen,
@@ -11,7 +11,7 @@ export default function ModalListUsers({
   const [users, setUsers] = useState([]);
   const usersContainedIds = usersAlreadyPresent.map((user) => user.id);
   function getUsers() {
-    Axios.get(`http://localhost:8080/user/list`)
+    AxiosController().get(`/user/list`)
       .then((res) => setUsers(res.data))
       .catch((err) => console.log(err));
   }

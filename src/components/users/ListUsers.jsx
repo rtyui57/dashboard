@@ -3,13 +3,11 @@ import { getCustomer } from "../../pages/login/CookieManager";
 import defaultIcon from "../../utils/DefaultVars";
 
 function agregarCirculoRelleno(id) {
-  console.log("ID" + id)
   var circulo = document.getElementById(id);
   circulo.classList.add("visible");
 }
 
 const ListUsers = ({ users, onUserSelect }) => {
-
   function onCreateUser() {
     const user = {action : "createUser"}
     onUserSelect(user)

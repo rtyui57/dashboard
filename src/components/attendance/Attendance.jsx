@@ -1,11 +1,12 @@
 import "./attendance.scss";
-import Axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 
 function deleteEvent(eventId) {
-  Axios.delete(`http://localhost:8080/horario/${eventId}`)
+  AxiosController().delete(`http://localhost:8080/horario/${eventId}`)
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
 }
+
 function getList(title, usuarios) {
   return (
     <div className="text-center p-2 m-1">

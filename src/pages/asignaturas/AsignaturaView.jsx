@@ -7,6 +7,7 @@ import Axios from "axios";
 import { toast } from "react-toastify";
 import ModalListUsers from "../../components/modal/ModalUsers";
 import axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 
 function AsignaturaView() {
   const VIEWS = {
@@ -20,6 +21,7 @@ function AsignaturaView() {
   const [asignatura, setAsignatura] = useState(null);
   const [modalIsOpen, setModalOpen] = useState(false);
   const [reloadData, setReloadData] = useState(false);
+  const axiosController = AxiosController();
 
   function handleChangeInput(e) {
     const { name, value } = e.target;
@@ -35,7 +37,7 @@ function AsignaturaView() {
 
   function saveAsignatura() {
     const { profesores, alumnos, horarios, ...asig } = asignatura;
-    Axios.post("http://localhost:8080/asignatura", asig)
+    axiosController.post("/asignatura", asig)
       .then((res) => {
         toast.success("Asignatura actualizada");
         setTimeout(500, () => getAsignatura());
@@ -44,13 +46,13 @@ function AsignaturaView() {
   }
 
   function deleteAsignatura() {
-    Axios.delete(`http://localhost:8080/asignatura/${asignaturaName}`)
+    axiosController.delete(`/asignatura/${asignaturaName}`)
       .then((res) => toast.success("Asignatura eliminada"))
       .catch((err) => toast.error(err.message));
   }
 
   function getAsignatura() {
-    Axios.get(`http://localhost:8080/asignatura/${asignaturaName}`)
+    axiosController.get(`/asignatura/${asignaturaName}`)
       .then((response) => {
         setAsignatura(response.data);
       })

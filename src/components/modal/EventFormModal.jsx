@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import Axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 
 function createEvent(event, username) {
-  console.log("Evento: " + event);
-  Axios.post(`http://localhost:8080/user/${username}/horario`, event)
+  AxiosController().post(`/user/${username}/horario`, event)
     .then((res) => {
       console.log(res);
     })

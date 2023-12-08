@@ -1,10 +1,10 @@
-import axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 import Modal from "react-modal";
 import { useState } from "react";
 
 function createBuilding(building) {
-  axios
-    .post("http://localhost:8080/building", building)
+  AxiosController()
+    .post("/building", building)
     .then((res) => console.log(res));
 }
 
@@ -12,8 +12,6 @@ function CreateBuilding({ modalIsOpen, handleCloseModal }) {
   const [building, setBuilding] = useState({});
 
   function handleChange(e) {
-    console.log(e.target);
-    console.log(building);
     const { name, value } = e.target;
     setBuilding((prevData) => ({
       ...prevData,

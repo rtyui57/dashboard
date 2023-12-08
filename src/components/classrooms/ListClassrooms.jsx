@@ -1,9 +1,9 @@
 import "./listClassrooms.scss";
 import CreateClassroom from "../modal/CreateClassroom";
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import AxiosController from "../../utils/AxiosController";
 
 function ListClassrooms({
   classrooms,
@@ -13,10 +13,11 @@ function ListClassrooms({
 }) {
   const [modalIsOpen, setModal] = useState(false);
   const navigate = useNavigate();
+  const axiosController = AxiosController();
 
   function removeBuilding() {
-    axios
-      .delete(`http://localhost:8080/building/${building}`)
+    axiosController
+      .delete(`/building/${building}`)
       .then((res) => {
         toast.success("Se elimino", {
           autoClose: 1500,

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 
 function AulaSelector({ changeAulaValue }) {
   const [options, setOptions] = useState({ nada : "a"});
   const [selectedOption, setSelectedOption] = useState("");
+  const axiosController = AxiosController();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/building/classrooms")
+    axiosController
+      .get("/building/classrooms")
       .then((response) => {
         setOptions(response.data);
         const [key, value] = Object.entries(response.data)[0];

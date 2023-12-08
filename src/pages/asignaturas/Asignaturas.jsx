@@ -1,15 +1,16 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { asignaturasColumns } from "./asignaturasTable";
 import { useEffect, useState } from "react";
-import Axios from "axios";
 import { toast } from "react-toastify";
 import CreateAsignatura from "../../components/modal/CreateAsignatura";
+import AxiosController from "../../utils/AxiosController";
 
 function Asignaturas() {
   const [asignaturas, setAsignaturas] = useState([]);
   const [filteredAsig, setFilteredAsig] = useState([]);
   const [search, setSearch] = useState(null);
   const [modalIsOpen, setModalOpen] = useState(false);
+  const axiosController = AxiosController();
 
   useEffect(() => {
     getAsignaturas();
@@ -32,7 +33,7 @@ function Asignaturas() {
   }
 
   function getAsignaturas() {
-    Axios.get("http://localhost:8080/asignatura")
+    axiosController.get("/asignatura")
       .then((res) => {
         setAsignaturas(res.data);
         setFilteredAsig(res.data)
@@ -68,7 +69,6 @@ function Asignaturas() {
         rows={filteredAsig}
         columns={asignaturasColumns}
         onColumnWidthChange={(params) => {
-          // Aquí puedes manejar el cambio de ancho de columna si es necesario
           console.log(params);
         }}
         className="tabla p-2 m-4"

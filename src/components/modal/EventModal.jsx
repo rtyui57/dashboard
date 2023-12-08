@@ -1,13 +1,14 @@
 import Modal from "react-modal";
 import Attendance from "../attendance/Attendance";
 import { useState, useEffect } from "react";
-import Axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 
 function EventModal({ modalIsOpen, handleCloseModal, eventData }) {
   const [event, setEvent] = useState({});
+  const axiosController = AxiosController();
 
   function getEvent() {
-    Axios.get(`http://localhost:8080/horario/${eventData.id}`)
+    axiosController.get(`/horario/${eventData.id}`)
       .then((res) => setEvent(res.data))
       .catch((err) => console.log(err));
   }

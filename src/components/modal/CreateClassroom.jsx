@@ -1,9 +1,10 @@
 import Modal from "react-modal";
-import axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 import { useState } from "react";
 
 function CreateClassroom({ modalIsOpen, handleCloseModal, building }) {
   const [classroom, setClassroom] = useState({});
+  const axiosController = AxiosController();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -14,9 +15,8 @@ function CreateClassroom({ modalIsOpen, handleCloseModal, building }) {
   }
 
   function postClassroom(id, clasroom) {
-    console.log("Se gurado");
-    axios
-      .post(`http://localhost:8080/building/${id}/classroom`, clasroom)
+    axiosController
+      .post(`/building/${id}/classroom`, clasroom)
       .then((res) => console.log(res));
   }
 
@@ -48,10 +48,18 @@ function CreateClassroom({ modalIsOpen, handleCloseModal, building }) {
           value={classroom.capacity}
         />
         <div className="flex justify-center">
-          <button className="bg-blue-600 p-2 m-2" onClick={() => postClassroom(building, classroom)}>
+          <button
+            className="bg-blue-600 p-2 m-2"
+            onClick={() => postClassroom(building, classroom)}
+          >
             Save
           </button>
-          <button className="bg-blue-600 p-2 m-2" onClick={() => handleCloseModal()}>Close</button>
+          <button
+            className="bg-blue-600 p-2 m-2"
+            onClick={() => handleCloseModal()}
+          >
+            Close
+          </button>
         </div>
       </form>
     </Modal>

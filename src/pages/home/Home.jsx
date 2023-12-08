@@ -1,15 +1,10 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./home.scss";
 import Widget from "../../components/widget/Widget";
-import { getUser } from "../login/CookieManager";
 import Table from "../../components/table/Table";
 
 const Home = () => {
 
-  if (getUser() === undefined && window.location.pathname !== '/login') {
-    window.location.href = '/login';
-    return null;
-  }
   return (
     <div className="home">
       <Sidebar />

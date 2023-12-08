@@ -5,12 +5,9 @@ import StoreIcon from "@mui/icons-material/Store";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Link } from "react-router-dom";
-import { getUser } from "../../pages/login/CookieManager";
 import DomainIcon from "@mui/icons-material/Domain";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import SchoolIcon from "@mui/icons-material/School";
-import { useAuth } from "../../context/AuthContext";
-import { func } from "prop-types";
 
 const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
   return (
@@ -26,7 +23,6 @@ const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
 };
 
 export default function Sidebar() {
-  const { logout } = useAuth();
   return (
     <div className="sidebar z-50">
       <div className="icons_container">
@@ -37,7 +33,7 @@ export default function Sidebar() {
             link="/users"
             desc="Users"
           />
-          {getUser() === "admin" && (
+          {"a" === "admin" && (
             <SideBarIcon
               icon={<StoreIcon />}
               link="/customers"

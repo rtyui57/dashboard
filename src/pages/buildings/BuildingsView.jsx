@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ListClassrooms from "../../components/classrooms/ListClassrooms";
 import ViewClassroom from "../../components/classrooms/ViewClassRoom";
-import axios from "axios";
+import AxiosController from "../../utils/AxiosController";
 
 function BuildingsView() {
   const { buildingName } = useParams();
   const [building, setBuilding] = useState({ aulas: [] });
   const [selectedClassroom, setSelectedClassroom] = useState(null);
+  const axiosController = AxiosController();
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/building/${buildingName}`).then((res) => {
+    axiosController.get(`/building/${buildingName}`).then((res) => {
       setBuilding(res.data);
     });
   }, []);
