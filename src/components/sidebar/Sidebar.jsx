@@ -9,6 +9,8 @@ import { getUser } from "../../pages/login/CookieManager";
 import DomainIcon from "@mui/icons-material/Domain";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import SchoolIcon from "@mui/icons-material/School";
+import { useAuth } from "../../context/AuthContext";
+import { func } from "prop-types";
 
 const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
   return (
@@ -23,8 +25,8 @@ const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
   );
 };
 
-const Sidebar = () => {
-
+export default function Sidebar() {
+  const { logout } = useAuth();
   return (
     <div className="sidebar z-50">
       <div className="icons_container">
@@ -65,6 +67,4 @@ const Sidebar = () => {
       </div>
     </div>
   );
-};
-
-export default Sidebar;
+}

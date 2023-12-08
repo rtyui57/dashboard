@@ -17,6 +17,7 @@ import Asignaturas from "./pages/asignaturas/Asignaturas";
 import Notificaciones from "./pages/notificaiones/Notificaciones";
 import AsignaturaView from "./pages/asignaturas/AsignaturaView";
 import EventView from "./components/event/EventView";
+import RequireAuth from "./security/RequireAuth";
 
 function App() {
   return (
@@ -27,32 +28,34 @@ function App() {
         <div className="homeContainer">
           <Routes>
             <Route path="/">
-              <Route index element={<Home />} />
               <Route path="login" element={<Login />} />
-              <Route path="users">
-                <Route index element={<Users />} />
-                <Route path=":username" element={<UserDetails />} />
-                <Route path=":username/horario" element={<UserCalendar />} />
+              <Route element={<RequireAuth />}>
+                <Route index element={<Home />} />
+                <Route path="users">
+                  <Route index element={<Users />} />
+                  <Route path=":username" element={<UserDetails />} />
+                  <Route path=":username/horario" element={<UserCalendar />} />
+                  <Route
+                    path="new"
+                    element={<New inputs={userInputs} title="Add New User" />}
+                  />
+                </Route>
+                <Route path="buildings">
+                  <Route index element={<Buildings />} />
+                  <Route path=":buildingName" element={<BuildingsView />} />
+                </Route>
+                <Route path="calendario" element={<Calendar events={[]} />} />
+                <Route path="asignaturas">
+                  <Route index element={<Asignaturas />} />
+                  <Route path=":asignaturaName" element={<AsignaturaView />} />
+                </Route>
                 <Route
-                  path="new"
-                  element={<New inputs={userInputs} title="Add New User" />}
+                  path="notifications"
+                  element={<Notificaciones events={[]} />}
                 />
               </Route>
-              <Route path="buildings">
-                <Route index element={<Buildings />} />
-                <Route path=":buildingName" element={<BuildingsView />} />
-              </Route>
-              <Route path="calendario" element={<Calendar events={[]} />} />
-              <Route path="asignaturas">
-                <Route index element={<Asignaturas />} />
-                <Route path=":asignaturaName" element={<AsignaturaView />} />
-              </Route>
-              <Route
-                path="notifications"
-                element={<Notificaciones events={[]} />}
-              />
+              <Route path="event/:eventId" element={<EventView />} />
             </Route>
-            <Route path="event/:eventId" element={<EventView />} />
           </Routes>
         </div>
       </div>
