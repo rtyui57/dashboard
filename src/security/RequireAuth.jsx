@@ -2,8 +2,7 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function RequireAuth() {
-  const { getAuth } = useAuth();
-  const token = getAuth();
+  const { token } = useAuth();
   const location = useLocation();
 
   return token !== null ? (

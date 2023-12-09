@@ -1,54 +1,44 @@
 import "./login.scss";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [userCred, setUserCred] = useState({ username: "", password: "" });
+export default function Login() {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => setAuth(null), []);
 
-  function handleInputChange(e) {
-    const { name, value } = e.target; // Usar name y value directamente
-    setUserCred({ ...userCred, [name]: value });
-  }
-
-  function requestToken(e) {
-    Axios.post("http://localhost:8080/user/auth", userCred)
+  function requestToken(userData) {
+    Axios.post("http://localhost:8080/user/auth", userData)
       .then((res) => {
         setAuth(res.data);
-        navigate("/users")
+        navigate("/users");
       })
-      .catch((error) => toast.error("Error en login, causa: " + error));
+      .catch((err) =>
+        toast.error(`Error ${err.response.status}: ${err.response.data}`)
+      );
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const fields = new FormData(event.target);
+    requestToken({
+      username: fields.get("username"),
+      password: fields.get("password"),
+    });
   }
 
   return (
     <div className="formParent">
-      <div className="loginForm">
-        <h1>Sign In</h1>
-        <input
-          type="text"
-          name="username"
-          value={userCred.username}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="password"
-          value={userCred.password}
-          onChange={handleInputChange}
-        />
-        <button className="btn btn-primary" onClick={requestToken}>
-          Log In
-        </button>
-      </div>
+      <form className="loginForm" onSubmit={handleSubmit}>
+        <h1>Log In</h1>
+        <input type="text" name="username" />
+        <input type="password" name="password" />
+        <button className="btn btn-primary">Log In</button>
+      </form>
     </div>
   );
-};
-
-export default Login;
+}

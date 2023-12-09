@@ -18,6 +18,7 @@ import Notificaciones from "./pages/notificaiones/Notificaciones";
 import AsignaturaView from "./pages/asignaturas/AsignaturaView";
 import EventView from "./components/event/EventView";
 import RequireAuth from "./security/RequireAuth";
+import PersonalCalendar from "./pages/calendar/UserCalendar";
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
                   <Route index element={<Buildings />} />
                   <Route path=":buildingName" element={<BuildingsView />} />
                 </Route>
-                <Route path="calendario" element={<Calendar events={[]} />} />
+                <Route path="calendario" element={<PersonalCalendar/>} />
                 <Route path="asignaturas">
                   <Route index element={<Asignaturas />} />
                   <Route path=":asignaturaName" element={<AsignaturaView />} />

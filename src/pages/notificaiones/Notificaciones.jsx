@@ -1,9 +1,12 @@
 import { ToastContainer, toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
 
 function Notificaciones() {
+  const { username } = useAuth();
   return (
-    <div>
+    <div className="flex flex-col">
       Notificaiones
+    
       <button
         onClick={() => {
           toast.error("Hola", {
@@ -12,7 +15,7 @@ function Notificaciones() {
           });
         }}
       >
-        Hola
+        Hola   {username}
       </button>
     </div>
   );
