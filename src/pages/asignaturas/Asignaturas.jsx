@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CreateAsignatura from "../../components/modal/CreateAsignatura";
 import AxiosController from "../../utils/AxiosController";
+import { useAuth } from "../../context/AuthContext";
 
 function Asignaturas() {
+  const { role } = useAuth();
   const [asignaturas, setAsignaturas] = useState([]);
   const [filteredAsig, setFilteredAsig] = useState([]);
   const [search, setSearch] = useState(null);
@@ -33,7 +35,7 @@ function Asignaturas() {
   }
 
   function getAsignaturas() {
-    axiosController.get("/asignatura")
+    axiosController.get(`/asignatura?filterResults=${role!=='ADMIN'}`)
       .then((res) => {
         setAsignaturas(res.data);
         setFilteredAsig(res.data)
@@ -45,7 +47,7 @@ function Asignaturas() {
     <div className="w-full">
       <div className="p-3 flex justify-between">
         <div className="flex ml-28">
-          <h1 className="p-1 m-2">Asignaturas</h1>
+          <h1 className="p-1 m-2">{role === "PROFESOR" ? "Asignaturas que imparte" : "Asignaturas que estudias"}</h1>
           <input
             type="text"
             className="border-2 border-blue-900 rounded-2xl p-1"

@@ -19,6 +19,7 @@ import AsignaturaView from "./pages/asignaturas/AsignaturaView";
 import EventView from "./components/event/EventView";
 import RequireAuth from "./security/RequireAuth";
 import PersonalCalendar from "./pages/calendar/UserCalendar";
+import CalendarQR from "./pages/calendar/CalendarQR";
 
 function App() {
   return (
@@ -45,7 +46,10 @@ function App() {
                   <Route index element={<Buildings />} />
                   <Route path=":buildingName" element={<BuildingsView />} />
                 </Route>
-                <Route path="calendario" element={<PersonalCalendar/>} />
+                <Route path="calendario">
+                  <Route index element={<PersonalCalendar />} />
+                  <Route path=":calendarioId/qr" element={<CalendarQR />} />
+                </Route>
                 <Route path="asignaturas">
                   <Route index element={<Asignaturas />} />
                   <Route path=":asignaturaName" element={<AsignaturaView />} />

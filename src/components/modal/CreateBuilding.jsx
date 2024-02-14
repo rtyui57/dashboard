@@ -2,14 +2,15 @@ import AxiosController from "../../utils/AxiosController";
 import Modal from "react-modal";
 import { useState } from "react";
 
-function createBuilding(building) {
-  AxiosController()
-    .post("/building", building)
-    .then((res) => console.log(res));
-}
-
 function CreateBuilding({ modalIsOpen, handleCloseModal }) {
   const [building, setBuilding] = useState({});
+  const axiosController = AxiosController();
+
+  function createBuilding(building) {
+    axiosController
+      .post("/building", building)
+      .then((res) => console.log(res));
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -26,7 +27,7 @@ function CreateBuilding({ modalIsOpen, handleCloseModal }) {
       onRequestClose={() => handleCloseModal()}
       contentLabel="Example Modal"
     >
-      <form action="">
+      <div>
         <div className="flex flex-col">
           <span>Nombre edificio</span>
           <input
@@ -59,7 +60,7 @@ function CreateBuilding({ modalIsOpen, handleCloseModal }) {
             Close
           </button>
         </div>
-      </form>
+      </div>
     </Modal>
   );
 }

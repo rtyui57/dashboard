@@ -1,22 +1,11 @@
 import "./home.scss";
-import Widget from "../../components/widget/Widget";
-import Table from "../../components/table/Table";
-
+import { useAuth } from "../../context/AuthContext";
+import Asignaturas from "../asignaturas/Asignaturas";
 const Home = () => {
+
+  const { getUsername } = useAuth();
   return (
-    <div className="">
-      <div className="widgets">
-        <Widget type="user" />
-        <Widget type="order" />
-        <Widget type="earning" />
-        <Widget type="balance" />
-      </div>
-      <div className="charts"></div>
-      <div className="listContainer">
-        <div className="listTitle">Latest Transactions</div>
-        <Table />
-      </div>
-    </div>
+    <Asignaturas/>
   );
 };
 

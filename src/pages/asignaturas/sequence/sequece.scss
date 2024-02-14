@@ -1,0 +1,61 @@
+.formulario {
+  padding: 25px;
+  display: grid;
+  width: "100%";
+  height: "100%";
+
+  .form-group {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5px;
+    margin: 5px;
+
+    input {
+      padding: 3px;
+      border: 1px solid #000;
+      border-radius: 5px;
+    }
+  }
+
+  .fechas {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5px;
+    margin: 5px;
+  }
+
+  .hora-selector {
+    width: 6vh;
+    padding: 3px;
+    border: 1px solid #000;
+    border-radius: 5px;
+  }
+
+  .date-selector {
+    padding: 3px;
+    border: 1px solid #000;
+    border-radius: 5px;
+  }
+
+  .days-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5px;
+    margin: 5px;
+
+    .day-button {
+        padding: 3px;
+        border: 1px solid #000;
+        border-radius: 5px;
+        background-color: #0a4382;
+        color: "white";
+    }
+  }
+  .submit-button {
+    padding: 3px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #0a4382;
+    color: "white";
+  }
+}

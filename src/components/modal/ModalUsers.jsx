@@ -10,14 +10,12 @@ export default function ModalListUsers({
 }) {
   const [users, setUsers] = useState([]);
   const usersContainedIds = usersAlreadyPresent.map((user) => user.id);
-  function getUsers() {
-    AxiosController().get(`/user/list`)
-      .then((res) => setUsers(res.data))
-      .catch((err) => console.log(err));
-  }
+  const axiosController = AxiosController();
 
   useEffect(() => {
-    getUsers();
+    axiosController.get(`/user/list`)
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.log(err));
   }, []);
 
   return (

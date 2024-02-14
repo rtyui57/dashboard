@@ -3,19 +3,29 @@ import Selector from "../../components/selector/Selector";
 import { useState, useEffect } from "react";
 import Calendar from "../../components/calendar/Calendar";
 import ListUsers from "../../components/listusers/ListUsers";
-import Axios from "axios";
 import { toast } from "react-toastify";
 import ModalListUsers from "../../components/modal/ModalUsers";
-import axios from "axios";
 import AxiosController from "../../utils/AxiosController";
+import { useAuth } from "../../context/AuthContext";
+import ScheduleGenerator from "./sequence/SequenceManager";
 
 function AsignaturaView() {
-  const VIEWS = {
-    EDICION: "EDICION",
-    CALENDARIO: "CALENDARIO",
-    ALUMNOS: "ALUMNOS",
-    PROFESORES: "PROFESORES",
-  };
+  const { role } = useAuth();
+  const VIEWS =
+    role === "ADMIN"
+      ? {
+          EDICION: "EDICION",
+          CALENDARIO: "CALENDARIO",
+          ALUMNOS: "ALUMNOS",
+          PROFESORES: "PROFESORES",
+          SEQUENCE: "SEQUENCE",
+        }
+      : {
+          CALENDARIO: "CALENDARIO",
+          ALUMNOS: "ALUMNOS",
+          PROFESORES: "PROFESORES",
+          SEQUENCE: "SEQUENCE",
+        };
   const [view, setView] = useState(VIEWS.EDICION);
   const { asignaturaName } = useParams();
   const [asignatura, setAsignatura] = useState(null);
@@ -37,7 +47,8 @@ function AsignaturaView() {
 
   function saveAsignatura() {
     const { profesores, alumnos, horarios, ...asig } = asignatura;
-    axiosController.post("/asignatura", asig)
+    axiosController
+      .post("/asignatura", asig)
       .then((res) => {
         toast.success("Asignatura actualizada");
         setTimeout(500, () => getAsignatura());
@@ -46,13 +57,15 @@ function AsignaturaView() {
   }
 
   function deleteAsignatura() {
-    axiosController.delete(`/asignatura/${asignaturaName}`)
+    axiosController
+      .delete(`/asignatura/${asignaturaName}`)
       .then((res) => toast.success("Asignatura eliminada"))
       .catch((err) => toast.error(err.message));
   }
 
   function getAsignatura() {
-    axiosController.get(`/asignatura/${asignaturaName}`)
+    axiosController
+      .get(`/asignatura/${asignaturaName}`)
       .then((response) => {
         setAsignatura(response.data);
       })
@@ -66,7 +79,7 @@ function AsignaturaView() {
           className="editUser"
           onClick={() => {
             if (view == VIEWS.ALUMNOS) {
-              axios
+              axiosController
                 .delete(
                   `http://localhost:8080/asignatura/${asignaturaName}/alumno/${params.row.username}`
                 )
@@ -75,7 +88,7 @@ function AsignaturaView() {
                 )
                 .catch((err) => toast.error(err));
             } else {
-              axios
+              axiosController
                 .delete(
                   `http://localhost:8080/asignatura/${asignaturaName}/profesor/${params.row.username}`
                 )
@@ -84,7 +97,7 @@ function AsignaturaView() {
                 )
                 .catch((err) => toast.error(err));
             }
-            setReloadData(true)
+            setReloadData(true);
           }}
         >
           Eliminar
@@ -99,12 +112,12 @@ function AsignaturaView() {
       <button
         className="bg-blue-300 p-2 rounded-md"
         onClick={() => {
-          axios
+          axiosController
             .post(
               `http://localhost:8080/asignatura/${asignaturaName}/profesor/${user.username}`
             )
             .then((res) => toast.success("Added"))
-            .catch((err) => toast.error("Error"));
+            .catch((err) => toast.error("Error: " + err.response.data));
         }}
       >
         Add to Asignatura as Profesor
@@ -117,7 +130,7 @@ function AsignaturaView() {
       <button
         className="bg-blue-300 p-2 rounded-md"
         onClick={() => {
-          axios
+          axiosController
             .post(
               `http://localhost:8080/asignatura/${asignaturaName}/alumno/${user.username}`
             )
@@ -231,10 +244,12 @@ function AsignaturaView() {
             modalIsOpen={modalIsOpen}
             handleCloseModal={() => setModalOpen(false)}
             renderButton={renderButton2}
-            usersAlreadyPresent={asignatura.profesores}
+            usersAlreadyPresent={
+              asignatura == null ? [] : asignatura.profesores
+            }
           />
           <ListUsers
-            users={asignatura?.profesores}
+            users={asignatura == null ? [] : asignatura.profesores}
             title={"PROFESORES"}
             actionsContent={actionsContent}
           />
@@ -252,14 +267,17 @@ function AsignaturaView() {
             modalIsOpen={modalIsOpen}
             handleCloseModal={() => setModalOpen(false)}
             renderButton={renderButton}
-            usersAlreadyPresent={asignatura.alumnos}
+            usersAlreadyPresent={asignatura == null ? [] : asignatura.alumnos}
           />
           <ListUsers
-            users={asignatura?.alumnos}
+            users={asignatura == null ? [] : asignatura.alumnos}
             title={"ESTUDIANTES"}
             actionsContent={actionsContent}
           />
         </div>
+      )}
+      {view == VIEWS.SEQUENCE && (
+        <ScheduleGenerator asignatura={asignaturaName} />
       )}
     </div>
   );

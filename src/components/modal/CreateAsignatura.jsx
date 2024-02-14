@@ -8,10 +8,15 @@ export default function CreateAsignatura({ modalIsOpen, handleCloseModal }) {
   const axiosController = AxiosController();
 
   function createAsignatura(event) {
+    event.preventDefault();
     axiosController
       .post("/asignatura", asignatura)
-      .then((res) => toast.success("Se creo la asignatura"))
-      .catch((err) => toast.error(err.message));
+      .then((res) => {
+        toast.success("Se creo la asignatura");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
   }
 
   function handleChange(e) {

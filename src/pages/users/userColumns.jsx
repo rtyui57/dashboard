@@ -9,7 +9,11 @@ export const columns = [
       return (
         <img
           className="cellImg"
-          src={"data:image/jpeg;base64," + params.row.icon}
+          src={
+            params.row.icon.startsWith("data:image/jpeg;base64,")
+              ? params.row.icon
+              : `data:image/jpeg;base64,${params.row.icon}`
+          }
           alt="avatar"
         />
       );
@@ -36,7 +40,7 @@ export const columns = [
         </div>
       );
     },
-    width: 200
+    width: 200,
   },
   { field: "description", headerName: "Descripcion", width: 350 },
 ];

@@ -3,12 +3,14 @@ import { DataGrid } from "@mui/x-data-grid"
 import "./users.scss";
 import { columns } from "./userColumns";
 import AxiosController from "../../utils/AxiosController";
+import CreateUserModal from "../../components/modal/CreateUserModal";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(users);
   const controller = AxiosController();
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     controller
@@ -44,7 +46,8 @@ export default function Users() {
           value={searchText}
           onChange={handleSearch}
         />
-        <button>Crear</button>
+        <button onClick={() => setIsOpen(true)}>Crear</button>
+        <CreateUserModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
       </div>
       <DataGrid
         rows={filteredUsers}

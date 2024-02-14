@@ -7,6 +7,8 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [permissions, setPermissions] = useState([]);
   const [username, setUsername] = useState(null);
+  const [role, setRole] = useState(null);
+  const [email, setEmail] = useState(null);
 
   function setAuth(newToken) {
     setToken(newToken);
@@ -14,6 +16,8 @@ export const AuthProvider = ({ children }) => {
       const decodedToken = jwtDecode(newToken);
       setUsername(decodedToken.sub)
       setPermissions(decodedToken.auths)
+      setEmail(decodedToken.email)
+      setRole(decodedToken.role)
     }
   }
 
@@ -30,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, setAuth, getAuth, username, permissions }}>
+    <AuthContext.Provider value={{ token, setAuth, getAuth, username, getPermissions, role }}>
       {children}
     </AuthContext.Provider>
   );

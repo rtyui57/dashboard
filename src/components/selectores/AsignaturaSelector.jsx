@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AxiosController from "../../utils/AxiosController";
 
 export default function AsignaturaSelector({ changeAsignaturaValue }) {
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState(new Map());
   const [selectedOption, setSelectedOption] = useState("");
   const axiosController = AxiosController();
 
@@ -11,7 +11,8 @@ export default function AsignaturaSelector({ changeAsignaturaValue }) {
       .get("/asignatura/nombres")
       .then((response) => {
         setOptions(response.data);
-        changeAsignaturaValue(response.data[0]);
+        const [key, value] = Object.entries(response.data)[0];
+        changeAsignaturaValue(key);
       })
       .catch((error) => console.error("Error al obtener opciones:", error));
   }, []);
@@ -30,9 +31,9 @@ export default function AsignaturaSelector({ changeAsignaturaValue }) {
         value={selectedOption}
         onChange={handleSelectChange}
       >
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
+        {Object.entries(options).map(([clave, valor]) => (
+          <option key={clave} value={clave}>
+            {valor}
           </option>
         ))}
       </select>

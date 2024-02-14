@@ -15,7 +15,7 @@ export default function Login() {
     Axios.post("http://localhost:8080/user/auth", userData)
       .then((res) => {
         setAuth(res.data);
-        navigate("/users");
+        navigate("/");
       })
       .catch((err) =>
         toast.error(`Error ${err.response.status}: ${err.response.data}`)

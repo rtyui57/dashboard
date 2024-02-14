@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import AxiosController from "../../utils/AxiosController";
 import "./eventView.scss";
-
+import { Link } from "react-router-dom";
 function EventView() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [states, setStates] = useState([]);
-  const [changed, setChanged] = useState(false);
+  const [changed, setChanged] = useState(true);
+  const [attendants, setAttendants] = useState(new Map());
   const axiosController = AxiosController();
 
   useEffect(() => {
@@ -16,11 +17,25 @@ function EventView() {
     getStates();
   }, []);
 
+  function generateAttendants(event) {
+    const attendantsMap = new Map();
+    (event.estudiantes || []).forEach((estudiante) => {
+      attendantsMap.set(estudiante.asistenciaId, estudiante.state);
+    });
+    (event.profesores || []).forEach((profesor) => {
+      attendantsMap.set(profesor.asistenciaId, profesor.state);
+    });
+    setAttendants(attendantsMap);
+    console.log(attendantsMap);
+    console.log("generado");
+  }
+
   function getEvent() {
     axiosController
       .get(`/horario/${eventId}`)
       .then((res) => {
         setEvent(res.data);
+        generateAttendants(res.data);
       })
       .catch((err) => toast.error("Error obteniendo evento: " + err));
   }
@@ -28,7 +43,9 @@ function EventView() {
   function deleteEvent() {
     axiosController
       .delete(`/horario/${eventId}`)
-      .then((res) => {toast.success("Eliminado")})
+      .then((res) => {
+        toast.success("Eliminado");
+      })
       .catch((err) => toast.error(err));
   }
 
@@ -40,10 +57,9 @@ function EventView() {
   }
 
   function saveChanges() {
+    console.log(attendants);
     axiosController
-      .post(`/horario/${eventId}/attendants`,
-        Object.fromEntries(event.attendants)
-      )
+      .post("/horario/attendants", Object.fromEntries(attendants))
       .then((res) => toast.success("Se guardo"))
       .catch((err) => toast.error("No se guardo"));
   }
@@ -70,35 +86,38 @@ function EventView() {
           </span>
         </td>
         <td className="py-2 px-4 border-b">
-          <select
-            className={
-              " text-white py-1 px-2 rounded-full bg-orange-300 " +
-              event.attendants[user.id]
-            }
-            value={event.attendants[user.id]}
-            onChange={(event) => handleStateChange(event.target.value, user.id)}
-          >
-            {states.map((state) => (
-              <option value={state} className={state}>
-                {state}
-              </option>
-            ))}
-          </select>
+          {
+            <select
+              className={
+                " text-white py-1 px-2 rounded-full bg-orange-300 " +
+                attendants?.get(user.asistenciaId)
+              }
+              value={attendants?.get(user.asistenciaId)}
+              onChange={(event) =>
+                handleStateChange(event.target.value, user.asistenciaId)
+              }
+            >
+              {states.map((state) => (
+                <option value={state} className={state}>
+                  {state}
+                </option>
+              ))}
+            </select>
+          }
         </td>
       </tr>
     ));
   }
 
-  function handleStateChange(newState, userId) {
-    setChanged(true);
-    const updatedEvent = {
-      ...event,
-      attendants: new Map(Object.entries(event.attendants)).set(
-        userId,
-        newState
-      ),
-    };
-    setEvent(updatedEvent);
+  function handleStateChange(newState, asistenciaId) {
+    setAttendants((prevAttendants) => {
+      console.log(prevAttendants);
+      const newAttendantsMap = new Map(prevAttendants);
+      if (newAttendantsMap.has(asistenciaId)) {
+        newAttendantsMap.set(asistenciaId, newState);
+      }
+      return newAttendantsMap;
+    });
   }
 
   return (
@@ -138,10 +157,11 @@ function EventView() {
           </tr>
         </thead>
         <tbody>
-          {generateRows("ALUMNOS", event === null ? [] : event.alumnos)}
+          {generateRows("ALUMNOS", event === null ? [] : event.estudiantes)}
           {generateRows("PROFESORES", event === null ? [] : event.profesores)}
         </tbody>
       </table>
+      <Link to={`/calendario/${eventId}/qr`} className="p-2 m-2 bg-blue-500 text-white">QR</Link>
     </div>
   );
 }

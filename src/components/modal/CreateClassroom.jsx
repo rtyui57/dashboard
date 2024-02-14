@@ -15,9 +15,10 @@ function CreateClassroom({ modalIsOpen, handleCloseModal, building }) {
   }
 
   function postClassroom(id, clasroom) {
-    axiosController
-      .post(`/building/${id}/classroom`, clasroom)
-      .then((res) => console.log(res));
+    axiosController.post(`/building/${id}/classroom`, clasroom).then((res) => {
+      console.log(res);
+      handleCloseModal();
+    });
   }
 
   return (
@@ -28,7 +29,7 @@ function CreateClassroom({ modalIsOpen, handleCloseModal, building }) {
       contentLabel="Example Modal"
     >
       <h1>Crear aulario del edificio {building}</h1>
-      <form className="flex flex-col">
+      <div className="flex flex-col">
         <span>Name</span>
         <input
           className="bg-red-400"
@@ -61,7 +62,7 @@ function CreateClassroom({ modalIsOpen, handleCloseModal, building }) {
             Close
           </button>
         </div>
-      </form>
+      </div>
     </Modal>
   );
 }

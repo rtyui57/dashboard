@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import DomainIcon from "@mui/icons-material/Domain";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import SchoolIcon from "@mui/icons-material/School";
+import { useAuth } from "../../context/AuthContext";
 
 const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
   return (
@@ -23,21 +24,17 @@ const SideBarIcon = ({ icon, link, desc = "Hola" }) => {
 };
 
 export default function Sidebar() {
+  const { role } = useAuth();
   return (
     <div className="sidebar z-50">
       <div className="icons_container">
         <div className="top_icons">
           <SideBarIcon icon={<DashboardIcon />} link="/" desc="Home" />
-          <SideBarIcon
-            icon={<PersonOutlineIcon />}
-            link="/users"
-            desc="Users"
-          />
-          {"a" === "admin" && (
+          {role === "ADMIN" && (
             <SideBarIcon
-              icon={<StoreIcon />}
-              link="/customers"
-              desc="Customer"
+              icon={<PersonOutlineIcon />}
+              link="/users"
+              desc="Users"
             />
           )}
           <SideBarIcon
@@ -55,7 +52,9 @@ export default function Sidebar() {
             link="/asignaturas"
             desc="Asignaturas"
           />
-          <SideBarIcon icon={<DomainIcon />} link="/buildings" desc="Aulas" />
+          {role === "ADMIN" && (
+            <SideBarIcon icon={<DomainIcon />} link="/buildings" desc="Aulas" />
+          )}
         </div>
         <div className="bottom_icons">
           <SideBarIcon icon={<ExitToAppIcon />} link="/login" desc="LogOut" />

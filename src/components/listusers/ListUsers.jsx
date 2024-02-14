@@ -4,13 +4,22 @@ import { Link } from "react-router-dom";
 
 function getColumns(actionsContent) {
   return [
-    { field: "username", headerName: "Usuario", width: 150 },
+    {
+      field: "username",
+      headerName: "Usuario",
+      width: 150,
+      renderCell: (params) => (
+        <Link to={`/users/${params.row.id}`}>
+          <h3>{params.row.username}</h3>
+        </Link>
+      ),
+    },
     {
       field: "icon",
       headerName: "Perfil",
       width: 100,
       renderCell: (params) => {
-        console.log(params)
+        console.log(params);
         return (
           <img
             className="cellImg"
