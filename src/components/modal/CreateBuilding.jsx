@@ -1,15 +1,17 @@
 import AxiosController from "../../utils/AxiosController";
 import Modal from "react-modal";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function CreateBuilding({ modalIsOpen, handleCloseModal }) {
   const [building, setBuilding] = useState({});
   const axiosController = AxiosController();
 
   function createBuilding(building) {
-    axiosController
-      .post("/building", building)
-      .then((res) => console.log(res));
+    axiosController.post("/building", building).then((res) => {
+      toast.success("Se creo el edificio correctamente");
+      handleCloseModal();
+    });
   }
 
   function handleChange(e) {

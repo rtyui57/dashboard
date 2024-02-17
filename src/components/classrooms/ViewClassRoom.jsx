@@ -3,9 +3,10 @@ import { useState } from "react";
 import Calendar from "../calendar/Calendar";
 import Selector from "../selector/Selector";
 import QRCode from "react-qr-code";
+import DataView from "./dataview/DataView";
 
 function ViewClassroom({ building, selectedClassroom }) {
-  const ESTADOS = { CALENDARIO: "CALENDARIO", QR: "QR", ASIENTOS: "ASIENTOS" };
+  const ESTADOS = { CALENDARIO: "CALENDARIO", QR: "QR", DATA: "DATA" };
   const [view, setView] = useState(ESTADOS.CALENDARIO);
 
   return (
@@ -20,7 +21,9 @@ function ViewClassroom({ building, selectedClassroom }) {
           />
         </div>
       )}
-      {view === ESTADOS.ASIENTOS && <div>Asientos</div>}
+      {view === ESTADOS.DATA && (
+        <DataView selectedClassroom={selectedClassroom} />
+      )}
       {view === ESTADOS.QR && (
         <div>
           Codigo QR <QRCode value="marca.com" />

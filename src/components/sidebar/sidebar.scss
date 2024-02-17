@@ -36,6 +36,14 @@
         text-xs font-bold 
         transition-all duration-100 origin-left;
       }
+
+      .notification {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        right: 30px;
+        background-color: #ef0d0d;
+      }
     }
     svg {
       @apply text-yellow-50  hover:text-black transition-all duration-200 cursor-pointer;

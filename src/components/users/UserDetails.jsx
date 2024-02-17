@@ -6,7 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import Selector from "../selector/Selector";
 import Calendar from "../calendar/Calendar";
-import { func } from "prop-types";
+import { DataGrid } from "@mui/x-data-grid";
+import { asignaturasColumns } from "../../pages/asignaturas/asignaturasTable";
 
 const UserDetails = () => {
   const VIEW = { ASIGNATURAS: "ASIGNATURAS", HORARIO: "HORARIO", INFO: "INFO" };
@@ -135,7 +136,14 @@ const UserDetails = () => {
     return (
       <div className="">
         <h1>Lista de asignaturas del usuario: {username}</h1>
-        {localUser.asignaturas.map((asignatura) => asignatura.name)}
+        <DataGrid
+        rows={localUser.asignaturas}
+        columns={asignaturasColumns}
+        onColumnWidthChange={(params) => {
+          console.log(params);
+        }}
+        className="tabla p-2 m-4"
+      />
       </div>
     );
   };
