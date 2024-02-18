@@ -1,16 +1,37 @@
 import React, { useState } from "react";
 import "./dataview.scss";
+import BLEForm from "./BLEForm";
+import { toast } from "react-toastify";
+import AxiosController from "../../../utils/AxiosController";
 
 export default function DataView({ building, selectedClassroom }) {
   const [data, setData] = useState({
     ip: "",
+    mac: "",
+    username: "",
     password: "",
-    raspberryIp: "",
-    raspberryMac: "",
-    services: [],
+    name: "",
   });
-
   const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [changedServices, setChangedServices] = useState([]);
+  const axios = new AxiosController();
+
+  React.useEffect(() => {
+    if (selectedClassroom == null) {
+      return;
+    }
+    axios
+      .get(`/building/aula/${selectedClassroom.id}/data`)
+      .then((res) => {
+        console.log(res.data.services);
+        setServices(res.data.services);
+        setData(res.data);
+      })
+      .catch((err) => {
+        toast.error("Error al cargar los datos");
+      });
+  }, [selectedClassroom]);
 
   const handleInputChange = (e) => {
     setData({
@@ -19,66 +40,21 @@ export default function DataView({ building, selectedClassroom }) {
     });
   };
 
-  const handleAddService = () => {
-    setServices({
-      ...data,
-      services: [
-        ...data.services,
-        {
-          id: data.services.length + 1,
-          characteristics: [{ id: 1, mode: "read" }], // característica inicial
-        },
-      ],
-    });
-  };
-
-  const handleAddCharacteristic = (serviceId) => {
-    setData({
-      ...data,
-      services: data.services.map((service) =>
-        service.id === serviceId
-          ? {
-              ...service,
-              characteristics: [
-                ...service.characteristics,
-                {
-                  id: service.characteristics.length + 1,
-                  mode: "read",
-                },
-              ],
-            }
-          : service
-      ),
-    });
-  };
-
-  const handleDeleteService = (serviceId) => {
-    setData({
-      ...data,
-      services: data.services.filter((service) => service.id !== serviceId),
-    });
-  };
-
-  const handleDeleteCharacteristic = (serviceId, charId) => {
-    setData({
-      ...data,
-      services: data.services.map((service) =>
-        service.id === serviceId
-          ? {
-              ...service,
-              characteristics: service.characteristics.filter(
-                (char) => char.id !== charId
-              ),
-            }
-          : service
-      ),
-    });
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes manejar la lógica para enviar los datos, por ejemplo:
-    console.log(data);
   };
+
+  function saveData() {
+    const value = { ...data, services: services };
+    axios
+      .post(`/building/aula/${selectedClassroom.id}/data`, value)
+      .then((res) => {
+        toast.success("Se ha guardado correctamente los datos");
+      })
+      .catch((err) => {
+        toast.error("Error al guardar los datos");
+      });
+  }
 
   return (
     <div className="container">
@@ -86,9 +62,9 @@ export default function DataView({ building, selectedClassroom }) {
         <label className="entrada">
           Usuario de la Raspberry PI:
           <input
-            name="ip"
+            name="username"
             type="text"
-            value={data.ip}
+            value={data.username}
             onChange={handleInputChange}
           />
         </label>
@@ -104,81 +80,37 @@ export default function DataView({ building, selectedClassroom }) {
         <label className="entrada">
           Dirección IP de la Raspberry PI:
           <input
-            name="raspberryIp"
+            name="ip"
             type="text"
-            value={data.raspberryIp}
+            value={data.ip}
             onChange={handleInputChange}
           />
         </label>
         <label className="entrada">
           Dirección MAC de la Raspberry PI:
           <input
-            name="raspberryMac"
+            name="mac"
             type="text"
-            value={data.raspberryMac}
+            value={data.mac}
             onChange={handleInputChange}
           />
         </label>
-        <div className="servicios">
-          Servicios BLE asociados a la Raspberry PI:
-          {data.services.map((service) => (
-            <div className="servicio" key={service.id}>
-              <h3>Servicio {service.id}</h3>
-              <button onClick={() => handleDeleteService(service.id)}>
-                Eliminar Servicio
-              </button>
-              {service.characteristics.map((char) => (
-                <div key={char.id}>
-                  <label>
-                    Característica {char.id}:
-                    <input type="text" value={char.mode} onChange={() => {}} />
-                  </label>
-                  <label>
-                    Modo:
-                    <select
-                      value={char.mode}
-                      onChange={(e) =>
-                        setData({
-                          ...data,
-                          services: data.services.map((s) =>
-                            s.id === service.id
-                              ? {
-                                  ...s,
-                                  characteristics: s.characteristics.map((c) =>
-                                    c.id === char.id
-                                      ? { ...c, mode: e.target.value }
-                                      : c
-                                  ),
-                                }
-                              : s
-                          ),
-                        })
-                      }
-                    >
-                      <option value="read">READ</option>
-                      <option value="write">WRITE</option>
-                      <option value="write">BOTH</option>
-                    </select>
-                    <button
-                      onClick={() =>
-                        handleDeleteCharacteristic(service.id, char.id)
-                      }
-                    >
-                      Eliminar
-                    </button>
-                  </label>
-                </div>
-              ))}
-              <button onClick={() => handleAddCharacteristic(service.id)}>
-                Agregar Característica
-              </button>
-            </div>
-          ))}
-          <button type="button" onClick={handleAddService}>
-            Agregar Servicio
-          </button>
-        </div>
-        <button type="submit">Guardar</button>
+        <label className="entrada">
+          Nombre de la Raspberry PI:
+          <input
+            name="name"
+            type="text"
+            value={data.name}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label className="entrada">
+          <div className="servicios">
+            Servicios BLE asociados a la Raspberry PI:
+            <BLEForm services={services} setServices={setServices} />
+          </div>
+        </label>
+        <button onClick={saveData}>Guardar</button>
       </form>
     </div>
   );
