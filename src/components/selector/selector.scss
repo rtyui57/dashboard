@@ -1,22 +1,22 @@
 .acciones {
-  background-color: rgb(240, 241, 241);
-  justify-content: space-between;
-  border: 3px solid #0a4382;
-  border-left: 0px solid #0a4382;
-
+  background-color: #1a5496;
+  justify-content: space-evenly;
+  border: 3px solid black;
+  display: flex;
+  width: 100%;
 
   button {
-    width: auto;
+    width: 15rem;
     padding: 3px;
     &:hover {
-      background-color: #0a4382;
-      color: white;
+      background-color: white;
+      color: #1a5496;
     }
   }
 
   .selected {
-    background-color: #0a4382;
-    color: white;
+    background-color: white;
+    color: #1a5496;
     size: 15rem;
   }
 }

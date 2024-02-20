@@ -10,7 +10,19 @@
     justify-content: space-evenly;
     align-items: center;
 
+    button {
+      background-color: #0a4382;
+      color: white;
+      padding: 6px;
+      margin: 6px;
+      border-radius: 10px;
+      border-style: solid;
+      border-width: 2px;
+      border-color: black;
+    }
+
     input {
+      width: 25rem;
       padding: 5px;
       margin-left: 15px;
       border-radius: 10px;
@@ -24,16 +36,42 @@
       margin: 5px;
     }
     .servicios {
-      background-color: blanchedalmond;
+      padding: 25px;
+      justify-content: center;
       display: flex;
       flex-direction: column;
 
       .servicio {
         display: flex;
         flex-direction: column;
-        padding: 10px;
+        padding: 20px;
         margin: 5px;
-        background-color: burlywood;
+
+        .titulo {
+          display: flex;
+          padding: 10px;
+          margin: 5px;
+
+          p {
+            font-size: 18px;
+          }
+        }
+
+        li {
+          padding: 15px;
+          margin: 5px;
+
+          select {
+            padding: 5px;
+            margin: 5px;
+            border-radius: 10px;
+            border-style: solid;
+            border-width: 2px;
+            border-color: #0a4382;
+          }
+        }
+
+        
       }
     }
   }

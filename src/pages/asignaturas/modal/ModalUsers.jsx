@@ -1,11 +1,12 @@
 import Modal from "react-modal";
 import { useState, useEffect } from "react";
-import AxiosController from "../../utils/AxiosController";
+import AxiosController from "../../../utils/AxiosController";
+import { toast } from "react-toastify";
 
 export default function ModalListUsers({
   modalIsOpen,
   handleCloseModal,
-  renderButton,
+  asignaturaName,
   usersAlreadyPresent = [],
 }) {
   const [users, setUsers] = useState([]);
@@ -13,11 +14,20 @@ export default function ModalListUsers({
   const axiosController = AxiosController();
 
   useEffect(() => {
-    axiosController.get(`/user/list`)
+    axiosController
+      .get(`/user/list`)
       .then((res) => setUsers(res.data))
       .catch((err) => console.log(err));
   }, []);
 
+  function addUser(username) {
+    axiosController
+      .post(
+        `http://localhost:8080/asignatura/${asignaturaName}/alumno/${username}`
+      )
+      .then((res) => toast.success("Added"))
+      .catch((err) => toast.error("Error: " + err));
+  }
   return (
     <Modal
       className="modalStyle"
@@ -25,14 +35,8 @@ export default function ModalListUsers({
       onRequestClose={() => handleCloseModal()}
       contentLabel="Example Modal"
     >
-      <button
-        className="border-lime-500 text-xl to-red-400"
-        onClick={() => handleCloseModal()}
-      >
-        X
-      </button>
-      <h1>List of Users to Choose From</h1>
-      <ul className="justify-between">
+      <h1 className="p-2 text-center">Lista de Usuarios que Añadir</h1>
+      <ul className="justify-between text-center align-middle">
         {users.map((user) => {
           if (!usersContainedIds.includes(user.id)) {
             return (
@@ -45,8 +49,12 @@ export default function ModalListUsers({
                     width="45rem"
                   />
                   <h3 className="p-3">{user.username}</h3>
-                  {renderButton && renderButton(user)}
-                  <button></button>
+                  <button
+                    className="bg-blue-300 p-2 rounded-md"
+                    onClick={() => addUser(user.username, "test")}
+                  >
+                    Añádir Usuario a Asignatura
+                  </button>
                 </div>
               </li>
             );
@@ -55,6 +63,12 @@ export default function ModalListUsers({
           }
         })}
       </ul>
+      <button
+        className="bg-red-600 text-white p-2 m-5 rounded-md"
+        onClick={() => handleCloseModal()}
+      >
+        Cerrar
+      </button>
     </Modal>
   );
 }

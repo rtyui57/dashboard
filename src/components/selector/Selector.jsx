@@ -2,7 +2,7 @@ import "./selector.scss";
 
 function Selector({ setView, views, currentView }) {
   return (
-    <div className="acciones w-full flex">
+    <div className="acciones">
       {views.map((view, index) => (
         <button
           key={index}

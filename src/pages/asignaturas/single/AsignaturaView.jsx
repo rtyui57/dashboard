@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
-import Selector from "../../components/selector/Selector";
+import Selector from "../../../components/selector/Selector";
 import { useState, useEffect } from "react";
-import Calendar from "../../components/calendar/Calendar";
-import ListUsers from "../../components/listusers/ListUsers";
+import Calendar from "../../../components/calendar/Calendar";
+import ListUsers from "../../../components/listusers/ListUsers";
 import { toast } from "react-toastify";
-import ModalListUsers from "../../components/modal/ModalUsers";
-import AxiosController from "../../utils/AxiosController";
-import { useAuth } from "../../context/AuthContext";
-import ScheduleGenerator from "./sequence/SequenceManager";
+import ModalListUsers from "../modal/ModalUsers";
+import AxiosController from "../../../utils/AxiosController";
+import { useAuth } from "../../../context/AuthContext";
+import ScheduleGenerator from "../sequence/SequenceManager";
 
 function AsignaturaView() {
   const { role } = useAuth();
@@ -104,42 +104,6 @@ function AsignaturaView() {
         </button>
         <button className="editUser">Olfd</button>
       </div>
-    );
-  }
-
-  function renderButton2(user) {
-    return (
-      <button
-        className="bg-blue-300 p-2 rounded-md"
-        onClick={() => {
-          axiosController
-            .post(
-              `http://localhost:8080/asignatura/${asignaturaName}/profesor/${user.username}`
-            )
-            .then((res) => toast.success("Added"))
-            .catch((err) => toast.error("Error: " + err.response.data));
-        }}
-      >
-        Add to Asignatura as Profesor
-      </button>
-    );
-  }
-
-  function renderButton(user) {
-    return (
-      <button
-        className="bg-blue-300 p-2 rounded-md"
-        onClick={() => {
-          axiosController
-            .post(
-              `http://localhost:8080/asignatura/${asignaturaName}/alumno/${user.username}`
-            )
-            .then((res) => toast.success("Added"))
-            .catch((err) => toast.error("Error: " + err));
-        }}
-      >
-        Add to Asignatura as Alumno
-      </button>
     );
   }
 
@@ -243,13 +207,13 @@ function AsignaturaView() {
           <ModalListUsers
             modalIsOpen={modalIsOpen}
             handleCloseModal={() => setModalOpen(false)}
-            renderButton={renderButton2}
+            asignaturaName={asignaturaName}
             usersAlreadyPresent={
               asignatura == null ? [] : asignatura.profesores
             }
           />
           <ListUsers
-            users={asignatura == null ? [] : asignatura.profesores}
+            users={asignatura == null ? [] : asignatura.profesores.concat(asignatura.alumnos)}
             title={"PROFESORES"}
             actionsContent={actionsContent}
           />
@@ -266,8 +230,8 @@ function AsignaturaView() {
           <ModalListUsers
             modalIsOpen={modalIsOpen}
             handleCloseModal={() => setModalOpen(false)}
-            renderButton={renderButton}
-            usersAlreadyPresent={asignatura == null ? [] : asignatura.alumnos}
+            asignaturaName={asignaturaName}
+            usersAlreadyPresent={asignatura == null ? [] : asignatura.alumnos.concat(asignatura.profesores)}
           />
           <ListUsers
             users={asignatura == null ? [] : asignatura.alumnos}

@@ -106,7 +106,7 @@ export default function DataView({ building, selectedClassroom }) {
         </label>
         <label className="entrada">
           <div className="servicios">
-            Servicios BLE asociados a la Raspberry PI:
+            <h2>Servicios BLE asociados a la Raspberry PI:</h2>
             <BLEForm services={services} setServices={setServices} />
           </div>
         </label>

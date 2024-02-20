@@ -122,11 +122,12 @@ function EventView() {
 
   return (
     <div className="w-full flex flex-col">
-      <h1 className="text-center p-3">Evento {event?.title}</h1>
+      <h1 className="text-center p-3">{event?.title}</h1>
       <div className="info justify-center flex">
         <p className="detailed">
-          {event?.start}--{event?.end}
+          Fecha de Inicio: {event?.start.replace('T', ' ')}
         </p>
+        <p className="detailed">Fecha de Finalización: {event?.end.replace('T', ' ')}</p>
         <p className="detailed">Asignatura:{event?.asignatura}</p>
         <p className="detailed">Aula: {event?.aula}</p>
         <button
@@ -161,7 +162,6 @@ function EventView() {
           {generateRows("PROFESORES", event === null ? [] : event.profesores)}
         </tbody>
       </table>
-      <Link to={`/calendario/${eventId}/qr`} className="p-2 m-2 bg-blue-500 text-white">QR</Link>
     </div>
   );
 }

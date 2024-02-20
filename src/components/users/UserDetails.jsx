@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import Selector from "../selector/Selector";
 import Calendar from "../calendar/Calendar";
 import { DataGrid } from "@mui/x-data-grid";
-import { asignaturasColumns } from "../../pages/asignaturas/asignaturasTable";
+import { asignaturasColumns } from "../../pages/asignaturas/list/asignaturasTable";
 
 const UserDetails = () => {
   const VIEW = { ASIGNATURAS: "ASIGNATURAS", HORARIO: "HORARIO", INFO: "INFO" };
@@ -26,7 +26,7 @@ const UserDetails = () => {
 
   useEffect(() => {
     loaduser();
-    setEvents();
+    loadEvents();
   }, []);
 
   function loaduser() {
@@ -38,7 +38,7 @@ const UserDetails = () => {
 
   function loadEvents() {
     axiosController
-      .get(`/user/${username}/horario/movil`)
+      .get(`/user/${username}/horario`)
       .then((res) => setEvents(res.data))
       .catch((err) => console.log(err));
   }

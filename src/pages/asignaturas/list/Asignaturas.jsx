@@ -2,9 +2,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import { asignaturasColumns } from "./asignaturasTable";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import CreateAsignatura from "../../components/modal/CreateAsignatura";
-import AxiosController from "../../utils/AxiosController";
-import { useAuth } from "../../context/AuthContext";
+import CreateAsignatura from "../modal/CreateAsignatura";
+import AxiosController from "../../../utils/AxiosController";
+import { useAuth } from "../../../context/AuthContext";
+import './asignaturas.scss'
 
 function Asignaturas() {
   const { role } = useAuth();
@@ -44,13 +45,13 @@ function Asignaturas() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full mainContent">
       <div className="p-3 flex justify-between">
         <div className="flex ml-28">
           <h1 className="p-1 m-2">{role === "PROFESOR" ? "Asignaturas que imparte" : "Asignaturas que estudias"}</h1>
           <input
             type="text"
-            className="border-2 border-blue-900 rounded-2xl p-1"
+            placeholder="Buscar"
             value={search}
             onChange={handleSearch}
           />
@@ -58,7 +59,7 @@ function Asignaturas() {
 
         <button
           onClick={() => setModalOpen(true)}
-          className="p-2 bg-blue-600 rounded-md text-white mr-14"
+          className="accessButton"
         >
           Create asignatura
         </button>

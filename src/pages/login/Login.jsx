@@ -34,10 +34,10 @@ export default function Login() {
   return (
     <div className="formParent">
       <form className="loginForm" onSubmit={handleSubmit}>
-        <h1>Log In</h1>
+        <h1>Iniciar Sesión</h1>
         <input type="text" name="username" />
         <input type="password" name="password" />
-        <button className="btn btn-primary">Log In</button>
+        <button className="btn btn-primary">Iniciar Sesión</button>
       </form>
     </div>
   );

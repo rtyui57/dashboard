@@ -32,14 +32,32 @@ function BLEService({
     );
     setServices((prevServices) =>
       prevServices.map((prevService) =>
-        prevService.id === id ? { ...prevService, characteristics: newCharacteristics } : prevService
+        prevService.id === id
+          ? { ...prevService, characteristics: newCharacteristics }
+          : prevService
+      )
+    );
+  };
+
+  const setServiceName = (newName, id) => {
+    setServices((prevServices) =>
+      prevServices.map((service) =>
+        service.id === id ? { ...service, name: newName } : service
       )
     );
   };
 
   return (
     <div style={{ marginBottom: 10 }}>
-      <h3>Servicio {id}</h3>
+      <div className="titulo">
+        <p>Servicio </p>
+        <input
+          type="text"
+          placeholder="Nombre del servicio"
+          value={service.name}
+          onChange={(e) => setServiceName(e.target.value, service.id)}
+        />
+      </div>
       <ul>
         {characteristics.map((char, index) => (
           <li key={index}>
@@ -53,7 +71,7 @@ function BLEService({
             />
             Modo
             <select
-            name="mode"
+              name="mode"
               value={char.mode}
               onChange={(e) => handleModeChange(e, char.id)}
             >
@@ -126,7 +144,7 @@ export default function BLEForm({ services, setServices }) {
   };
 
   return (
-    <div>
+    <div className="servicio">
       {services.map((service) => (
         <BLEService
           service={service}
