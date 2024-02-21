@@ -10,6 +10,7 @@ function ListClassrooms({
   selectedClassroom,
   selectClassroom,
   building,
+  updateData,
 }) {
   const [modalIsOpen, setModal] = useState(false);
   const navigate = useNavigate();
@@ -26,16 +27,34 @@ function ListClassrooms({
       })
       .catch((err) => toast.error("Error: " + err));
   }
+
+  function removeAula() {
+    axiosController
+      .delete(`/building/aula/${selectedClassroom.id}`)
+      .then((res) => {
+        toast.success("Se elimino", {
+          autoClose: 1500,
+        });
+        updateData();
+      })
+      .catch((err) => toast.error("Error: " + err));
+  }
+
   return (
     <div className="classroomsList bg-slate-700 h-full">
       <CreateClassroom
         modalIsOpen={modalIsOpen}
         handleCloseModal={() => {
-          setModal(false);
-          document.getElementById("calendario").style.zIndex = "auto";
-          document.getElementById("calendario").style.position = "static";
+          try {
+            setModal(false);
+            document.getElementById("calendario").style.zIndex = "auto";
+            document.getElementById("calendario").style.position = "static";
+          } catch (e) {
+            console.log(e);
+          }
         }}
         building={building}
+        updateData={updateData}
       />
       <div className="actions">List of classrooms</div>
       <div className="flex flex-col justify-between h-full">
@@ -67,12 +86,23 @@ function ListClassrooms({
             </div>
           ))}
         </div>
+        <div className="p-3 flex flex-col justify-between h-32">
+        {selectedClassroom && (
+          <button
+            className="bg-red-500 w-52 py-2 rounded-md text-white"
+            onClick={removeAula}
+          >
+            Eliminar aula {selectedClassroom.name}
+          </button>
+        )}
         <button
-          className="bg-red-500 w-52 py-3 rounded-md text-white"
+          className="bg-red-500 w-52 py-2 rounded-md text-white"
           onClick={removeBuilding}
         >
-          Delete {building}
+          Eliminar edificio {building}
         </button>
+        </div>
+        
       </div>
     </div>
   );

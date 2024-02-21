@@ -1,4 +1,4 @@
-import AxiosController from "../../utils/AxiosController";
+import AxiosController from "../../../utils/AxiosController";
 import Modal from "react-modal";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -24,12 +24,13 @@ function CreateBuilding({ modalIsOpen, handleCloseModal }) {
 
   return (
     <Modal
-      className="modalStyle"
+      className="modalStyle bg-white p-5 border-cyan-500"
       isOpen={modalIsOpen}
       onRequestClose={() => handleCloseModal()}
       contentLabel="Example Modal"
     >
       <div>
+        <h1 className="p-3 text-center">Crear Nuevo Edificio</h1>
         <div className="flex flex-col">
           <span>Nombre edificio</span>
           <input
@@ -48,19 +49,21 @@ function CreateBuilding({ modalIsOpen, handleCloseModal }) {
             value={building.plantas}
           />
         </div>
+        
         <div className="flex justify-between p-3">
-          <button
-            className="bg-blue-500 p-2"
-            onClick={() => createBuilding(building)}
-          >
-            Save
-          </button>
-          <button
-            className="bg-blue-500 p-2"
+        <button
+            className="addBuilding"
             onClick={() => handleCloseModal()}
           >
-            Close
+            Cerrar
           </button>
+          <button
+            className="addBuilding"
+            onClick={() => createBuilding(building)}
+          >
+            Guardar
+          </button>
+         
         </div>
       </div>
     </Modal>

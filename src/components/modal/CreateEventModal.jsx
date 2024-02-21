@@ -72,17 +72,17 @@ function CreateEventModal({
 
   return (
     <Modal
-      className="modalStyle"
+      className="modalStyle p-2 h-96"
       isOpen={modalIsOpen}
       onRequestClose={() => handleCloseModal()}
       contentLabel="Example Modal"
     >
-      <h1 className="text-center">Create a New Event</h1>
+      <h1 className="text-center">Crear un Nuevo Evento</h1>
       <div className="flex flex-col items-center text-center">
         <div className="w-96 flex flex-col justify-center">
-          <span className="p-2">Titulo</span>
+          <span className="p-1">Titulo</span>
           <input
-            className="border-2 border-solid border-blue-800 m-1 rounded-lg"
+            className="border-2 border-solid border-blue-800 rounded-lg"
             type="text"
             name="title"
             id="title"
@@ -90,9 +90,9 @@ function CreateEventModal({
             onChange={handleChange}
           />
 
-          <span className="p-2">Fecha de comienzo: </span>
+          <span className="p-1">Fecha de comienzo: </span>
           <input
-            className="border-2 border-solid border-blue-800 m-1 rounded-lg"
+            className="border-2 border-solid border-blue-800 rounded-lg"
             type="datetime-local"
             name="start"
             id="start"
@@ -100,9 +100,9 @@ function CreateEventModal({
             onChange={handleChange}
           />
 
-          <span className="p-2">Fecha de finalizacion: </span>
+          <span className="p-1">Fecha de finalizacion: </span>
           <input
-            className="border-2 border-solid border-blue-800 m-1 rounded-lg"
+            className="border-2 border-solid border-blue-800 rounded-lg"
             type="datetime-local"
             name="end"
             id="end"
@@ -110,7 +110,7 @@ function CreateEventModal({
             onChange={handleChange}
           />
 
-          <span className="p-2">Asignatura</span>
+          <span className="p-1">Asignatura</span>
           {asignatura !== null ? (
             <OneInputSelector
               changeValue={handleAsignaturaChange}
@@ -122,14 +122,14 @@ function CreateEventModal({
             />
           )}
 
-          <span className="p-2">Aula</span>
+          <span className="p-1">Aula</span>
           {aula !== null ? (
             <OneInputSelector changeValue={handleAulaChange} input={aula} />
           ) : (
             <AulaSelector changeAulaValue={handleAulaChange} />
           )}
 
-          <span className="p-2">Color del evento: {event.color}</span>
+          <span className="p-1">Color del evento: {event.color}</span>
           <input
             className="w-36 flex items-center"
             type="color"
@@ -141,13 +141,13 @@ function CreateEventModal({
 
           <div className="flex justify-between p-3 px-5">
             <button
-              className="bg-blue-700 text-white border-2 border-black  rounded-lg py-1 px-2"
+              className="bg-primarycolor text-white border-2 border-black  rounded-lg py-1 px-2"
               onClick={() => handleCloseModal()}
             >
               Cerrar
             </button>
             <button
-              className="bg-blue-700 text-white border-2 border-black  rounded-lg py-1 px-2"
+              className="bg-primarycolor text-white border-2 border-black  rounded-lg py-1 px-2"
               onClick={() => importEvent()}
             >
               Crear

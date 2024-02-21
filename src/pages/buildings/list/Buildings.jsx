@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./buildings.scss";
-import CreateBuilding from "../../components/modal/CreateBuilding";
-import AxiosController from "../../utils/AxiosController";
+import CreateBuilding from "../modal/CreateBuilding";
+import AxiosController from "../../../utils/AxiosController";
 
 const Buildings = () => {
   const [buildings, setBuildings] = useState([]);
@@ -34,7 +34,7 @@ const Buildings = () => {
           onClick={() => {
             setModalIsOpen(true);
           }}
-          className="bg-blue-400 text-white p-2 rounded-lg"
+          className="addBuilding"
         >
           Crear building
         </button>

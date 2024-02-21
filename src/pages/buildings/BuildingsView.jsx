@@ -8,13 +8,18 @@ function BuildingsView() {
   const { buildingName } = useParams();
   const [building, setBuilding] = useState({ aulas: [] });
   const [selectedClassroom, setSelectedClassroom] = useState(null);
+  const [reloadData, setReloadData] = useState(false);
   const axiosController = AxiosController();
+
+  const updateData = () => {
+    setReloadData(reloadData => !reloadData);
+  };
 
   useEffect(() => {
     axiosController.get(`/building/${buildingName}`).then((res) => {
       setBuilding(res.data);
     });
-  }, []);
+  }, [reloadData]);
 
   return (
     <div className="classrooms flex h-full">
@@ -23,6 +28,7 @@ function BuildingsView() {
         selectedClassroom={selectedClassroom}
         selectClassroom={setSelectedClassroom}
         building={buildingName}
+        updateData={updateData}
       />
       <ViewClassroom
         building={buildingName}

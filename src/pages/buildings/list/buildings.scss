@@ -1,0 +1,30 @@
+.addBuilding {
+    background-color: #0a4382;
+    color: white;
+    padding: 7px;
+    border-radius: 8px;
+}
+
+input {
+    margin: 7px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #0a4382;
+}
+  .cuadrados-grid {
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+    row-gap: 3rem; /* Ajusta la separación entre cuadrados según sea necesario */
+
+    .cuadrado {
+      width: 15rem;
+      height: 15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #000;
+      background: linear-gradient(45deg, #ffcc00, #ff6699);
+    }
+  }
+

@@ -125,11 +125,15 @@ function EventView() {
       <h1 className="text-center p-3">{event?.title}</h1>
       <div className="info justify-center flex">
         <p className="detailed">
-          Fecha de Inicio: {event?.start.replace('T', ' ')}
+          Fecha de Inicio: {event?.start.replace("T", " ")}
         </p>
-        <p className="detailed">Fecha de Finalización: {event?.end.replace('T', ' ')}</p>
-        <p className="detailed">Asignatura:{event?.asignatura}</p>
-        <p className="detailed">Aula: {event?.aula}</p>
+        <p className="detailed">
+          Fecha de Finalización: {event?.end.replace("T", " ")}
+        </p>
+        <p className="detailed">
+          Asignatura: <Link to={`/asignaturas/${event?.asignatura}`}>{event?.asignatura}</Link>
+        </p>
+        <p className="detailed">Aula:  <Link to={`/buildings/${event?.aula.split('--')[0]}`}>{event?.aula}</Link></p>
         <button
           className="detailed bg-red-700 text-white"
           onClick={deleteEvent}

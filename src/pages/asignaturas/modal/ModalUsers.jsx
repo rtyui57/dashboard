@@ -22,11 +22,14 @@ export default function ModalListUsers({
 
   function addUser(username) {
     axiosController
-      .post(
-        `http://localhost:8080/asignatura/${asignaturaName}/alumno/${username}`
-      )
-      .then((res) => toast.success("Added"))
-      .catch((err) => toast.error("Error: " + err));
+      .post(`/asignatura/${asignaturaName}/user/${username}`)
+      .then((res) => {
+        toast.success("Added");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error: " + err.message);
+      });
   }
   return (
     <Modal

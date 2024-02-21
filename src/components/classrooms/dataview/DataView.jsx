@@ -18,9 +18,6 @@ export default function DataView({ building, selectedClassroom }) {
   const axios = new AxiosController();
 
   React.useEffect(() => {
-    if (selectedClassroom == null) {
-      return;
-    }
     axios
       .get(`/building/aula/${selectedClassroom.id}/data`)
       .then((res) => {
@@ -64,7 +61,7 @@ export default function DataView({ building, selectedClassroom }) {
           <input
             name="username"
             type="text"
-            value={data.username}
+            value={data.username ? data.username : ""}
             onChange={handleInputChange}
           />
         </label>
@@ -73,7 +70,7 @@ export default function DataView({ building, selectedClassroom }) {
           <input
             name="password"
             type="text"
-            value={data.password}
+            value={data.password ? data.password : ""}
             onChange={handleInputChange}
           />
         </label>
@@ -82,7 +79,7 @@ export default function DataView({ building, selectedClassroom }) {
           <input
             name="ip"
             type="text"
-            value={data.ip}
+            value={data.ip ? data.ip : ""}
             onChange={handleInputChange}
           />
         </label>
@@ -91,7 +88,7 @@ export default function DataView({ building, selectedClassroom }) {
           <input
             name="mac"
             type="text"
-            value={data.mac}
+            value={data.mac ? data.mac : ""}
             onChange={handleInputChange}
           />
         </label>
@@ -100,7 +97,7 @@ export default function DataView({ building, selectedClassroom }) {
           <input
             name="name"
             type="text"
-            value={data.name}
+            value={data.name ? data.name : ""}
             onChange={handleInputChange}
           />
         </label>

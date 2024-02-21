@@ -7,7 +7,7 @@ import "./style/dark.scss";
 import "./index.css";
 import Users from "./pages/users/Users";
 import UserDetails from "./components/users/UserDetails";
-import Buildings from "./pages/buildings/Buildings";
+import Buildings from "./pages/buildings/list/Buildings";
 import BuildingsView from "./pages/buildings/BuildingsView";
 import UserCalendar from "./pages/users/calendar/UserCalendar";
 import Sidebar from "./components/sidebar/Sidebar";

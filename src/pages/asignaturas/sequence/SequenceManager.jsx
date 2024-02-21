@@ -12,6 +12,8 @@ const ScheduleGenerator = () => {
     startDate: "",
     endDate: "",
     days: [],
+    aula: "",
+    asignatura: "",
   });
 
   function handleInputChange(e) {
@@ -93,6 +95,20 @@ const ScheduleGenerator = () => {
       });
   }
 
+  function handleAsignaturaChange(selectedAsignatura) {
+    setFormData((prevData) => ({
+      ...prevData,
+      asignatura: selectedAsignatura,
+    }));
+  }
+
+  function handleAulaChange(selectedAula) {
+    setFormData((prevData) => ({
+      ...prevData,
+      aula: selectedAula,
+    }));
+  }
+
   return (
     <div className="formulario">
       <h1>Generador de Horarios</h1>
@@ -103,17 +119,11 @@ const ScheduleGenerator = () => {
         </label>
         <label className="form-group">
           Asignatura:
-          <AsignaturaSelector
-            changeAsignaturaValue={(asignatura) =>
-              setFormData({ ...formData, asignatura })
-            }
-          />
+          <AsignaturaSelector changeAsignaturaValue={handleAsignaturaChange} />
         </label>
         <label className="form-group">
           Aula:
-          <AulaSelector
-            changeAulaValue={(aula) => setFormData({ ...formData, aula })}
-          />
+          <AulaSelector changeAulaValue={handleAulaChange} />
         </label>
         <div className="fechas">
           <label>
