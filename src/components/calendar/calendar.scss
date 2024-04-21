@@ -11,14 +11,29 @@
 }
 
 .modalStyle {
-    background: rgb(247, 247, 250);
+    background: white;
     border: 3px solid black;
-    padding: 5px;
-    width: 60%;
-    height: 60%;
+    border-radius: 15px;
+    padding: 10px;
+    width: 70%;
+    height: 70%;
     color: black;
     position: relative;
     z-index: 10;
-    left: 30%;
-    top: 10%;
+    left: 20%;
+    top: 5%;
+
+    button {
+        padding: 5px;
+        background-color: #0a4382;
+        color: white;
+        border: 3px solid black;
+        border-radius: 5px;
+    }
+    select {
+        width: 80%;
+        padding: 5px;
+        margin: 5px;
+        border: 3px solid #0a4382;
+    }
 }

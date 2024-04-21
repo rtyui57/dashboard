@@ -12,9 +12,10 @@ import { asignaturasColumns } from "../../pages/asignaturas/list/asignaturasTabl
 const UserDetails = () => {
   const VIEW = { ASIGNATURAS: "ASIGNATURAS", HORARIO: "HORARIO", INFO: "INFO" };
   const [view, setView] = useState(VIEW.INFO);
-  const { username } = useParams();
+  const [key, setKey] = useState(1);
   const [localUser, setLocalUser] = useState({});
   const [events, setEvents] = useState([]);
+  const { username } = useParams();
   const axiosController = AxiosController();
 
   function saveUser(user) {
@@ -27,7 +28,7 @@ const UserDetails = () => {
   useEffect(() => {
     loaduser();
     loadEvents();
-  }, []);
+  }, [key]);
 
   function loaduser() {
     axiosController
@@ -137,13 +138,13 @@ const UserDetails = () => {
       <div className="">
         <h1>Lista de asignaturas del usuario: {username}</h1>
         <DataGrid
-        rows={localUser.asignaturas}
-        columns={asignaturasColumns}
-        onColumnWidthChange={(params) => {
-          console.log(params);
-        }}
-        className="tabla p-2 m-4"
-      />
+          rows={localUser.asignaturas}
+          columns={asignaturasColumns}
+          onColumnWidthChange={(params) => {
+            console.log(params);
+          }}
+          className="tabla p-2 m-4"
+        />
       </div>
     );
   };
@@ -156,7 +157,9 @@ const UserDetails = () => {
         currentView={view}
       />
       {view === VIEW.INFO && info()}
-      {view === VIEW.HORARIO && <Calendar events={events} />}
+      {view === VIEW.HORARIO && (
+        <Calendar events={events} key={key} setKey={setKey} />
+      )}
       {view === VIEW.ASIGNATURAS && asignaturas()}
     </div>
   );

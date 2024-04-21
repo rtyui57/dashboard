@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./sequece.scss";
-import AsignaturaSelector from "../../../components/selectores/AsignaturaSelector";
 import AulaSelector from "../../../components/selectores/AulaSelector";
+import OneInputSelector from "../../../components/selectores/OneInputSelector";
 import AxiosController from "../../../utils/AxiosController";
 import { toast } from "react-toastify";
 
-const ScheduleGenerator = () => {
+function ScheduleGenerator({asignaturaName, setKey}) {
   const axiosController = AxiosController();
   const [formData, setFormData] = useState({
     scheduleDay: {},
@@ -89,6 +89,7 @@ const ScheduleGenerator = () => {
       .post("/horario/sequence", formData)
       .then((response) => {
         toast.success("Horarios generados correctamente");
+        setKey((prevKey) => prevKey + 1);
       })
       .catch((error) => {
         toast.error("Error al generar horarios: " + error.response.data);
@@ -111,7 +112,7 @@ const ScheduleGenerator = () => {
 
   return (
     <div className="formulario">
-      <h1>Generador de Horarios</h1>
+      <h1 className="p-2 text-center">Generador de Horarios</h1>
       <form onSubmit={handleSubmit}>
         <label className="form-group">
           Título:
@@ -119,7 +120,7 @@ const ScheduleGenerator = () => {
         </label>
         <label className="form-group">
           Asignatura:
-          <AsignaturaSelector changeAsignaturaValue={handleAsignaturaChange} />
+          <OneInputSelector changeValue={handleAsignaturaChange} input={asignaturaName}/>
         </label>
         <label className="form-group">
           Aula:
@@ -134,6 +135,11 @@ const ScheduleGenerator = () => {
               min={0}
               max={23}
               name="startHour"
+              value={
+                formData.scheduleDay.startHour
+                  ? formData.scheduleDay.startHour
+                  : "10"
+              }
               onChange={handleScheduledTimesChange}
             />
             :
@@ -143,6 +149,11 @@ const ScheduleGenerator = () => {
               max={59}
               type="number"
               name="startMinute"
+              value={
+                formData.scheduleDay.startMinute
+                  ? formData.scheduleDay.startMinute
+                  : "00"
+              }
               onChange={handleScheduledTimesChange}
             />
           </label>
@@ -154,6 +165,11 @@ const ScheduleGenerator = () => {
               max={23}
               type="number"
               name="endHour"
+              value={
+                formData.scheduleDay.endHour
+                  ? formData.scheduleDay.endHour
+                  : "11"
+              }
               onChange={handleScheduledTimesChange}
             />
             :
@@ -163,6 +179,11 @@ const ScheduleGenerator = () => {
               max={59}
               type="number"
               name="endMinute"
+              value={
+                formData.scheduleDay.endMinute
+                  ? formData.scheduleDay.endMinute
+                  : "00"
+              }
               onChange={handleScheduledTimesChange}
             />
           </label>
@@ -172,6 +193,11 @@ const ScheduleGenerator = () => {
               className="date-selector"
               type="date"
               name="startDate"
+              value={
+                formData.startDate
+                  ? formData.startDate
+                  : new Date().toISOString().split("T")[0]
+              }
               onChange={handleInputChange}
             />
           </label>
@@ -181,6 +207,11 @@ const ScheduleGenerator = () => {
               className="date-selector"
               type="date"
               name="endDate"
+              value={
+                formData.endDate
+                  ? formData.endDate
+                  : new Date().toISOString().split("T")[0]
+              }
               onChange={handleInputChange}
             />
           </label>
@@ -194,9 +225,11 @@ const ScheduleGenerator = () => {
           {getButton("SABADO")}
           {getButton("DOMINGO")}
         </div>
-        <button className="submit-button" type="submit">
-          Enviar
-        </button>
+        <div className="w-full flex">
+          <button className="submit-button" type="submit">
+            Enviar
+          </button>
+        </div>
       </form>
     </div>
   );

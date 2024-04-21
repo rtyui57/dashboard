@@ -9,7 +9,7 @@ import EventModal from "../modal/EventModal";
 import CreateEventModal from "../modal/CreateEventModal";
 import { useNavigate } from "react-router-dom";
 
-function Calendar({ events, asignatura = null, aula = null }) {
+function Calendar({ events, asignatura = null, aula = null, setKey, key = 1 }) {
   console.log("Renderizado el calendar " + events);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [eventData, setEventData] = useState({});
@@ -47,9 +47,11 @@ function Calendar({ events, asignatura = null, aula = null }) {
         info={newEvent}
         aula={aula}
         asignatura={asignatura}
+        setKey={setKey}
       />
       <div id="calendario">
         <FullCalendar
+          key={key}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           events={events}

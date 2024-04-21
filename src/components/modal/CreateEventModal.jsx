@@ -13,6 +13,7 @@ function CreateEventModal({
   info,
   asignatura,
   aula,
+  setKey,
 }) {
   const [event, setEvent] = useState({
     start: "",
@@ -37,10 +38,13 @@ function CreateEventModal({
   }, [info.date]);
 
   function importEvent() {
-    console.log(event);
-    axiosController.post("/horario", event)
+    axiosController
+      .post("/horario", event)
       .then((res) => {
         toast.info("Evento creado");
+        if (setKey) {
+          setKey((prevKey) => prevKey + 1);
+        }
         setTimeout(() => {
           handleCloseModal();
         }, 500);

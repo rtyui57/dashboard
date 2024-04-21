@@ -8,6 +8,7 @@ function UserCalendar() {
   const { username } = useParams();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [events, setEvents] = useState([]);
+  const [key, setKey] = useState(1);
 
   const createEvent = (info) => {
     setModalIsOpen(true);

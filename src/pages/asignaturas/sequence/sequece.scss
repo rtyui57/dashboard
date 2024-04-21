@@ -6,14 +6,24 @@
 
   .form-group {
     display: flex;
-    justify-content: space-evenly;
-    padding: 5px;
+    justify-content: center;
+    padding: 3px;
     margin: 5px;
 
     input {
       padding: 3px;
+      margin: 5px;
       border: 1px solid #000;
       border-radius: 5px;
+    }
+
+    select {
+      color: #fff;
+      padding: 3px;
+      margin: 5px;
+      border: 2px solid #484747;
+      border-radius: 5px;
+      background-color: #0a4382;
     }
   }
 
@@ -44,7 +54,7 @@
     margin: 5px;
 
     .day-button {
-        padding: 3px;
+        padding: 5px;
         border: 1px solid #000;
         border-radius: 5px;
         background-color: #0a4382;
@@ -52,10 +62,12 @@
     }
   }
   .submit-button {
-    padding: 3px;
-    border: 1px solid #000;
+    width: 30%;
+    padding: 5px;
+    border: 2px solid #000;
     border-radius: 5px;
     background-color: #0a4382;
-    color: "white";
+    color: #fff;
+    align-items: center;
   }
 }

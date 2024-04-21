@@ -27,10 +27,11 @@ function AsignaturaView() {
           SEQUENCE: "SEQUENCE",
         };
   const [view, setView] = useState(VIEWS.EDICION);
-  const { asignaturaName } = useParams();
+  const [calendarKey, setCalendarKey] = useState(1);
   const [asignatura, setAsignatura] = useState(null);
   const [modalIsOpen, setModalOpen] = useState(false);
   const [reloadData, setReloadData] = useState(false);
+  const { asignaturaName } = useParams();
   const axiosController = AxiosController();
 
   function handleChangeInput(e) {
@@ -43,7 +44,7 @@ function AsignaturaView() {
 
   useEffect(() => {
     getAsignatura();
-  }, [reloadData]);
+  }, [reloadData, calendarKey]);
 
   function saveAsignatura() {
     const { profesores, alumnos, horarios, ...asig } = asignatura;
@@ -194,7 +195,7 @@ function AsignaturaView() {
       />
       {view === VIEWS.EDICION && getForm()}
       {view == VIEWS.CALENDARIO && (
-        <Calendar events={asignatura?.horarios} asignatura={asignaturaName} />
+        <Calendar events={asignatura?.horarios} asignatura={asignaturaName} key={calendarKey} setKey={setCalendarKey}/>
       )}
       {view == VIEWS.PROFESORES && (
         <div className="">
@@ -241,7 +242,7 @@ function AsignaturaView() {
         </div>
       )}
       {view == VIEWS.SEQUENCE && (
-        <ScheduleGenerator asignatura={asignaturaName} />
+        <ScheduleGenerator asignaturaName={asignaturaName} setKey={setCalendarKey}/>
       )}
     </div>
   );

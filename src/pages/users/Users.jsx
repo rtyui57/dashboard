@@ -11,6 +11,11 @@ export default function Users() {
   const [filteredUsers, setFilteredUsers] = useState(users);
   const controller = AxiosController();
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [reloadData, setReloadData] = useState(false);
+
+  const refreshData = () => {
+    setReloadData(!reloadData);
+  }
 
   useEffect(() => {
     controller
@@ -20,7 +25,7 @@ export default function Users() {
         setFilteredUsers(response.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [reloadData]);
 
   const handleSearch = (event) => {
     const value = event.target.value.toLowerCase();
@@ -47,7 +52,7 @@ export default function Users() {
           onChange={handleSearch}
         />
         <button onClick={() => setIsOpen(true)}>Crear</button>
-        <CreateUserModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
+        <CreateUserModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} reloadData={refreshData}/>
       </div>
       <DataGrid
         rows={filteredUsers}

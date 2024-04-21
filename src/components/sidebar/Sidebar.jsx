@@ -8,20 +8,20 @@ import DomainIcon from "@mui/icons-material/Domain";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import SchoolIcon from "@mui/icons-material/School";
 import { useAuth } from "../../context/AuthContext";
-import UseWebSocket from "../../websocket/WebSocketUtils";
+import { useNotifications } from "../../context/NotificationsContext";
 import React from "react";
 
 const SideBarIcon = ({
   icon,
   link,
   desc = "Hola",
-  hasNotification = false,
+  messages = [],
 }) => {
   return (
     <div className="cover group">
-      {hasNotification && <div className="notification rounded-full"></div>}
+      {messages.length !== 0 && <div className="notification rounded-full"></div>}
       <span className="scale-0 group-hover:scale-100 sidebar-tooltip">
-        {desc}
+        {messages.length + " " + desc}
       </span>
       <Link to={link} style={{ textDecoration: "none" }}>
         {icon}
@@ -32,17 +32,8 @@ const SideBarIcon = ({
 
 export default function Sidebar() {
   const { role } = useAuth();
-  const [hasNotification, setHasNotification] = React.useState(false);
+  const { getMessages } = useNotifications();
 
-  function consumeEvent(event) {
-    console.log("Evento recibido!!!!!!!!");
-    console.log(event.body);
-    setHasNotification(true);
-  }
-
-  React.useEffect(() => {
-    UseWebSocket(consumeEvent);
-  }, []);
   return (
     <div className="sidebar z-50">
       <div className="icons_container">
@@ -59,7 +50,7 @@ export default function Sidebar() {
             icon={<NotificationsActiveIcon />}
             link="/notifications"
             desc="Notificaciones"
-            hasNotification={hasNotification}
+            messages={getMessages()}
           />
           <SideBarIcon
             icon={<CalendarMonthIcon />}

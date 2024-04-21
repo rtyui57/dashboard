@@ -2,10 +2,9 @@ import "./viewClassroom.scss";
 import { useState } from "react";
 import Calendar from "../calendar/Calendar";
 import Selector from "../selector/Selector";
-import QRCode from "react-qr-code";
 import DataView from "./dataview/DataView";
 
-function ViewClassroom({ building, selectedClassroom }) {
+function ViewClassroom({ building, selectedClassroom, key, setKey }) {
   const ESTADOS = { CALENDARIO: "CALENDARIO", DATA: "DATA" };
   const [view, setView] = useState(ESTADOS.CALENDARIO);
 
@@ -18,6 +17,8 @@ function ViewClassroom({ building, selectedClassroom }) {
           <Calendar
             events={selectedClassroom?.horarios ?? []}
             aula={selectedClassroom === null ? null : selectedClassroom.id}
+            key={key}
+            setKey={setKey}
           />
         </div>
       )}

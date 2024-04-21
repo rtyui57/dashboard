@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 export default function PersonalCalendar() {
   const [events, setEvents] = useState([]);
+  const [key, setKey] = useState(1);
   const { username } = useAuth();
   const axiosController = AxiosController();
 
@@ -19,10 +20,10 @@ export default function PersonalCalendar() {
       .catch((err) =>
         toast.error(`Error ${err.response.status}: ${err.response.data}`)
       );
-  }, []);
+  }, [key]);
   return (
     <div className="">
-      <Calendar events={events} />
+      <Calendar events={events} setKey={setKey} key={key}/>
     </div>
   );
 }

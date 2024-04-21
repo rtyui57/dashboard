@@ -9,17 +9,19 @@ function BuildingsView() {
   const [building, setBuilding] = useState({ aulas: [] });
   const [selectedClassroom, setSelectedClassroom] = useState(null);
   const [reloadData, setReloadData] = useState(false);
+  const [calendarKey, setCalendarKey] = useState(1);
+
   const axiosController = AxiosController();
 
   const updateData = () => {
-    setReloadData(reloadData => !reloadData);
+    setReloadData((reloadData) => !reloadData);
   };
 
   useEffect(() => {
     axiosController.get(`/building/${buildingName}`).then((res) => {
       setBuilding(res.data);
     });
-  }, [reloadData]);
+  }, [reloadData, calendarKey]);
 
   return (
     <div className="classrooms flex h-full">
@@ -33,6 +35,8 @@ function BuildingsView() {
       <ViewClassroom
         building={buildingName}
         selectedClassroom={selectedClassroom}
+        key={calendarKey}
+        setKey={setCalendarKey}
       />
     </div>
   );

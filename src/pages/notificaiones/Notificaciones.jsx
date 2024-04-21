@@ -1,43 +1,30 @@
-import React, { Component } from "react";
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
+import React from "react";
+import { useNotifications } from "../../context/NotificationsContext";
+import "./notificaciones.scss";
 
-class Notificaciones extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: [],
-    };
-    const socket = new SockJS("http://localhost:8080/ws-message");
-    this.client = Stomp.over(socket);
-    this.client.connect({}, () => {
-      console.log("Connected: ");
-      this.client.subscribe("/topic/message", (message) => { // Utiliza una función de flecha aquí
-        message = JSON.parse(message.body);
-        this.setState((prevState) => ({
-          messages: [...prevState.messages, message.message ], // Agrega message.body al estado messages
-        }));
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    this.client.disconnect();
-  }
-
-  render() {
-    const { messages } = this.state;
-    return (
-      <div>
-        <h2>WebSocket Meages:</h2>
-        <ul>
-          {messages.map((message, index) => (
-            <li key={index}>{message}</li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
+export default function Notificaciones() {
+  const { getMessages, clearMessages } = useNotifications();
+    console.log(getMessages());
+  return (
+    <div className="notifications-container">
+      <h1>Lista de Notificaciones</h1>
+      <button onClick={() => clearMessages()} className="clean-notifications">
+        Marcar todas como leidas
+      </button>
+      <ul>
+        {getMessages().map((message, index) => (
+          <div className="notification">
+            <div className="noti-info">
+              <h1 className="title">{message.titulo}</h1>
+              <p className="fecha">{message.date}</p>
+            </div>
+            <div className="cluster">
+              <button className="lnkbutton">Acceder</button>
+              <button className="lnkbutton">Marcar como leida</button>
+            </div>
+          </div>
+        ))}
+      </ul>
+    </div>
+  );
 }
-
-export default Notificaciones;

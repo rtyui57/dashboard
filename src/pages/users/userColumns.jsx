@@ -32,10 +32,7 @@ export const columns = [
       return (
         <div className="flex w-full justify-between px-3">
           <Link to={`/users/${params.row.id}`}>
-            <button className="editUser">Editar</button>
-          </Link>
-          <Link to={`/users/${params.row.id}/horario`}>
-            <button className="editUser">Horario</button>
+            <button className="editUser">Acceder</button>
           </Link>
         </div>
       );

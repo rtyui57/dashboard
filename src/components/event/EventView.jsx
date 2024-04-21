@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import AxiosController from "../../utils/AxiosController";
 import "./eventView.scss";
 import { Link } from "react-router-dom";
+
 function EventView() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
@@ -120,6 +121,16 @@ function EventView() {
     });
   }
 
+  function addToGoogleCalendar() {
+    let startDate = new Date(event?.start).toISOString().slice(0, -5) + "Z";
+    startDate = startDate.replace(/[-:]/g, "");
+    let endDate = new Date(event?.end).toISOString().slice(0, -5) + "Z";
+    endDate = endDate.replace(/[-:]/g, "");
+    const ualLocation = "Universidad de Almería, Almería, España";
+    const calendarUrl = `https://calendar.google.com/calendar/r/eventedit?text=${event?.title}&details=${event?.description}&dates=${startDate}/${endDate}&location=${ualLocation}`;
+    window.open(calendarUrl);
+  }
+
   return (
     <div className="w-full flex flex-col">
       <h1 className="text-center p-3">{event?.title}</h1>
@@ -131,15 +142,24 @@ function EventView() {
           Fecha de Finalización: {event?.end.replace("T", " ")}
         </p>
         <p className="detailed">
-          Asignatura: <Link to={`/asignaturas/${event?.asignatura}`}>{event?.asignatura}</Link>
+          Asignatura:{" "}
+          <Link to={`/asignaturas/${event?.asignatura}`}>
+            {event?.asignatura}
+          </Link>
         </p>
-        <p className="detailed">Aula:  <Link to={`/buildings/${event?.aula.split('--')[0]}`}>{event?.aula}</Link></p>
+        <p className="detailed">
+          Aula:{" "}
+          <Link to={`/buildings/${event?.aula.split("--")[0]}`}>
+            {event?.aula}
+          </Link>
+        </p>
         <button
           className="detailed bg-red-700 text-white"
           onClick={deleteEvent}
         >
           Delete
         </button>
+
         {changed ? (
           <button
             className="p-2 bg-green-300 text-white"
@@ -149,6 +169,17 @@ function EventView() {
           </button>
         ) : null}
       </div>
+
+      <div className=" flex justify-center align-middle">
+        <Link className="p-2 m-2 bg-teal-500 w-20 rounded" to={`/calendario/${event?.calendarioId}/qr`}>QR</Link>
+        <button
+          className="p-2 m-2 bg-teal-500 w-20 rounded"
+          onClick={addToGoogleCalendar}
+        >
+          Add to Google Calendar
+        </button>
+      </div>
+
       <h1 className="p-2 m-2 text-center">Asistentes</h1>
       <table className="w-10/12 mx-auto border border-gray-300 overflow-y-auto p-3 m-2">
         <thead>

@@ -12,7 +12,7 @@ import BuildingsView from "./pages/buildings/BuildingsView";
 import UserCalendar from "./pages/users/calendar/UserCalendar";
 import Sidebar from "./components/sidebar/Sidebar";
 import { ToastContainer } from "react-toastify";
-import Calendar from "./components/calendar/Calendar";
+import SockJsClient from "react-stomp";
 import Asignaturas from "./pages/asignaturas/list/Asignaturas";
 import Notificaciones from "./pages/notificaiones/Notificaciones";
 import AsignaturaView from "./pages/asignaturas/single/AsignaturaView";
@@ -20,13 +20,27 @@ import EventView from "./components/event/EventView";
 import RequireAuth from "./security/RequireAuth";
 import PersonalCalendar from "./pages/calendar/UserCalendar";
 import CalendarQR from "./pages/calendar/CalendarQR";
+import { useNotifications } from "./context/NotificationsContext";
+const SOCKET_URL = "http://localhost:8080/ws-message";
 
 function App() {
+
+  const { addMessage } = useNotifications();
+  let onConnected = () => console.log("Connected!!");
+
   return (
     <BrowserRouter>
       <div className="home">
         <Sidebar />
         <ToastContainer />
+        <SockJsClient
+          url={SOCKET_URL}
+          topics={["/topic/message"]}
+          onConnect={onConnected}
+          onDisconnect={console.log("Disconnected!")}
+          onMessage={(msg) => addMessage(msg)}
+          debug={false}
+        />
         <div className="homeContainer">
           <Routes>
             <Route path="/">
