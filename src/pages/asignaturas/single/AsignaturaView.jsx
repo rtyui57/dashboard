@@ -8,6 +8,7 @@ import ModalListUsers from "../modal/ModalUsers";
 import AxiosController from "../../../utils/AxiosController";
 import { useAuth } from "../../../context/AuthContext";
 import ScheduleGenerator from "../sequence/SequenceManager";
+import "./single.css";
 
 function AsignaturaView() {
   const { role } = useAuth();
@@ -82,7 +83,7 @@ function AsignaturaView() {
             if (view == VIEWS.ALUMNOS) {
               axiosController
                 .delete(
-                  `http://localhost:8080/asignatura/${asignaturaName}/alumno/${params.row.username}`
+                  `/asignatura/${asignaturaName}/alumno/${params.row.username}`
                 )
                 .then((res) =>
                   toast.success("Se elimino el usuario " + params.row.username)
@@ -91,7 +92,7 @@ function AsignaturaView() {
             } else {
               axiosController
                 .delete(
-                  `http://localhost:8080/asignatura/${asignaturaName}/profesor/${params.row.username}`
+                  `/asignatura/${asignaturaName}/profesor/${params.row.username}`
                 )
                 .then((res) =>
                   toast.success("Se elimino el usuario " + params.row.username)
@@ -169,13 +170,13 @@ function AsignaturaView() {
           </div>
           <div className="flex justify-between w-48 p-2 mt-6">
             <button
-              className="bg-green-500 p-2 rounded-md text-white"
+              className="bg-green-500 p-3 rounded-md text-white"
               onClick={saveAsignatura}
             >
               Save
             </button>
             <button
-              className="bg-red-700 p-2 rounded-md"
+              className="bg-red-700 p-3 rounded-md"
               onClick={deleteAsignatura}
             >
               Delete
@@ -195,7 +196,14 @@ function AsignaturaView() {
       />
       {view === VIEWS.EDICION && getForm()}
       {view == VIEWS.CALENDARIO && (
-        <Calendar events={asignatura?.horarios} asignatura={asignaturaName} key={calendarKey} setKey={setCalendarKey}/>
+       
+          <Calendar
+            events={asignatura?.horarios}
+            asignatura={asignaturaName}
+            key={calendarKey}
+            setKey={setCalendarKey}
+          />
+       
       )}
       {view == VIEWS.PROFESORES && (
         <div className="">
@@ -214,7 +222,11 @@ function AsignaturaView() {
             }
           />
           <ListUsers
-            users={asignatura == null ? [] : asignatura.profesores.concat(asignatura.alumnos)}
+            users={
+              asignatura == null
+                ? []
+                : asignatura.profesores.concat(asignatura.alumnos)
+            }
             title={"PROFESORES"}
             actionsContent={actionsContent}
           />
@@ -232,7 +244,11 @@ function AsignaturaView() {
             modalIsOpen={modalIsOpen}
             handleCloseModal={() => setModalOpen(false)}
             asignaturaName={asignaturaName}
-            usersAlreadyPresent={asignatura == null ? [] : asignatura.alumnos.concat(asignatura.profesores)}
+            usersAlreadyPresent={
+              asignatura == null
+                ? []
+                : asignatura.alumnos.concat(asignatura.profesores)
+            }
           />
           <ListUsers
             users={asignatura == null ? [] : asignatura.alumnos}
@@ -242,7 +258,10 @@ function AsignaturaView() {
         </div>
       )}
       {view == VIEWS.SEQUENCE && (
-        <ScheduleGenerator asignaturaName={asignaturaName} setKey={setCalendarKey}/>
+        <ScheduleGenerator
+          asignaturaName={asignaturaName}
+          setKey={setCalendarKey}
+        />
       )}
     </div>
   );

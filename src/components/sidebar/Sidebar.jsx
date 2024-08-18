@@ -14,14 +14,14 @@ import React from "react";
 const SideBarIcon = ({
   icon,
   link,
-  desc = "Hola",
+  desc,
   messages = [],
 }) => {
   return (
     <div className="cover group">
       {messages.length !== 0 && <div className="notification rounded-full"></div>}
       <span className="scale-0 group-hover:scale-100 sidebar-tooltip">
-        {messages.length + " " + desc}
+        {messages.length > 0 ? (messages.length + " " + desc) : desc}
       </span>
       <Link to={link} style={{ textDecoration: "none" }}>
         {icon}

@@ -6,6 +6,8 @@ export default function AsignaturaSelector({ changeAsignaturaValue }) {
   const [selectedOption, setSelectedOption] = useState("");
   const axiosController = AxiosController();
 
+  console.log("Estamos selecccioneadno aulasasansjkhjk");
+
   useEffect(() => {
     axiosController
       .get("/asignatura/nombres")
@@ -13,6 +15,7 @@ export default function AsignaturaSelector({ changeAsignaturaValue }) {
         setOptions(response.data);
         const [key, value] = Object.entries(response.data)[0];
         changeAsignaturaValue(key);
+        console.log("Respuesta de asignaturas:", response.data);  
       })
       .catch((error) => console.error("Error al obtener opciones:", error));
   }, []);

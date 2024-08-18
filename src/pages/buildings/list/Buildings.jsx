@@ -7,14 +7,16 @@ import AxiosController from "../../../utils/AxiosController";
 const Buildings = () => {
   const [buildings, setBuildings] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const axiosController = AxiosController();
 
   useEffect(() => {
     getBuildings();
-  }, []);
+  }, [refresh]);
 
   function getBuildings() {
-    axiosController.get("/building")
+    axiosController
+      .get("/building")
       .then((response) => {
         setBuildings(response.data);
       })
@@ -27,6 +29,9 @@ const Buildings = () => {
         modalIsOpen={modalIsOpen}
         handleCloseModal={() => {
           setModalIsOpen(false);
+        }}
+        refresh={() => {
+          setRefresh(!refresh);
         }}
       />
       <div className="flex justify-between p-2">

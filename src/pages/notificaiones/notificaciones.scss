@@ -19,18 +19,18 @@
   }
 
   .notification {
-    width: 30rem;
-    height: 12rem;
+    width: 40rem;
+    height: 14rem;
     border: solid 2px #0a4382;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 3rem;
     margin: 1rem;
 
     .noti-info {
       display: flex;
       justify-content: space-between;
       .title {
-        font-size: 2rem;
+        font-size: 24px;
         margin-bottom: 2rem;
         font-weight: bold;
       }
@@ -46,9 +46,9 @@
 
       .lnkbutton {
         background-color: #0a4382;
-        padding: 1rem;
+        padding: 0.7rem;
         margin: 1rem;
-        border-radius: 1rem;
+        border-radius: 0.5rem;
         border: solid 2px black;
         color: white;
 

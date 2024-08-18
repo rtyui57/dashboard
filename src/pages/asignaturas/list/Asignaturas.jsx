@@ -13,11 +13,12 @@ function Asignaturas() {
   const [filteredAsig, setFilteredAsig] = useState([]);
   const [search, setSearch] = useState(null);
   const [modalIsOpen, setModalOpen] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const axiosController = AxiosController();
 
   useEffect(() => {
     getAsignaturas();
-  }, []);
+  }, [refresh]);
 
   function handleSearch(event) {
     const value = event.target.value.toLowerCase();
@@ -67,6 +68,7 @@ function Asignaturas() {
       <CreateAsignatura
         modalIsOpen={modalIsOpen}
         handleCloseModal={() => setModalOpen(false)}
+        refresh={() => setRefresh(!refresh)}
       />
       <DataGrid
         rows={filteredAsig}

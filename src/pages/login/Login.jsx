@@ -4,15 +4,15 @@ import Axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 export default function Login() {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
-
   useEffect(() => setAuth(null), []);
 
   function requestToken(userData) {
-    Axios.post("http://localhost:8080/user/auth", userData)
+    Axios.post(API_URL + "/user/auth", userData)
       .then((res) => {
         setAuth(res.data);
         navigate("/");
@@ -35,8 +35,8 @@ export default function Login() {
     <div className="formParent">
       <form className="loginForm" onSubmit={handleSubmit}>
         <h1>Iniciar Sesión</h1>
-        <input type="text" name="username" />
-        <input type="password" name="password" />
+        <input type="text" name="username" placeholder="Username" />
+        <input type="password" name="password" placeholder="Password" />
         <button className="btn btn-primary">Iniciar Sesión</button>
       </form>
     </div>

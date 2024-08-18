@@ -5,7 +5,7 @@ import OneInputSelector from "../../../components/selectores/OneInputSelector";
 import AxiosController from "../../../utils/AxiosController";
 import { toast } from "react-toastify";
 
-function ScheduleGenerator({asignaturaName, setKey}) {
+function ScheduleGenerator({ asignaturaName, setKey }) {
   const axiosController = AxiosController();
   const [formData, setFormData] = useState({
     scheduleDay: {},
@@ -120,11 +120,18 @@ function ScheduleGenerator({asignaturaName, setKey}) {
         </label>
         <label className="form-group">
           Asignatura:
-          <OneInputSelector changeValue={handleAsignaturaChange} input={asignaturaName}/>
+          <div>
+            <OneInputSelector
+              changeValue={handleAsignaturaChange}
+              input={asignaturaName}
+            />
+          </div>
         </label>
         <label className="form-group">
           Aula:
-          <AulaSelector changeAulaValue={handleAulaChange} />
+          <div>
+            <AulaSelector changeAulaValue={handleAulaChange} />
+          </div>
         </label>
         <div className="fechas">
           <label>
@@ -225,14 +232,14 @@ function ScheduleGenerator({asignaturaName, setKey}) {
           {getButton("SABADO")}
           {getButton("DOMINGO")}
         </div>
-        <div className="w-full flex">
-          <button className="submit-button" type="submit">
+        <div className="w-full flex justify-center p-3">
+          <button className="submit-button p-3 w-14" type="submit">
             Enviar
           </button>
         </div>
       </form>
     </div>
   );
-};
+}
 
 export default ScheduleGenerator;

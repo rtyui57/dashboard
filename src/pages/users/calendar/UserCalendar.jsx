@@ -3,12 +3,14 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import EventFormModal from "../../../components/modal/EventFormModal";
+import AxiosController from "../../../utils/AxiosController";
 
 function UserCalendar() {
   const { username } = useParams();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [events, setEvents] = useState([]);
   const [key, setKey] = useState(1);
+  const axios = AxiosController();
 
   const createEvent = (info) => {
     setModalIsOpen(true);
@@ -23,7 +25,7 @@ function UserCalendar() {
   };
 
   function getUserCalendar(username) {
-    Axios.get(`http://localhost:8080/user/${username}/horario`)
+    axios.get(`/user/${username}/horario`)
       .then((res) => {
         setEvents(res.data);
       })

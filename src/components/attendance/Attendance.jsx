@@ -2,7 +2,7 @@ import "./attendance.scss";
 import AxiosController from "../../utils/AxiosController";
 
 function deleteEvent(eventId) {
-  AxiosController().delete(`http://localhost:8080/horario/${eventId}`)
+  AxiosController().delete(`/horario/${eventId}`)
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
 }

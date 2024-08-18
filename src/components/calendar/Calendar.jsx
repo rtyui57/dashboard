@@ -60,7 +60,7 @@ function Calendar({ events, asignatura = null, aula = null, setKey, key = 1 }) {
             center: "title",
             end: "dayGridMonth, timeGridWeek, timeGridDay",
           }}
-          slotMinTime="07:00:00" // Hora de inicio de las ranuras
+          slotMinTime="07:00:00"
           slotMaxTime="22:00:00"
           views={{
             timeGrid: {

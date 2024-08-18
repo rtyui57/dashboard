@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import "../list/asignaturas.scss";
 
-export default function CreateAsignatura({ modalIsOpen, handleCloseModal }) {
+export default function CreateAsignatura({ modalIsOpen, handleCloseModal, refresh }) {
   const [asignatura, setAsignatura] = useState({});
   const axiosController = AxiosController();
 
@@ -14,6 +14,9 @@ export default function CreateAsignatura({ modalIsOpen, handleCloseModal }) {
       .post("/asignatura", asignatura)
       .then((res) => {
         toast.success("Se creo la asignatura");
+        setTimeout(refresh(), 2000);  
+        handleCloseModal();
+        setAsignatura({});
       })
       .catch((err) => {
         toast.error(err.message);

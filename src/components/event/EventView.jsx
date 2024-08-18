@@ -130,6 +130,8 @@ function EventView() {
     const calendarUrl = `https://calendar.google.com/calendar/r/eventedit?text=${event?.title}&details=${event?.description}&dates=${startDate}/${endDate}&location=${ualLocation}`;
     window.open(calendarUrl);
   }
+  console.log("asjkjaSJFHKJLASDJFKL;ASJDFLK;");
+  console.log(event?.start);
 
   return (
     <div className="w-full flex flex-col">

@@ -21,12 +21,12 @@ import RequireAuth from "./security/RequireAuth";
 import PersonalCalendar from "./pages/calendar/UserCalendar";
 import CalendarQR from "./pages/calendar/CalendarQR";
 import { useNotifications } from "./context/NotificationsContext";
-const SOCKET_URL = "http://localhost:8080/ws-message";
+import API_URL from "./config";
+
+const SOCKET_URL = API_URL + "/ws-message";
 
 function App() {
-
   const { addMessage } = useNotifications();
-  let onConnected = () => console.log("Connected!!");
 
   return (
     <BrowserRouter>
@@ -36,10 +36,10 @@ function App() {
         <SockJsClient
           url={SOCKET_URL}
           topics={["/topic/message"]}
-          onConnect={onConnected}
-          onDisconnect={console.log("Disconnected!")}
-          onMessage={(msg) => addMessage(msg)}
-          debug={false}
+          onConnect={console.log("Connected!!" + SOCKET_URL)}
+          onDisconnect={(e) => console.log(`Disconnected! ${e}`)}
+          onMessage={(msg) => {addMessage(msg); console.log(msg)}}
+          debug={true}
         />
         <div className="homeContainer">
           <Routes>

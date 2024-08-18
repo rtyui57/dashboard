@@ -38,6 +38,10 @@ function CreateEventModal({
   }, [info.date]);
 
   function importEvent() {
+    if (event.title === "") {
+      toast.error("El evento debe tener un titulo");
+      return;
+    }
     axiosController
       .post("/horario", event)
       .then((res) => {
@@ -73,6 +77,8 @@ function CreateEventModal({
       aula: selectedAula,
     }));
   }
+
+  console.log("Asignatura", asignatura);
 
   return (
     <Modal
@@ -132,16 +138,37 @@ function CreateEventModal({
           ) : (
             <AulaSelector changeAulaValue={handleAulaChange} />
           )}
-
-          <span className="p-1">Color del evento: {event.color}</span>
-          <input
-            className="w-36 flex items-center"
-            type="color"
-            id="color"
-            name="color"
-            value={event.color}
-            onChange={handleChange}
-          />
+          <div
+            className="flex"
+            style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+          >
+            <input
+              id="color"
+              name="color"
+              type="color"
+              value={event.color}
+              onChange={handleChange}
+              style={{
+                width: "100px",
+                height: "50px",
+                border: "none",
+                cursor: "pointer",
+                marginRight: "20px", // Espacio entre el input y el div
+              }}
+            />
+            <div
+              style={{
+                padding: "10px",
+                borderRadius: "5px",
+                backgroundColor: event.color,
+                color: "#fff",
+                textAlign: "center",
+                fontFamily: "Arial, sans-serif",
+              }}
+            >
+              Color del Evento
+            </div>
+          </div>
 
           <div className="flex justify-between p-3 px-5">
             <button

@@ -13,7 +13,7 @@ function ViewClassroom({ building, selectedClassroom, key, setKey }) {
       <Selector views={Object.values(ESTADOS)} setView={setView} />
       {selectedClassroom && view === ESTADOS.CALENDARIO && (
         <div className="">
-          <h1> Calendario de {selectedClassroom?.name}</h1>
+          <h1> Calendario del aula {selectedClassroom?.name}</h1>
           <Calendar
             events={selectedClassroom?.horarios ?? []}
             aula={selectedClassroom === null ? null : selectedClassroom.id}

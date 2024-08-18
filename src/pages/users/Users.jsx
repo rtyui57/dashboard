@@ -51,7 +51,9 @@ export default function Users() {
           value={searchText}
           onChange={handleSearch}
         />
-        <button onClick={() => setIsOpen(true)}>Crear</button>
+        {
+          <button style={{ visibility:"hidden"}} onClick={() => setIsOpen(true)}>Crear</button>
+        }
         <CreateUserModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} reloadData={refreshData}/>
       </div>
       <DataGrid

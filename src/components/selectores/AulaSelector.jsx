@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AxiosController from "../../utils/AxiosController";
 
 function AulaSelector({ changeAulaValue }) {
-  const [options, setOptions] = useState({ nada : "a"});
+  const [options, setOptions] = useState({});
   const [selectedOption, setSelectedOption] = useState("");
   const axiosController = AxiosController();
 
@@ -11,6 +11,7 @@ function AulaSelector({ changeAulaValue }) {
       .get("/building/classrooms")
       .then((response) => {
         setOptions(response.data);
+        console.log("Respuesta de aulas:", response.data);
         const [key, value] = Object.entries(response.data)[0];
         changeAulaValue(key);
       })
@@ -36,7 +37,7 @@ function AulaSelector({ changeAulaValue }) {
             key={classId}
             value={classId}
           >
-            {classId}
+            {"Aula " + classId.split("--")[1].replace("_", " ")  + " de "  + classId.split("--")[0].replace("_", " ")}
           </option>
         ))}
       </select>

@@ -3,13 +3,14 @@ import Modal from "react-modal";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-function CreateBuilding({ modalIsOpen, handleCloseModal }) {
+function CreateBuilding({ modalIsOpen, handleCloseModal, refresh }) {
   const [building, setBuilding] = useState({});
   const axiosController = AxiosController();
 
   function createBuilding(building) {
     axiosController.post("/building", building).then((res) => {
       toast.success("Se creo el edificio correctamente");
+      refresh();
       handleCloseModal();
     });
   }
