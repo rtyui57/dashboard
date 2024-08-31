@@ -41,7 +41,7 @@ function ListClassrooms({
   }
 
   return (
-    <div className="classroomsList bg-slate-700 h-full">
+    <div className="classroomsList  h-full">
       <CreateClassroom
         modalIsOpen={modalIsOpen}
         handleCloseModal={() => {

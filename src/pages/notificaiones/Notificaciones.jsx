@@ -27,7 +27,7 @@ export default function Notificaciones() {
             </div>
             <div className="cluster">
               <Link to={`/event/${message.eventId}`}>
-                <button className="lnkbutton">Acceder</button>
+                <button className="lnkbutton" onClick={() => markAsRead(message)}>Acceder</button>
               </Link>
 
               <button className="lnkbutton" onClick={() => markAsRead(message)}>

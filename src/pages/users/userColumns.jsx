@@ -10,7 +10,7 @@ export const columns = [
         <img
           className="cellImg"
           src={
-            params.row.icon.startsWith("data:image/jpeg;base64,")
+            params.row.icon?.startsWith("data:image/jpeg;base64,")
               ? params.row.icon
               : `data:image/jpeg;base64,${params.row.icon}`
           }

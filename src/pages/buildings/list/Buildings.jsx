@@ -41,9 +41,8 @@ const Buildings = () => {
           }}
           className="addBuilding"
         >
-          Crear building
+          Crear Nuevo Edificio
         </button>
-        <h1>Lista de Edificios</h1>
         <div className=""></div>
       </div>
 

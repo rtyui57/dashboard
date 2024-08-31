@@ -87,7 +87,6 @@ function ListUsers({ users, title, actionsContent = null }) {
           value={searchText}
           onChange={handleSearch}
         />
-        <button>Crear</button>
       </div>
       <DataGrid
         rows={filteredUsers}

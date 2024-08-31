@@ -17,14 +17,12 @@ function AsignaturaView() {
       ? {
           EDICION: "EDICION",
           CALENDARIO: "CALENDARIO",
-          ALUMNOS: "ALUMNOS",
-          PROFESORES: "PROFESORES",
+          USUARIOS: "USUARIOS",
           SEQUENCE: "SEQUENCE",
         }
       : {
           CALENDARIO: "CALENDARIO",
-          ALUMNOS: "ALUMNOS",
-          PROFESORES: "PROFESORES",
+          USUARIOS: "USUARIOS",
           SEQUENCE: "SEQUENCE",
         };
   const [view, setView] = useState(VIEWS.EDICION);
@@ -86,7 +84,7 @@ function AsignaturaView() {
                   `/asignatura/${asignaturaName}/alumno/${params.row.username}`
                 )
                 .then((res) =>
-                  toast.success("Se elimino el usuario " + params.row.username)
+                  toast.success("Se eliminó el usuario " + params.row.username)
                 )
                 .catch((err) => toast.error(err));
             } else {
@@ -125,7 +123,7 @@ function AsignaturaView() {
             />
           </div>
           <div className="flex items-center mb-2">
-            <label className="p-2 mr-2">Display Name</label>
+            <label className="p-2 mr-2">Titulo</label>
             <input
               className="p-2 mr-2 border border-black"
               type="text"
@@ -136,7 +134,7 @@ function AsignaturaView() {
             />
           </div>
           <div className="flex items-center mb-2">
-            <label className="p-2 mr-2">Curso</label>
+            <label className="p-2 mr-2">Grado</label>
             <input
               className="p-2 mr-2 border border-black"
               type="text"
@@ -147,7 +145,7 @@ function AsignaturaView() {
             />
           </div>
           <div className="flex items-center mb-2">
-            <label className="p-2 mr-2">Degree</label>
+            <label className="p-2 mr-2">Curso</label>
             <input
               className="p-2 mr-2 border border-black"
               type="text"
@@ -196,49 +194,21 @@ function AsignaturaView() {
       />
       {view === VIEWS.EDICION && getForm()}
       {view == VIEWS.CALENDARIO && (
-       
-          <Calendar
-            events={asignatura?.horarios}
-            asignatura={asignaturaName}
-            key={calendarKey}
-            setKey={setCalendarKey}
-          />
-       
+        <Calendar
+          events={asignatura?.horarios}
+          asignatura={asignaturaName}
+          key={calendarKey}
+          setKey={setCalendarKey}
+        />
       )}
-      {view == VIEWS.PROFESORES && (
+      
+      {view == VIEWS.USUARIOS && (
         <div className="">
           <button
             className="p-2 mx-3 mt-1 bg-blue-500 rounded-md"
             onClick={() => setModalOpen(true)}
           >
-            Add Profesor
-          </button>
-          <ModalListUsers
-            modalIsOpen={modalIsOpen}
-            handleCloseModal={() => setModalOpen(false)}
-            asignaturaName={asignaturaName}
-            usersAlreadyPresent={
-              asignatura == null ? [] : asignatura.profesores
-            }
-          />
-          <ListUsers
-            users={
-              asignatura == null
-                ? []
-                : asignatura.profesores.concat(asignatura.alumnos)
-            }
-            title={"PROFESORES"}
-            actionsContent={actionsContent}
-          />
-        </div>
-      )}
-      {view == VIEWS.ALUMNOS && (
-        <div className="">
-          <button
-            className="p-2 mx-3 mt-1 bg-blue-500 rounded-md"
-            onClick={() => setModalOpen(true)}
-          >
-            Add Alumno
+            Añadir Usuario
           </button>
           <ModalListUsers
             modalIsOpen={modalIsOpen}
@@ -247,11 +217,12 @@ function AsignaturaView() {
             usersAlreadyPresent={
               asignatura == null
                 ? []
-                : asignatura.alumnos.concat(asignatura.profesores)
+                : asignatura.usuarios
             }
+            reloadData={() => setReloadData(!reloadData)}
           />
           <ListUsers
-            users={asignatura == null ? [] : asignatura.alumnos}
+            users={asignatura == null ? [] : asignatura.usuarios}
             title={"ESTUDIANTES"}
             actionsContent={actionsContent}
           />

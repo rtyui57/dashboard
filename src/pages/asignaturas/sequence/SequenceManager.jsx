@@ -13,7 +13,7 @@ function ScheduleGenerator({ asignaturaName, setKey }) {
     endDate: "",
     days: [],
     aula: "",
-    asignatura: "",
+    asignatura: asignaturaName,
   });
 
   function handleInputChange(e) {
@@ -123,7 +123,7 @@ function ScheduleGenerator({ asignaturaName, setKey }) {
           <div>
             <OneInputSelector
               changeValue={handleAsignaturaChange}
-              input={asignaturaName}
+              input={asignaturaName.split("--")[0]}
             />
           </div>
         </label>
@@ -234,7 +234,7 @@ function ScheduleGenerator({ asignaturaName, setKey }) {
         </div>
         <div className="w-full flex justify-center p-3">
           <button className="submit-button p-3 w-14" type="submit">
-            Enviar
+            Generar secuencia
           </button>
         </div>
       </form>

@@ -82,7 +82,7 @@ function CreateEventModal({
 
   return (
     <Modal
-      className="modalStyle p-2 h-96"
+      className="modalStyle p-2 h-2/4"
       isOpen={modalIsOpen}
       onRequestClose={() => handleCloseModal()}
       contentLabel="Example Modal"

@@ -61,8 +61,8 @@ function EventView() {
     console.log(attendants);
     axiosController
       .post("/horario/attendants", Object.fromEntries(attendants))
-      .then((res) => toast.success("Se guardo"))
-      .catch((err) => toast.error("No se guardo"));
+      .then((res) => toast.success("Información actualizada"))
+      .catch((err) => toast.error("Fallo al actualizar información"));
   }
 
   function generateRows(category, users) {
@@ -130,8 +130,15 @@ function EventView() {
     const calendarUrl = `https://calendar.google.com/calendar/r/eventedit?text=${event?.title}&details=${event?.description}&dates=${startDate}/${endDate}&location=${ualLocation}`;
     window.open(calendarUrl);
   }
-  console.log("asjkjaSJFHKJLASDJFKL;ASJDFLK;");
   console.log(event?.start);
+
+  let eventActive = true;
+  if (event?.start) {
+    const now = new Date();
+    const start = new Date(event.start);
+    const end = new Date(event.end);
+    eventActive = now <= start;
+  }
 
   return (
     <div className="w-full flex flex-col">
@@ -146,13 +153,13 @@ function EventView() {
         <p className="detailed">
           Asignatura:{" "}
           <Link to={`/asignaturas/${event?.asignatura}`}>
-            {event?.asignatura}
+            {event?.asignatura.split("--")[0]}
           </Link>
         </p>
         <p className="detailed">
           Aula:{" "}
           <Link to={`/buildings/${event?.aula.split("--")[0]}`}>
-            {event?.aula}
+            {event?.aula.split("--")[1]}
           </Link>
         </p>
         <button
@@ -173,13 +180,14 @@ function EventView() {
       </div>
 
       <div className=" flex justify-center align-middle">
-        <Link className="p-2 m-2 bg-teal-500 w-20 rounded" to={`/calendario/${event?.calendarioId}/qr`}>QR</Link>
-        <button
-          className="p-2 m-2 bg-teal-500 w-20 rounded"
-          onClick={addToGoogleCalendar}
-        >
-          Add to Google Calendar
-        </button>
+        {eventActive ? (
+          <button
+            className="p-2 m-2 bg-teal-500 w-30 rounded"
+            onClick={addToGoogleCalendar}
+          >
+            Agregar a Calendario
+          </button>
+        ) : null}
       </div>
 
       <h1 className="p-2 m-2 text-center">Asistentes</h1>

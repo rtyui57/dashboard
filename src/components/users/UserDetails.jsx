@@ -60,16 +60,17 @@ const UserDetails = () => {
     return (
       <div className="flex flex-col content-center h-full px-64 py-12">
         <h1 className="flex justify-center">
-          Informacion del usuario: {username}
+          Información del usuario
         </h1>
         <div className="inputs flex flex-col">
           <div className="wrapinput">
-            <p>Username</p>
+            <p>Nombre de Usuario</p>
             <input
               type="text"
               name="username"
               value={localUser.username}
-              onChange={handleInputChange}
+              //onChange={handleInputChange}
+              contentEditable={false}
             />
           </div>
           <div className="wrapinput">
@@ -78,56 +79,66 @@ const UserDetails = () => {
               type="text"
               name="email"
               value={localUser.email}
-              onChange={handleInputChange}
+              //onChange={handleInputChange}
+              contentEditable={false}
             />
           </div>
           <div className="wrapinput">
-            <p>First Name</p>
+            <p>Nombre</p>
             <input
               type="text"
               name="firstName"
               value={localUser.firstName}
-              onChange={handleInputChange}
+              //onChange={handleInputChange}
+              contentEditable={false}
             />
           </div>
           <div className="wrapinput">
-            <p>Last Name</p>
+            <p>Apellidos</p>
             <input
               type="text"
               name="lastName"
               value={localUser.lastName}
-              onChange={handleInputChange}
+             //onChange={handleInputChange}
+             contentEditable={false}
             />
           </div>
           <div className="wrapinput">
-            <p>Description</p>
+            <p>Descripción</p>
             <input
               type="text"
               name="description"
               value={localUser.description}
-              onChange={handleInputChange}
+            //onChange={handleInputChange}
+            contentEditable={false}
             />
           </div>
           <div className="wrapinput">
-            <p>Password</p>
+            <p>Contraseña</p>
             <input
               type="text"
               name="password"
               value={localUser.password}
-              onChange={handleInputChange}
+             //onChange={handleInputChange}
+             contentEditable={false}
             />
           </div>
-          <div className="flex p-2 justify-between w-full">
-            <button
-              className="bg-green-400 p-2 rounded-md text-white"
-              onClick={() => saveUser(localUser)}
-            >
-              Guardar
-            </button>
-            <button className="bg-red-600 p-2 rounded-md" onClick={deleteUser}>
-              Borrar
-            </button>
-          </div>
+          {
+            /* <div className="flex p-2 justify-between w-full">
+              <button
+                className="bg-green-400 p-2 rounded-md text-white"
+                onClick={() => saveUser(localUser)}
+              >
+                Guardar
+              </button>
+              <button
+                className="bg-red-600 p-2 rounded-md"
+                onClick={deleteUser}
+              >
+                Borrar
+              </button>
+            </div> */
+          }
         </div>
       </div>
     );
@@ -136,7 +147,7 @@ const UserDetails = () => {
   const asignaturas = () => {
     return (
       <div className="">
-        <h1>Lista de asignaturas del usuario: {username}</h1>
+  
         <DataGrid
           rows={localUser.asignaturas}
           columns={asignaturasColumns}

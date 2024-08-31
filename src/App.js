@@ -1,8 +1,6 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
-import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { userInputs } from "./data/formSource";
 import "./style/dark.scss";
 import "./index.css";
 import Users from "./pages/users/Users";
@@ -51,10 +49,6 @@ function App() {
                   <Route index element={<Users />} />
                   <Route path=":username" element={<UserDetails />} />
                   <Route path=":username/horario" element={<UserCalendar />} />
-                  <Route
-                    path="new"
-                    element={<New inputs={userInputs} title="Add New User" />}
-                  />
                 </Route>
                 <Route path="buildings">
                   <Route index element={<Buildings />} />

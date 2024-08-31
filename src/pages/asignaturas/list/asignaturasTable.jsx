@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 export const asignaturasColumns = [
   { field: "name", headerName: "Nombre", width: 150 },
-  { field: "curso", headerName: "Curso", width: 200 },
-  { field: "grado", headerName: "Grado / Carrera", width: 200 },
+  { field: "curso", headerName: "Grado", width: 200 },
+  { field: "grado", headerName: "Curso", width: 200 },
   { field: "creditos", headerName: "Número de Creditos", width: 200 },
   {
     field: "Actions",
-    headerName: "Actions",
+    headerName: "Acciones",
     renderCell: (params) => {
       return (
         <div className="flex w-full justify-between px-3">

@@ -62,7 +62,7 @@ function Asignaturas() {
           onClick={() => setModalOpen(true)}
           className="accessButton"
         >
-          Create asignatura
+          Crear Asignatura
         </button>
       </div>
       <CreateAsignatura

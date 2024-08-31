@@ -8,6 +8,7 @@ export default function ModalListUsers({
   handleCloseModal,
   asignaturaName,
   usersAlreadyPresent = [],
+  reloadData,
 }) {
   const [users, setUsers] = useState([]);
   const usersContainedIds = usersAlreadyPresent.map((user) => user.id);
@@ -25,6 +26,7 @@ export default function ModalListUsers({
       .post(`/asignatura/${asignaturaName}/user/${username}`)
       .then((res) => {
         toast.success("Added");
+        reloadData();
       })
       .catch((err) => {
         console.log(err);
