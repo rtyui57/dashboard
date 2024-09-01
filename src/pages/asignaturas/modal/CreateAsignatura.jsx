@@ -33,7 +33,7 @@ export default function CreateAsignatura({ modalIsOpen, handleCloseModal, refres
 
   return (
     <Modal
-      className="modalStyle mainContent bg-white border-2 border-black p-5 w-1/3 h-1/2 border-radius-2"
+      className="modalStyle mainContent bg-white border-2 border-black p-5 w-1/2 h-2/3 border-radius-2"
       isOpen={modalIsOpen}
       onRequestClose={() => handleCloseModal()}
       contentLabel="Example Modal"
@@ -56,20 +56,20 @@ export default function CreateAsignatura({ modalIsOpen, handleCloseModal, refres
             <span className="mb-1">Grado</span>
             <input
               type="text"
-              name="grado"
-              id="grado"
+              name="curso"
+              id="curso"
               onChange={handleChange}
-              value={asignatura.grado}
+              value={asignatura.curso}
             />
           </div>
           <div className="flex flex-col p-3 justify-evenly">
             <span className="mb-1">Curso</span>
             <input
               type="text"
-              name="curso"
-              id="curso"
+              name="grado"
+              id="grado"
               onChange={handleChange}
-              value={asignatura.curso}
+              value={asignatura.grado}
             />
           </div>
           <div className="flex flex-col p-3 justify-evenly">

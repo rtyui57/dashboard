@@ -18,7 +18,7 @@ export default function Login() {
         navigate("/");
       })
       .catch((err) =>
-        toast.error(`Error ${err.response.status}: ${err.response.data}`)
+        toast.error(`Error al Iniciar Sesión: Causa ${err.response.status}: ${err.response.data}`)
       );
   }
 

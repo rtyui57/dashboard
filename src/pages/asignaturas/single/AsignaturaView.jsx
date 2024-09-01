@@ -33,6 +33,8 @@ function AsignaturaView() {
   const { asignaturaName } = useParams();
   const axiosController = AxiosController();
 
+  console.log("asignatura nombre", asignaturaName);
+
   function handleChangeInput(e) {
     const { name, value } = e.target;
     setAsignatura((prevData) => ({

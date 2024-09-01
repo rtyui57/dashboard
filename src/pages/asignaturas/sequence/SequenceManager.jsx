@@ -4,6 +4,7 @@ import AulaSelector from "../../../components/selectores/AulaSelector";
 import OneInputSelector from "../../../components/selectores/OneInputSelector";
 import AxiosController from "../../../utils/AxiosController";
 import { toast } from "react-toastify";
+import { useParams } from 'react-router-dom';
 
 function ScheduleGenerator({ asignaturaName, setKey }) {
   const axiosController = AxiosController();
@@ -16,6 +17,7 @@ function ScheduleGenerator({ asignaturaName, setKey }) {
     asignatura: asignaturaName,
   });
 
+  console.log("asasas" , asignaturaName);
   function handleInputChange(e) {
     const { name, value } = e.target;
     setFormData({
@@ -97,10 +99,10 @@ function ScheduleGenerator({ asignaturaName, setKey }) {
   }
 
   function handleAsignaturaChange(selectedAsignatura) {
-    setFormData((prevData) => ({
+   /*  setFormData((prevData) => ({
       ...prevData,
       asignatura: selectedAsignatura,
-    }));
+    })); */
   }
 
   function handleAulaChange(selectedAula) {

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import CreateAsignatura from "../modal/CreateAsignatura";
 import AxiosController from "../../../utils/AxiosController";
 import { useAuth } from "../../../context/AuthContext";
-import './asignaturas.scss'
+import "./asignaturas.scss";
 
 function Asignaturas() {
   const { role } = useAuth();
@@ -22,13 +22,18 @@ function Asignaturas() {
 
   function handleSearch(event) {
     const value = event.target.value.toLowerCase();
+    console.log(value);
     setSearch(value);
     const filteredData = asignaturas.filter((asig) =>
       Object.keys(asig).some((field) => {
         const fieldValue = asig[field];
-        if (fieldValue.toString().toLowerCase().includes(value)) {
-          return true;
-        } else {
+        try {
+          if (fieldValue.toString().toLowerCase().includes(value)) {
+            return true;
+          } else {
+            return false;
+          }
+        } catch (error) {
           return false;
         }
       })
@@ -37,10 +42,11 @@ function Asignaturas() {
   }
 
   function getAsignaturas() {
-    axiosController.get(`/asignatura?filterResults=${role!=='ADMIN'}`)
+    axiosController
+      .get(`/asignatura?filterResults=${role !== "ADMIN"}`)
       .then((res) => {
         setAsignaturas(res.data);
-        setFilteredAsig(res.data)
+        setFilteredAsig(res.data);
       })
       .catch((err) => toast.error(err));
   }
@@ -49,7 +55,11 @@ function Asignaturas() {
     <div className="w-full mainContent">
       <div className="p-3 flex justify-between">
         <div className="flex ml-28">
-          <h1 className="p-1 m-2">{role === "PROFESOR" ? "Asignaturas que imparte" : "Asignaturas que estudias"}</h1>
+          <h1 className="p-1 m-2">
+            {role === "PROFESOR"
+              ? "Asignaturas que imparte"
+              : "Asignaturas que estudias"}
+          </h1>
           <input
             type="text"
             placeholder="Buscar"
@@ -58,10 +68,7 @@ function Asignaturas() {
           />
         </div>
 
-        <button
-          onClick={() => setModalOpen(true)}
-          className="accessButton"
-        >
+        <button onClick={() => setModalOpen(true)} className="accessButton">
           Crear Asignatura
         </button>
       </div>
